@@ -1,0 +1,11 @@
+# 계정 생성
+create user 'djbot'@localhost identified by 'djbotAdmin2018*';
+create user 'djbot'@'%' identified by 'djbotAdmin2018*';
+
+# db 생성
+create database DajeongBot;
+
+# 권한 부여
+grant all privileges on DajeongBot.* to djbot@'%' identified by 'djbotAdmin2018*';
+grant all privileges on DajeongBot.* to djbot@localhost identified by 'djbotAdmin2018*';
+flush privileges;

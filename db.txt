@@ -9,3 +9,60 @@ create database DajeongBot;
 grant all privileges on DajeongBot.* to djbot@'%' identified by 'djbotAdmin2018*';
 grant all privileges on DajeongBot.* to djbot@localhost identified by 'djbotAdmin2018*';
 flush privileges;
+
+#user table 생성
+CREATE TABLE account(
+    id INT(10) NOT NULL auto_increment,
+    user_id VARCHAR(32) NOT NULL,
+    name VARCHAR(32),
+    birthday DATE,
+    account_type TINYINT(1) unsigned default '0',
+    bot_type TINYINT(1) unsigned default '0',
+    PRIMARY KEY (id)
+)DEFAULT CHARSET=utf8;
+
+CREATE TABLE custom_account(
+    account_id INT(10) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    PRIMARY KEY (account_id),
+    FOREIGN KEY (account_id) REFERENCES account(id)
+)DEFAULT CHARSET=utf8;
+
+CREATE TABLE api_account(
+    account_id INT(10) NOT NULL,
+    token VARCHAR(100) NOT NULL,
+    PRIMARY KEY (account_id),
+    FOREIGN KEY (account_id) REFERENCES account(id)
+)DEFAULT CHARSET=utf8;
+
+CREATE TABLE fcm_token(
+    id INT(10) NOT NULL auto_increment,
+    account_id INT(10) NOT NULL,
+    token VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (account_id) REFERENCES account(id)
+)DEFAULT CHARSET=utf8;
+
+CREATE TABLE event(
+    id INT(10) NOT NULL auto_increment,
+    account_id INT(10) NOT NULL,
+    schedule_when TEXT(65535) NOT NULL,
+    schedule_where TEXT(65535) NOT NULL,
+    schedule_what TEXT(65535) NOT NULL,
+    assign_time INT(10) NOT NULL,
+    detail TEXT(65535),
+    review TEXT(65535),
+    PRIMARY KEY (id),
+    FOREIGN KEY (account_id) REFERENCES account(id)
+)DEFAULT CHARSET=utf8;
+
+CREATE TABLE chat(
+    id INT(10) NOT NULL auto_increment,
+    account_id INT(10) NOT NULL,
+    content TEXT(65535) NOT NULL,
+    chat_type TINYINT(1) NOT NULL,
+    time INT(10) NOT NULL,
+    isBot TINYINT(1) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (account_id) REFERENCES account(id)
+)DEFAULT CHARSET=utf8;

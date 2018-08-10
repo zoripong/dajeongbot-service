@@ -66,3 +66,6 @@ CREATE TABLE chat(
     PRIMARY KEY (id),
     FOREIGN KEY (account_id) REFERENCES account(id)
 )DEFAULT CHARSET=utf8;
+
+# db 구조 추출
+flask-sqlacodegen "mysql://djbot:djbotAdmin2018*@119.205.221.104/DajeongBot" --flask > models.py

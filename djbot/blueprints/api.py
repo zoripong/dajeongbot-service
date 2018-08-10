@@ -1,7 +1,8 @@
 from flask import Blueprint
 
 from djbot import db
-from djbot.models.models import Account
+from djbot.models.models import *
+import djbot.models.models as model
 
 bp = Blueprint('api', __name__, url_prefix='/apis')
 
@@ -18,3 +19,10 @@ def register():
     db.session.commit()
 
     return 'hello world'
+
+
+@bp.route('/user/custom/<string:id>/<string:password>')
+def login(id, password):
+    account = Account.query.filter_by(user_id=id).first()
+    return 'login: %s %s' % (account.user_id, account.birthday)
+

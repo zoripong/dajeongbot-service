@@ -1,16 +1,30 @@
-from flask import Flask
+from logging.handlers import RotatingFileHandler
+
+from flask import Flask, logging
 from werkzeug.utils import find_modules, import_string
 from djbot import db
+import config
 
 
-def create_app():
+
+def create_app(debug=False):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://djbot:djbotAdmin2018*@119.205.221.104/DajeongBot"
+    app.debug = debug
+    db_config = config.DATABASE_CONFIG
+    uri = "mysql://" + db_config['user'] + ":" + db_config['password'] + "@" + db_config['host'] + "/" + db_config['db']
+    app.config['SQLALCHEMY_DATABASE_URI'] = uri
 
+    register_logger(app)
     register_modules(app)
     register_blueprints(app)
 
     return app
+
+
+def register_logger(app):
+    handler = RotatingFileHandler('info.log', maxBytes=10000, backupCount=1)
+    app.logger.addHandler(handler)
+    pass
 
 
 def register_modules(app):

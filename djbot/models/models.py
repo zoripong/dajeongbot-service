@@ -23,6 +23,9 @@ class CustomAccount(Account):
     account_id = db.Column(db.ForeignKey('account.id'), primary_key=True)
     password = db.Column(db.String(50), nullable=False)
 
+    accountR = db.relationship('Account', foreign_keys='CustomAccount.account_id')
+
+
 
 class ApiAccount(Account):
     __tablename__ = 'api_account'

@@ -97,13 +97,28 @@ def add_messages():
 
     result = {"status": "Failed"}
 
-    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
+    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'],
+                time=content['time'], isBot=content['isBot'])
     db.session.add(chat)
     db.session.commit()
+
+    reply_message(content)
 
     result = {"status": "Success"}
 
     return json.dumps(result)
+
+
+# 챗봇이 답장을 주는 부분
+def reply_message(content):
+
+    # content = jsonify(data)
+
+    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
+                time=content['time'], isBot=1)
+    db.session.add(chat)
+    db.session.commit()
+    print(content['account_id'])
 
 
 @bp.route('/messages/<int:account_id>')

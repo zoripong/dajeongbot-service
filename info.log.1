@@ -1,3 +1,20 @@
+Exception on /apis/messages/1/82 [GET]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 125, in get_more_messages
+    chats = Chat.query.filter(account_id == account_id, id < last_index).order_by(Chat.id.desc()).limit(10)
+TypeError: unorderable types: builtin_function_or_method() < int()
 Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
@@ -12,8 +29,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
-    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
+    reply_message(content['content'])
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 113, in reply_message
+    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
 TypeError: string indices must be integers
 Exception on /apis/messages [POST]
 Traceback (most recent call last):
@@ -29,9 +48,11 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
-    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
-TypeError: string indices must be integers
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
+    reply_message(content['content'])
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 113, in reply_message
+    content = content.get_json(force=True)
+AttributeError: 'str' object has no attribute 'get_json'
 Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
@@ -46,9 +67,11 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
-    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
-TypeError: string indices must be integers
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
+    reply_message(content['content'])
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 114, in reply_message
+    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
+TypeError: 'Response' object is not subscriptable
 Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
@@ -63,10 +86,12 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
-    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
-TypeError: string indices must be integers
-Exception on /apis/users/test/test [GET]
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
+    reply_message(content)
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 114, in reply_message
+    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
+TypeError: 'Response' object is not subscriptable
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -80,10 +105,12 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 60, in login
-    "bot_type": account[0].bot_type,
-AttributeError: 'result' object has no attribute 'bot_type'
-Exception on /apis/users/test/test [GET]
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
+    reply_message(content)
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 119, in reply_message
+    print(content['account_id'])
+TypeError: 'Response' object is not subscriptable
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -97,36 +124,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 52, in login
-    account = CustomAccount.query.filter_by(CustomAccount.user_id == user_id, CustomAccount.password == password).all()
-TypeError: filter_by() takes 1 positional argument but 3 were given
-Exception on /apis/messages/1/92 [GET]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-TypeError: get_more_messages() got an unexpected keyword argument 'last_index'
-Exception on /apis/messages/1/92 [GET]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-TypeError: get_more_messages() got an unexpected keyword argument 'last_index'
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 105, in add_messages
+    reply_message(content)
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 121, in reply_message
+    print(content['account_id'])
+TypeError: 'Response' object is not subscriptable

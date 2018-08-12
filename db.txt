@@ -49,7 +49,7 @@ CREATE TABLE event(
     schedule_when TEXT(65535) NOT NULL,
     schedule_where TEXT(65535) NOT NULL,
     schedule_what TEXT(65535) NOT NULL,
-    assign_time INT(10) NOT NULL,
+    assign_time VARCHAR(32) NOT NULL,
     detail TEXT(65535),
     review TEXT(65535),
     PRIMARY KEY (id),
@@ -61,7 +61,7 @@ CREATE TABLE chat(
     account_id INT(10) NOT NULL,
     content TEXT(65535) NOT NULL,
     chat_type TINYINT(1) NOT NULL,
-    time INT(10) NOT NULL,
+    time VARCHAR(32) NOT NULL,
     isBot TINYINT(1) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (account_id) REFERENCES account(id)

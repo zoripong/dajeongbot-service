@@ -1,4 +1,4 @@
-Exception on /apis/signup [POST]
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,10 +12,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
+    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
 TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -29,10 +29,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
+    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
 TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -46,10 +46,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
+    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
 TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -63,10 +63,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 101, in add_messages
+    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
 TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+Exception on /apis/users/test/test [GET]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -80,10 +80,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
-TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 60, in login
+    "bot_type": account[0].bot_type,
+AttributeError: 'result' object has no attribute 'bot_type'
+Exception on /apis/users/test/test [GET]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -97,10 +97,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
-TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 52, in login
+    account = CustomAccount.query.filter_by(CustomAccount.user_id == user_id, CustomAccount.password == password).all()
+TypeError: filter_by() takes 1 positional argument but 3 were given
+Exception on /apis/messages/1/92 [GET]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -114,10 +114,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
-TypeError: string indices must be integers
-Exception on /apis/signup [POST]
+TypeError: get_more_messages() got an unexpected keyword argument 'last_index'
+Exception on /apis/messages/1/92 [GET]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -131,6 +129,4 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 73, in signup
-    "info": js['user_id']
-TypeError: string indices must be integers
+TypeError: get_more_messages() got an unexpected keyword argument 'last_index'

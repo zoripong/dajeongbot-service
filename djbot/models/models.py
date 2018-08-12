@@ -23,9 +23,6 @@ class CustomAccount(Account):
     account_id = db.Column(db.ForeignKey('account.id'), primary_key=True)
     password = db.Column(db.String(50), nullable=False)
 
-    accountR = db.relationship('Account', foreign_keys='CustomAccount.account_id')
-
-
 
 class ApiAccount(Account):
     __tablename__ = 'api_account'
@@ -41,10 +38,10 @@ class Chat(db.Model):
     account_id = db.Column(db.ForeignKey('account.id'), nullable=False, index=True)
     content = db.Column(db.String, nullable=False)
     chat_type = db.Column(db.Integer, nullable=False)
-    time = db.Column(db.Integer, nullable=False)
+    time = db.Column(db.String, nullable=False)
     isBot = db.Column(db.Integer, nullable=False)
 
-    account = db.relationship('Account', primaryjoin='Chat.account_id == Account.id', backref='chats')
+    # account = db.relationship('Account', primaryjoin='Chat.account_id == Account.id', backref='chats')
 
 
 class Event(db.Model):
@@ -55,11 +52,11 @@ class Event(db.Model):
     schedule_when = db.Column(db.String, nullable=False)
     schedule_where = db.Column(db.String, nullable=False)
     schedule_what = db.Column(db.String, nullable=False)
-    assign_time = db.Column(db.Integer, nullable=False)
+    assign_time = db.Column(db.String, nullable=False)
     detail = db.Column(db.String)
     review = db.Column(db.String)
 
-    account = db.relationship('Account', primaryjoin='Event.account_id == Account.id', backref='events')
+    # account = db.relationship('Account', primaryjoin='Event.account_id == Account.id', backref='events')
 
 
 class FcmToken(db.Model):
@@ -69,4 +66,4 @@ class FcmToken(db.Model):
     account_id = db.Column(db.ForeignKey('account.id'), nullable=False, index=True)
     token = db.Column(db.String(50), nullable=False)
 
-    account = db.relationship('Account', primaryjoin='FcmToken.account_id == Account.id', backref='fcm_tokens')
+    # account = db.relationship('Account', primaryjoin='FcmToken.account_id == Account.id', backref='fcm_tokens')

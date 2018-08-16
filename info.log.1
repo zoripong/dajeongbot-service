@@ -1,131 +1,130 @@
-Exception on /apis/messages/1/82 [GET]
+Exception on /apis/signup [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 125, in get_more_messages
-    chats = Chat.query.filter(account_id == account_id, id < last_index).order_by(Chat.id.desc()).limit(10)
-TypeError: unorderable types: builtin_function_or_method() < int()
-Exception on /apis/messages [POST]
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 74, in signup
+    account = Account.query.filter_by(user_id=content['user_id'], account_type=content['account_type']).all()
+KeyError: 'account_type'
+Exception on /apis/signup [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
-    reply_message(content['content'])
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 113, in reply_message
-    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
-TypeError: string indices must be integers
-Exception on /apis/messages [POST]
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 74, in signup
+    account = Account.query.filter(user_id=content['user_id'], account_type=content['account_type']).all()
+KeyError: 'account_type'
+Exception on /apis/signup [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
-    reply_message(content['content'])
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 113, in reply_message
-    content = content.get_json(force=True)
-AttributeError: 'str' object has no attribute 'get_json'
-Exception on /apis/messages [POST]
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 74, in signup
+    account = Account.query.filter(Account.user_id == content['user_id'], Account.account_type == content['account_type']).all()
+KeyError: 'account_type'
+Exception on /apis/signup [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
-    reply_message(content['content'])
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 114, in reply_message
-    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
-TypeError: 'Response' object is not subscriptable
-Exception on /apis/messages [POST]
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 74, in signup
+    print(type(content['account_type']))
+KeyError: 'account_type'
+Exception on /apis/signup [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
-    reply_message(content)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 114, in reply_message
-    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
-TypeError: 'Response' object is not subscriptable
-Exception on /apis/messages [POST]
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 75, in signup
+    account = Account.query.filter(Account.user_id == content['user_id'], Account.account_type == content['account_type']).all()
+KeyError: 'account_type'
+Exception on /apis/users/0/test/test [GET]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 104, in add_messages
-    reply_message(content)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 119, in reply_message
-    print(content['account_id'])
-TypeError: 'Response' object is not subscriptable
-Exception on /apis/messages [POST]
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 50, in login
+    print(account_type + "/" + user_id + "/" + password)
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+Exception on /apis/users/2/test/asdfawerxz23rzxcasf [GET]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 1808, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'list' object has no attribute '_sa_instance_state'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 105, in add_messages
-    reply_message(content)
-  File "D:\devuri\workspace\server\DajeonBot-server\djbot\blueprints\api.py", line 121, in reply_message
-    print(content['account_id'])
-TypeError: 'Response' object is not subscriptable
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 73, in login
+    db.session.delete(account)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\scoping.py", line 153, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 1810, in delete
+    raise exc.UnmappedInstanceError(instance)
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.list' is not mapped

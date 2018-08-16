@@ -11,7 +11,7 @@ bp = Blueprint('api', __name__, url_prefix='/apis')
 # test code
 
 
-@bp.route("/hello")
+@bp.route("/")
 def hello_world():
     return 'hello world'
 
@@ -43,22 +43,48 @@ def join():
 # end of test code
 
 
-@bp.route('/users/<string:user_id>/<string:password>')
-def login(user_id, password):
-    account = CustomAccount.query.filter(CustomAccount.user_id == user_id, CustomAccount.password == password).all()
+@bp.route('/users/<int:account_type>/<string:user_id>/<string:password>')
+def login(account_type, user_id, password):
 
     j1 = [{
         "status": "Failed",
     }]
-    if len(account) == 1:
-        j1 = [{
-            "status": "OK",
-            "user_info": {
-                "id": account[0].id,
-                "bot_type": account[0].bot_type,
-                "chat_session": "preparing"
-            }
-        }]
+    if account_type == 0:
+        account = CustomAccount.query.filter(CustomAccount.user_id == user_id, CustomAccount.password == password,
+                                             CustomAccount.account_type == account_type).all()
+        if len(account) == 1:
+            j1 = [{
+                "status": "OK",
+                "user_info": {
+                    "id": account[0].id,
+                    "bot_type": account[0].bot_type,
+                    "chat_session": "preparing"
+                }
+            }]
+    else:
+        # 있는지 체크하고 있으면 업데이트 없으면 그냥 리턴
+        account = ApiAccount.query.filter(ApiAccount.user_id == user_id, ApiAccount.account_type == account_type).all()
+        if len(account) == 1:
+            if account[0].token != password:
+                # 토큰이 바뀌었다면 업데이트
+                new_account = ApiAccount(user_id=account[0].user_id, name=account[0].name,
+                                         birthday=account[0].birthday, account_type=account[0].account_type,
+                                         bot_type=account[0].bot_type, token=password)
+                db.session.delete(account[0])
+                db.session.add(new_account)
+                db.session.commit()
+            j1 = [{
+                "status": "OK",
+                "user_info": {
+                    "id": account[0].id,
+                    "bot_type": account[0].bot_type,
+                    "chat_session": "preparing"
+                }
+            }]
+        else:
+            j1 = [{
+                "status": "NEW_API_USER",
+            }]
     return json.dumps(j1)
 
 
@@ -71,7 +97,8 @@ def signup():
         "status": "Failed"
         # "id": content["user_id"]
     }
-    account = Account.query.filter_by(user_id=content['user_id']).all()
+    print(type(content['account_type']))
+    account = Account.query.filter(Account.user_id == content['user_id'], Account.account_type == content['account_type']).all()
     if len(account) == 0:
         # 존재하지 않는 아이디라면 insert
         detail = ApiAccount(user_id=content['user_id'], name=content['name'], birthday=content['birthday'],

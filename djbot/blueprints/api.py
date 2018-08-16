@@ -84,6 +84,8 @@ def login(account_type, user_id, password):
         else:
             j1 = [{
                 "status": "NEW_API_USER",
+                "account_type": account_type,
+                "token": password,
             }]
     return json.dumps(j1)
 

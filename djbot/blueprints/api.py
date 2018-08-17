@@ -42,7 +42,7 @@ def join():
 
 # end of test code
 
-
+# start of auth code
 @bp.route('/users/<int:account_type>/<string:user_id>/<string:password>')
 def login(account_type, user_id, password):
 
@@ -62,6 +62,7 @@ def login(account_type, user_id, password):
                 }
             }]
     else:
+        # TODO: 토큰이 유효한지 체크!
         # 있는지 체크하고 있으면 업데이트 없으면 그냥 리턴
         account = ApiAccount.query.filter(ApiAccount.user_id == user_id, ApiAccount.account_type == account_type).all()
         if len(account) == 1:
@@ -87,6 +88,8 @@ def login(account_type, user_id, password):
                 "account_type": account_type,
                 "token": password,
             }]
+
+    # TODO: 성공했을 경우 SESSION
     return json.dumps(j1)
 
 
@@ -119,6 +122,9 @@ def signup():
     return json.dumps(result)
 
 
+# end of auth code
+
+# start of message code
 @bp.route('/messages', methods=['POST'])
 def add_messages():
     # 사용자가 새로운 메세지를 보냄
@@ -174,3 +180,12 @@ def get_more_messages(account_id, last_index):
         "time": chat.time,
         "isBot": chat.isBot
     }for chat in chats])
+
+
+# end of message code
+
+# start of event code
+
+
+# end of event code
+

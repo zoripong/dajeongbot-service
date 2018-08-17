@@ -69,3 +69,8 @@ CREATE TABLE chat(
 
 # db 구조 추출
 flask-sqlacodegen "mysql://djbot:djbotAdmin2018*@119.205.221.104/DajeongBot" --flask > models.py
+
+# event data insert
+insert into event values(null, 1, "2018.08.17.", "강변역", "피크닉", 1534096877292, null, "야호, 성래는 잘 생겼다..!");
+insert into event values(null, 1, "2018.08.17.", "뚝섬", "도시락배틀", 1534096877292, null, "야호, 성래는 잘 생겼다..!");
+insert into event values(null, 1, "2018.08.18.", "대전", "방탈출 카페", 1534097877292, null, "야호, 성래는 잘 생겼다..!");

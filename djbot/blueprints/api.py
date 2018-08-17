@@ -1,10 +1,10 @@
 from flask import Blueprint, request, jsonify
 
-from djbot import db
 from djbot.models.models import *
-import djbot.models.models as model
 import json
-
+import djbot.blueprints.danbee as danbee
+import calendar
+import time
 
 bp = Blueprint('api', __name__, url_prefix='/apis')
 
@@ -144,6 +144,20 @@ def add_messages():
     return json.dumps(result)
 
 
+@bp.route('/messages/welcome/<int:account_id>')
+def add_message_for_new_user(account_id):
+
+    ts = calendar.timegm(time.gmtime())
+    # TODO : 캐릭터 컨셉으로 변환
+    content = '반가워요 무엇을 도와드릴까요?' 
+
+    chat = Chat(account_id=account_id, content=content, chat_type=0, time=str(ts), isBot=1)
+    db.session.add(chat)
+    db.session.commit()
+    
+    return jsonify(danbee.welcome())
+
+
 # 챗봇이 답장을 주는 부분
 def reply_message(content):
 
@@ -159,7 +173,7 @@ def reply_message(content):
 @bp.route('/messages/<int:account_id>')
 def get_messages(account_id):
     # 사용자가 메세지 내역을 요청함
-    chats = Chat.query.filter(account_id == account_id).order_by(Chat.id.desc()).limit(20)
+    chats = Chat.query.filter(Chat.account_id == account_id).order_by(Chat.id.desc()).limit(20)
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
@@ -185,7 +199,23 @@ def get_more_messages(account_id, last_index):
 # end of message code
 
 # start of event code
+@bp.route('/events/<int:account_id>/<string:year>/<string:month>/<string:date>')
+def get_events(account_id, year, month, date):
+    date = year + "." + month + "." + date + "."
+    js = {
+        "status": "Failed"
+    }
 
+    events = Event.query.filter(Event.account_id == account_id, Event.schedule_when == date).order_by(Event.id)
+    return jsonify([{
+        "id": event.id,
+        "schedule_when": event.schedule_when,
+        "schedule_where": event.schedule_where,
+        "schedule_what": event.schedule_what,
+        "assign_time": event.assign_time,
+        "detail": event.detail,
+        "review": event.review
+    }for event in events])
 
 # end of event code
 

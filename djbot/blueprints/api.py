@@ -50,6 +50,7 @@ def login(account_type, user_id, password):
         "status": "Failed",
     }]
     if account_type == 0:
+        print(str(account_type) + "/" + user_id + "/" + password)
         account = CustomAccount.query.filter(CustomAccount.user_id == user_id, CustomAccount.password == password,
                                              CustomAccount.account_type == account_type).all()
         if len(account) == 1:
@@ -160,14 +161,18 @@ def add_message_for_new_user(account_id):
 
 # 챗봇이 답장을 주는 부분
 def reply_message(content):
+    reply = danbee.message(content['content'])
+    reply_result = reply['responseSet']['result']['result']
 
-    # content = jsonify(data)
+    for result in reply_result:
+        # print(result['message'])
+        bot_message = result['message']
+        chat = Chat(account_id=content['account_id'], content=bot_message, chat_type=content['chat_type'],
+                    time=content['time'], isBot=1)
+        db.session.add(chat)
 
-    chat = Chat(account_id=content['account_id'], content=content['content']+"reply", chat_type=content['chat_type'],
-                time=content['time'], isBot=1)
-    db.session.add(chat)
     db.session.commit()
-    print(content['account_id'])
+    # print(content['account_id'])
 
 
 @bp.route('/messages/<int:account_id>')

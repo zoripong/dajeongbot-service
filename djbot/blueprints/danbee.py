@@ -39,3 +39,19 @@ def welcome():
     res = requests.post(WELCOME_URL, headers=headers, data=json.dumps(data))
     return res.json()
 
+
+def message(content):
+    data = {
+        "chatbot_id": config.CHATBOT_CONFIG['chatbot_id'],
+        "input_sentence": content,
+        "user_id": "",
+        "session_id": "",
+        "ins_id": "",
+        "intent_id": "",
+        "node_id": "",
+        "param_id": "",
+        "chatflow_id": "",
+        "parameters": {}
+    }
+    res = requests.post(URL, headers=headers, data=json.dumps(data))
+    return res.json()

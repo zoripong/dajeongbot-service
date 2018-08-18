@@ -5,6 +5,7 @@ import json
 import djbot.blueprints.danbee as danbee
 import calendar
 import time
+import config
 
 bp = Blueprint('api', __name__, url_prefix='/apis')
 
@@ -138,9 +139,9 @@ def add_messages():
     db.session.add(chat)
     db.session.commit()
 
-    reply_message(content)
+    result = reply_message(content)
 
-    result = {"status": "Success"}
+    # result = {"status": "Success"}
 
     return json.dumps(result)
 
@@ -172,6 +173,19 @@ def reply_message(content):
         db.session.add(chat)
 
     db.session.commit()
+
+    if reply['responseSet']['result']['ins_id'] == "":
+        result = {
+            "status": "Intent is not Fount",
+            "intent": ""
+        }
+    else:
+        result = {
+            "status": "Success",
+            "intent": config.INTENT_CONFIG[reply['responseSet']['result']['ins_id']]
+        }
+
+    return result
     # print(content['account_id'])
 
 

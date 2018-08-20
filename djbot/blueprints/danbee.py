@@ -40,7 +40,7 @@ def welcome():
     return res.json()
 
 
-def message(content):
+def message(content, response):
     data = {
         "chatbot_id": config.CHATBOT_CONFIG['chatbot_id'],
         "input_sentence": content,
@@ -53,5 +53,20 @@ def message(content):
         "chatflow_id": "",
         "parameters": {}
     }
+    if "version" in response:
+        # print("사용자의 답장입니다...")
+        data = {
+            "chatbot_id": config.CHATBOT_CONFIG['chatbot_id'],
+            "input_sentence": content,
+            "user_id": response['user_id'],
+            "session_id": response['user_id'],
+            "ins_id": response['ins_id'],
+            "intent_id": response['intent_id'],
+            "node_id": response['node_id'],
+            "param_id": response['param_id'],
+            "chatflow_id": response['chatflow_id'],
+            "parameters": {}
+        }
+
     res = requests.post(URL, headers=headers, data=json.dumps(data))
     return res.json()

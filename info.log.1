@@ -1,4 +1,102 @@
-Exception on /apis/messages/welcome [GET]
+Exception on /apis/signup [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 105, in signup
+    print(type(content['account_type']))
+TypeError: string indices must be integers
+Exception on /apis/messages [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 137, in add_messages
+    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'],
+TypeError: string indices must be integers
+Exception on /apis/json [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1816, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1831, in finalize_request
+    response = self.make_response(rv)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1957, in make_response
+    'The view function did not return a valid response. The'
+TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+Exception on /apis/messages [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 153, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 196, in reply_message
+    "intent": config.INTENT_CONFIG[reply['responseSet']['result']['ins_id']]
+KeyError: '55566866'
+Exception on /apis/messages [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 157, in add_messages
+    return json.dumps(result)
+AttributeError: 'function' object has no attribute 'dumps'
+Exception on /apis/messages [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\api.py", line 146, in add_messages
+    result = json.dumps({"status": "Failed"})
+AttributeError: 'function' object has no attribute 'dumps'
+Exception on /apis/messages [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
     rv = self.response_class.force_type(rv, request.environ)
@@ -33,108 +131,3 @@ Traceback (most recent call last):
     app_rv = app(environ, start_response)
 TypeError: 'dict' object is not callable
 The view function did not return a valid response. The return type must be a string, tuple, Response instance, or WSGI callable, but it was a dict.
-Exception on /apis/messages/welcome [GET]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
-    rv = self.response_class.force_type(rv, request.environ)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 921, in force_type
-    response = BaseResponse(*_run_wsgi_app(response, environ))
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 59, in _run_wsgi_app
-    return _run_wsgi_app(*args)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\test.py", line 923, in run_wsgi_app
-    app_rv = app(environ, start_response)
-TypeError: 'dict' object is not callable
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1816, in full_dispatch_request
-    return self.finalize_request(rv)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1831, in finalize_request
-    response = self.make_response(rv)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1982, in make_response
-    reraise(TypeError, new_error, sys.exc_info()[2])
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 34, in reraise
-    raise value.with_traceback(tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
-    rv = self.response_class.force_type(rv, request.environ)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 921, in force_type
-    response = BaseResponse(*_run_wsgi_app(response, environ))
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 59, in _run_wsgi_app
-    return _run_wsgi_app(*args)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\test.py", line 923, in run_wsgi_app
-    app_rv = app(environ, start_response)
-TypeError: 'dict' object is not callable
-The view function did not return a valid response. The return type must be a string, tuple, Response instance, or WSGI callable, but it was a dict.
-Exception on /apis/messages/welcome [GET]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
-    rv = self.response_class.force_type(rv, request.environ)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 921, in force_type
-    response = BaseResponse(*_run_wsgi_app(response, environ))
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 59, in _run_wsgi_app
-    return _run_wsgi_app(*args)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\test.py", line 923, in run_wsgi_app
-    app_rv = app(environ, start_response)
-TypeError: 'dict' object is not callable
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1816, in full_dispatch_request
-    return self.finalize_request(rv)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1831, in finalize_request
-    response = self.make_response(rv)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1982, in make_response
-    reraise(TypeError, new_error, sys.exc_info()[2])
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 34, in reraise
-    raise value.with_traceback(tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
-    rv = self.response_class.force_type(rv, request.environ)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 921, in force_type
-    response = BaseResponse(*_run_wsgi_app(response, environ))
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 59, in _run_wsgi_app
-    return _run_wsgi_app(*args)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\test.py", line 923, in run_wsgi_app
-    app_rv = app(environ, start_response)
-TypeError: 'dict' object is not callable
-The view function did not return a valid response. The return type must be a string, tuple, Response instance, or WSGI callable, but it was a dict.
-Exception on /apis/messages/welcome [GET]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
-    rv = self.response_class.force_type(rv, request.environ)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 921, in force_type
-    response = BaseResponse(*_run_wsgi_app(response, environ))
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 59, in _run_wsgi_app
-    return _run_wsgi_app(*args)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\test.py", line 923, in run_wsgi_app
-    app_rv = app(environ, start_response)
-TypeError: 'Response' object is not callable
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1816, in full_dispatch_request
-    return self.finalize_request(rv)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1831, in finalize_request
-    response = self.make_response(rv)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1982, in make_response
-    reraise(TypeError, new_error, sys.exc_info()[2])
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 34, in reraise
-    raise value.with_traceback(tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1974, in make_response
-    rv = self.response_class.force_type(rv, request.environ)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 921, in force_type
-    response = BaseResponse(*_run_wsgi_app(response, environ))
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\wrappers.py", line 59, in _run_wsgi_app
-    return _run_wsgi_app(*args)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\werkzeug\test.py", line 923, in run_wsgi_app
-    app_rv = app(environ, start_response)
-TypeError: 'Response' object is not callable
-The view function did not return a valid response. The return type must be a string, tuple, Response instance, or WSGI callable, but it was a Response.

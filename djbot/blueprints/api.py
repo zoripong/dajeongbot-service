@@ -41,6 +41,17 @@ def join():
         return "Failed"
 
 
+@bp.route("/json", methods=['POST'])
+def json():
+    content = request.get_json(force=True)
+    if "id" in content['response']:
+        print("hi")
+    else:
+        print("hello")
+
+    return jsonify({"hi":"hello"})
+
+
 # end of test code
 
 # start of auth code
@@ -51,7 +62,7 @@ def login(account_type, user_id, password):
         "status": "Failed",
     }]
     if account_type == 0:
-        print(str(account_type) + "/" + user_id + "/" + password)
+        # print(str(account_type) + "/" + user_id + "/" + password)
         account = CustomAccount.query.filter(CustomAccount.user_id == user_id, CustomAccount.password == password,
                                              CustomAccount.account_type == account_type).all()
         if len(account) == 1:
@@ -104,7 +115,7 @@ def signup():
         "status": "Failed"
         # "id": content["user_id"]
     }
-    print(type(content['account_type']))
+    # print(type(content['account_type']))
     account = Account.query.filter(Account.user_id == content['user_id'], Account.account_type == content['account_type']).all()
     if len(account) == 0:
         # 존재하지 않는 아이디라면 insert
@@ -132,7 +143,7 @@ def add_messages():
     # 사용자가 새로운 메세지를 보냄
     content = request.get_json(force=True)
 
-    result = {"status": "Failed"}
+    result = jsonify({"status": "Failed"})
 
     chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'],
                 time=content['time'], isBot=content['isBot'])
@@ -141,9 +152,10 @@ def add_messages():
 
     result = reply_message(content)
 
+    # print(result)
     # result = {"status": "Success"}
 
-    return json.dumps(result)
+    return result
 
 
 @bp.route('/messages/welcome/<int:account_id>')
@@ -162,7 +174,7 @@ def add_message_for_new_user(account_id):
 
 # 챗봇이 답장을 주는 부분
 def reply_message(content):
-    reply = danbee.message(content['content'])
+    reply = danbee.message(content['content'], content['response'])
     reply_result = reply['responseSet']['result']['result']
 
     for result in reply_result:
@@ -180,12 +192,9 @@ def reply_message(content):
             "intent": ""
         }
     else:
-        result = {
-            "status": "Success",
-            "intent": config.INTENT_CONFIG[reply['responseSet']['result']['ins_id']]
-        }
+        result = reply
+    return jsonify(result)
 
-    return result
     # print(content['account_id'])
 
 

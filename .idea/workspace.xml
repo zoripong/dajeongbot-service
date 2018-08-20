@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="988a8ba1-9fb4-4743-90c4-ad67a621ab7d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djbot/blueprints/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/djbot/blueprints/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/djbot/blueprints/danbee.py" beforeDir="false" afterPath="$PROJECT_DIR$/djbot/blueprints/danbee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/info.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/info.log.1" afterDir="false" />
-    </list>
+    <list default="true" id="988a8ba1-9fb4-4743-90c4-ad67a621ab7d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,8 +123,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/djbot/blueprints/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="154" selection-start-line="154" selection-end-line="154" />
+            <state relative-caret-position="160">
+              <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
                 <marker date="1534772445727" expanded="true" signature="996:1167" ph="..." />
@@ -230,10 +225,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="width" value="980" />
-    <option name="height" value="1040" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="952" />
+    <option name="width" value="977" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -360,10 +355,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="762" y="0" width="781" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12822208" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26075268" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -469,8 +464,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/djbot/blueprints/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="154" selection-start-line="154" selection-end-line="154" />
+        <state relative-caret-position="160">
+          <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
             <marker date="1534772445727" expanded="true" signature="996:1167" ph="..." />

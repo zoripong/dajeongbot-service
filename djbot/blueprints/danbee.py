@@ -54,7 +54,6 @@ def message(content, response):
         "parameters": {}
     }
     if "version" in response:
-        # print("사용자의 답장입니다...")
         data = {
             "chatbot_id": config.CHATBOT_CONFIG['chatbot_id'],
             "input_sentence": content,

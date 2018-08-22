@@ -42,14 +42,14 @@ def join():
 
 
 @bp.route("/json", methods=['POST'])
-def json():
+def json22():
     content = request.get_json(force=True)
-    if "id" in content['response']:
-        print("hi")
-    else:
-        print("hello")
-
-    return jsonify({"hi":"hello"})
+    # if "id" in content['response']:
+    #     print("hi")
+    # else:
+    #     print("hello")
+    print(content)
+    return jsonify(content)
 
 
 # end of test code
@@ -108,8 +108,12 @@ def login(account_type, user_id, password):
 
 @bp.route('/signup', methods=['GET','POST'])
 def signup():
-    content = request.get_json(force=True)
-
+    # content = request.get_json(force=True)
+    print(request.data, type(request.data))
+    jsonString = request.data.decode("utf-8")
+    content2 = json.loads(jsonString)
+    print(type(content2))
+    content = content2
     # 존재하는 아이디인지 체크
     result = {
         "status": "Failed"
@@ -128,10 +132,26 @@ def signup():
                                    password=content['password'])
         db.session.add(detail)
         db.session.commit()
+        new_account = Account.query.filter(Account.user_id == content['user_id'],
+                                       Account.account_type == content['account_type']).all()
         result = {
-            "status": "Success"
+            "status": "Success",
+            "user_info": {
+                "id": new_account[0].id,
+                "user_id": new_account[0].user_id,
+                "name": new_account[0].name,
+                "birthday": str(new_account[0].birthday),
+                "account_type": new_account[0].account_type,
+                "bot_type": new_account[0].bot_type
+            }
         }
+        add_message_for_new_user(new_account[0].id)
 
+    elif len(account) >= 1:
+        result = {
+            "status": "ExistUser"
+            # "id": content["user_id"]
+        }
     return json.dumps(result)
 
 
@@ -158,7 +178,6 @@ def add_messages():
     return result
 
 
-@bp.route('/messages/welcome/<int:account_id>')
 def add_message_for_new_user(account_id):
 
     ts = calendar.timegm(time.gmtime())
@@ -168,9 +187,7 @@ def add_message_for_new_user(account_id):
     chat = Chat(account_id=account_id, content=content, chat_type=0, time=str(ts), isBot=1)
     db.session.add(chat)
     db.session.commit()
-    
-    return jsonify(danbee.welcome())
-
+    print("반가워~")
 
 # 챗봇이 답장을 주는 부분
 def reply_message(content):
@@ -184,15 +201,25 @@ def reply_message(content):
                     time=content['time'], isBot=1)
         db.session.add(chat)
 
-    db.session.commit()
-
     if reply['responseSet']['result']['ins_id'] == "":
         result = {
-            "status": "Intent is not Fount",
+            "status": "Intent is not Found",
             "intent": ""
         }
     else:
+        # TODO : TEST
+        # node_id가 SpeakNode_1533084803517에서 Event 저장
+        # TODO : DEBUG : result is empty
+        if reply['responseSet']['result']['ins_id'] == "SpeakNode_1533084803517":
+            param = reply['responseSet']['result']['parameters']
+            message_result = reply['responseSet']['result']['result']
+            event = Event(account_id=content['account_id'], schedule_when=param['when'], schedule_where=param['where'],
+                          schedule_what=param['what'], assign_time=message_result[0]['timestamp'],
+                          detail=param['detail'])
+            db.session.add(event)
         result = reply
+
+    db.session.commit()
     return jsonify(result)
 
     # print(content['account_id'])
@@ -201,7 +228,10 @@ def reply_message(content):
 @bp.route('/messages/<int:account_id>')
 def get_messages(account_id):
     # 사용자가 메세지 내역을 요청함
+    # TODO Debug 필터링
     chats = Chat.query.filter(Chat.account_id == account_id).order_by(Chat.id.desc()).limit(20)
+
+    print(str(account_id), "왜그래.. ㅠㅠ")
     return jsonify([{
         "id": chat.id,
         "content": chat.content,

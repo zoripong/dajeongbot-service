@@ -65,6 +65,7 @@ def login(account_type, user_id, password):
         # print(str(account_type) + "/" + user_id + "/" + password)
         account = CustomAccount.query.filter(CustomAccount.user_id == user_id, CustomAccount.password == password,
                                              CustomAccount.account_type == account_type).all()
+        print(len(account))
         if len(account) == 1:
             j1 = [{
                 "status": "OK",
@@ -73,6 +74,10 @@ def login(account_type, user_id, password):
                     "bot_type": account[0].bot_type,
                     "chat_session": "preparing"
                 }
+            }]
+        elif len(account) < 1:
+            j1 = [{
+                "status": "NOT EXIST",
             }]
     else:
         # TODO: 토큰이 유효한지 체크!
@@ -189,6 +194,7 @@ def add_message_for_new_user(account_id):
     db.session.commit()
     print("반가워~")
 
+
 # 챗봇이 답장을 주는 부분
 def reply_message(content):
     reply = danbee.message(content['content'], content['response'])
@@ -225,13 +231,12 @@ def reply_message(content):
     # print(content['account_id'])
 
 
-@bp.route('/messages/<int:account_id>')
-def get_messages(account_id):
+@bp.route('/messages/<int:res_account_id>')
+def get_messages(res_account_id):
     # 사용자가 메세지 내역을 요청함
-    # TODO Debug 필터링
-    chats = Chat.query.filter(Chat.account_id == account_id).order_by(Chat.id.desc()).limit(20)
+    chats = Chat.query.filter(Chat.account_id == res_account_id).order_by(Chat.id.desc()).limit(20).all()
 
-    print(str(account_id), "왜그래.. ㅠㅠ")
+    print(str(res_account_id), "왜그래.. ㅠㅠ")
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
@@ -241,10 +246,11 @@ def get_messages(account_id):
     }for chat in chats])
 
 
-@bp.route('/messages/<int:account_id>/<int:last_index>')
-def get_more_messages(account_id, last_index):
+@bp.route('/messages/<int:res_account_id>/<int:last_index>')
+def get_more_messages(res_account_id, last_index):
     # 사용자가 메세지 내역을 요청함
-    chats = Chat.query.filter(account_id == account_id, Chat.id < last_index).order_by(Chat.id.desc()).limit(50)
+    chats = Chat.query.filter(Chat.account_id == res_account_id, Chat.id < last_index)\
+        .order_by(Chat.id.desc()).limit(50).all()
     return jsonify([{
         "id": chat.id,
         "content": chat.content,

@@ -53,6 +53,7 @@ def message(content, response):
         "chatflow_id": "",
         "parameters": {}
     }
+    # print("response\n", response)
     if "version" in response:
         data = {
             "chatbot_id": config.CHATBOT_CONFIG['chatbot_id'],
@@ -67,5 +68,6 @@ def message(content, response):
             "parameters": {}
         }
 
+    # print("send\n", data)
     res = requests.post(URL, headers=headers, data=json.dumps(data))
     return res.json()

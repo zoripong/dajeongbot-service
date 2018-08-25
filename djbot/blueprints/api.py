@@ -207,15 +207,20 @@ def reply_message(content):
                     time=content['time'], isBot=1)
         db.session.add(chat)
 
-    if reply['responseSet']['result']['ins_id'] == "":
+    # print("receive\n",reply)
+
+    if reply['responseSet']['result']['ins_id'] == "" \
+            and reply['responseSet']['result']['ref_intent_id'] == "":
         result = {
             "status": "Intent is not Found",
             "intent": ""
         }
     else:
         # TODO : TEST
-        # node_id가 SpeakNode_1533084803517에서 Event 저장
         # TODO : DEBUG : result is empty
+
+        # 일정 등록
+        # node_id가 SpeakNode_1533084803517에서 Event 저장
         if reply['responseSet']['result']['ins_id'] == "SpeakNode_1533084803517":
             param = reply['responseSet']['result']['parameters']
             message_result = reply['responseSet']['result']['result']
@@ -223,8 +228,14 @@ def reply_message(content):
                           schedule_what=param['what'], assign_time=message_result[0]['timestamp'],
                           detail=param['detail'])
             db.session.add(event)
-        result = reply
+            # TODO : FCM alarm 예약
 
+        elif reply['responseSet']['result']['ins_id'] == "SpeakNode_1533088132355":
+            # TODO: 지난 추억 가져오기
+            print("추억 회상 ! 뿅!")
+
+        result = reply
+        
     db.session.commit()
     return jsonify(result)
 

@@ -235,7 +235,7 @@ def reply_message(content):
             print("추억 회상 ! 뿅!")
 
         result = reply
-        
+
     db.session.commit()
     return jsonify(result)
 

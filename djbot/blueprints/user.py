@@ -8,7 +8,7 @@ from djbot.models.models import *
 bp = Blueprint('user', __name__, url_prefix='/users')
 
 
-@bp.route('/users/<int:account_type>/<string:user_id>/<string:password>')
+@bp.route('/<int:account_type>/<string:user_id>/<string:password>')
 def login(account_type, user_id, password):
     j1 = [{
         "status": "Failed",

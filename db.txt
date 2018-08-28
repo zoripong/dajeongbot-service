@@ -60,6 +60,7 @@ CREATE TABLE chat(
     id INT(10) NOT NULL auto_increment,
     account_id INT(10) NOT NULL,
     content TEXT(65535) NOT NULL,
+    node_type TINYINT(1) NOT NULL,
     chat_type TINYINT(1) NOT NULL,
     time VARCHAR(32) NOT NULL,
     isBot TINYINT(1) NOT NULL,

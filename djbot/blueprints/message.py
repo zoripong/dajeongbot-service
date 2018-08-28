@@ -52,7 +52,7 @@ def reply_message(content):
         # print(result['message'])
         bot_message = result['message']
         chat = Chat(account_id=content['account_id'], content=bot_message, chat_type=content['chat_type'],
-                    time=content['time'], isBot=1)
+                    time=str(int(time.time() * 1000)), isBot=1)
         db.session.add(chat)
 
     # print("receive\n",reply)
@@ -96,17 +96,31 @@ def reply_message(content):
                 } for event in events])
 
                 if len(json_events) == 0:
+                    # TODO db저장
                     result = {
                         "status": "Success",
-                        "node_type": 0,
-                        "message": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
-                        "events": json_events
+                        "result": {
+                            "id": content['account_id'],
+                            "node_type": 0,
+                            "chat_type": content['chat_type'],
+                            "time": str(int(time.time() * 1000)),
+                            "img_url": [],
+                            "content": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
+                            "events": json_events
+                        }
+
                     }
                 result = {
                     "status": "Success",
-                    "node_type": 2,
-                    "message": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
-                    "events": json_events
+                    "result": {
+                        "id": content['account_id'],
+                        "node_type": 2,
+                        "chat_type": 1,
+                        "time": str(int(time.time() * 1000)),
+                        "img_url": [],
+                        "content": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
+                        "events": json_events
+                    }
                 }
 
         result = reply
@@ -125,9 +139,15 @@ def reply_message_for_memory(content):
         # 궁금한 일정이 없음
         result = {
             "status": "Success",
-            "node_type": 0,
-            "message": ["그래 또 궁금한 거 있으면 언제든지 물어봐!"],
-            "events": []
+            "result" :{
+                "id": content['account_id'],
+                "node_type": 0,
+                "chat_type": content['chat_type'],
+                "time": str(int(time.time() * 1000)),
+                "img_url":[],
+                "content": ["그래, 또 궁금한 거 있으면 물어봐!"],
+                "events": []
+            }
         }
     else:
         select_idx = content['response']['select_idx']
@@ -145,9 +165,15 @@ def reply_message_for_memory(content):
 
         result = {
             "status": "Success",
-            "node_type": 2,
-            "message": message,
-            "events": content['response']['events']
+            "result" :{
+                "id": content['account_id'],
+                "node_type": 2,
+                "chat_type": content['chat_type'],
+                "time": str(int(time.time() * 1000)),
+                "img_url":[],
+                "content": message,
+                "events": content['response']['events']
+            }
         }
 
     return jsonify(result)
@@ -157,11 +183,10 @@ def reply_message_for_memory(content):
 def get_messages(res_account_id):
     # 사용자가 메세지 내역을 요청함
     chats = Chat.query.filter(Chat.account_id == res_account_id).order_by(Chat.id.desc()).limit(20).all()
-
-    print(str(res_account_id), "왜그래.. ㅠㅠ")
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
+        "node_type": chat.node_type,
         "chat_type": chat.chat_type,
         "time": chat.time,
         "isBot": chat.isBot
@@ -176,6 +201,7 @@ def get_more_messages(res_account_id, last_index):
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
+        "node_type": chat.node_type,
         "chat_type": chat.chat_type,
         "time": chat.time,
         "isBot": chat.isBot

@@ -37,6 +37,7 @@ class Chat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     account_id = db.Column(db.ForeignKey('account.id'), nullable=False, index=True)
     content = db.Column(db.String, nullable=False)
+    node_type= db.Column(db.Integer, nullable=False)
     chat_type = db.Column(db.Integer, nullable=False)
     time = db.Column(db.String, nullable=False)
     isBot = db.Column(db.Integer, nullable=False)

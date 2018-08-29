@@ -4,7 +4,7 @@ import time
 
 from flask import Blueprint, jsonify, request
 
-from djbot.blueprints import danbee
+from djbot.func import danbee
 from djbot.models.models import *
 
 bp = Blueprint('message', __name__, url_prefix='/messages')

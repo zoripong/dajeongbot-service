@@ -64,7 +64,7 @@ def login(account_type, user_id, password):
     return jsonify(j1)
 
 
-@bp.route('/signup', methods=['GET','POST'])
+@bp.route('/signup', methods=['POST'])
 def signup():
     # content = request.get_json(force=True)
     print(request.data, type(request.data))

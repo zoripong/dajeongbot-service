@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="988a8ba1-9fb4-4743-90c4-ad67a621ab7d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djbot/blueprints/me.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djbot/func/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/djbot/func/notify.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djbot/blueprints/danbee.py" beforeDir="false" afterPath="$PROJECT_DIR$/djbot/func/danbee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djbot/blueprints/message.py" beforeDir="false" afterPath="$PROJECT_DIR$/djbot/blueprints/message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/djbot/blueprints/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/djbot/blueprints/user.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,37 +63,38 @@
     <session id="-1932994193">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="4" />
           <entry key="gitignore" value="6" />
-          <entry key="py" value="5512" />
+          <entry key="py" value="6185" />
           <entry key="txt" value="160" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="170" />
-          <entry key="Python" value="5512" />
+          <entry key="Python" value="6185" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="1" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="py" value="13" />
+          <entry key="py" value="21" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
@@ -96,18 +102,26 @@
         <counts>
           <entry key="Log" value="1" />
           <entry key="PLAIN_TEXT" value="3" />
-          <entry key="Python" value="13" />
+          <entry key="Python" value="21" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/djbot/blueprints/event.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/djbot/blueprints/me.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="462">
+              <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+                <marker date="1535561828651" expanded="true" signature="212:213" ph="..." />
+                <marker date="1535561828651" expanded="true" signature="827:867" ph="..." />
+                <marker date="1535561828651" expanded="true" signature="979:980" ph="..." />
+                <marker date="1535561828651" expanded="true" signature="1106:1107" ph="..." />
+                <marker date="1535561828651" expanded="true" signature="1276:1277" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -115,81 +129,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/djbot/blueprints/message.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+            <state relative-caret-position="254">
+              <caret line="22" selection-start-line="22" selection-end-line="23" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/djbot/blueprints/user.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="893">
-              <caret line="52" column="25" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/djbot/blueprints/danbee.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="58" selection-start-line="58" selection-end-line="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/djbot/factory.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="12" column="38" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#48#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -198,8 +141,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/djbot/models/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="551">
-              <caret line="33" column="10" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="10" />
+            <state relative-caret-position="608">
+              <caret line="67" column="9" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -216,7 +159,6 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>TYPEINT</find>
-      <find>&lt;s</find>
       <find>get_m</find>
       <find>config.</find>
       <find>print</find>
@@ -228,6 +170,10 @@
       <find>events</find>
       <find>Chat</find>
       <find>int(</find>
+      <find>&lt;s</find>
+      <find>&lt;</find>
+      <find>all()</find>
+      <find>db.co</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -249,16 +195,18 @@
         <option value="$PROJECT_DIR$/djbot/config.py" />
         <option value="$PROJECT_DIR$/djbot/blueprints/danbee.ai.py" />
         <option value="$PROJECT_DIR$/djbot/blueprints/danbee.py" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/djbot/blueprints/api.py" />
         <option value="$PROJECT_DIR$/djbot/blueprints/test.py" />
-        <option value="$PROJECT_DIR$/djbot/blueprints/user.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/djbot/blueprints/event.py" />
         <option value="$PROJECT_DIR$/djbot/models/models.py" />
         <option value="$PROJECT_DIR$/db.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/djbot/blueprints/message.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/djbot/func/notify.py" />
+        <option value="$PROJECT_DIR$/djbot/blueprints/user.py" />
+        <option value="$PROJECT_DIR$/djbot/blueprints/me.py" />
       </list>
     </option>
   </component>
@@ -273,6 +221,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,13 +244,18 @@
               <item name="DajeongBot-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="DajeongBot-server" type="462c0819:PsiDirectoryNode" />
               <item name="djbot" type="462c0819:PsiDirectoryNode" />
+              <item name="func" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DajeongBot-server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DajeongBot-server" type="462c0819:PsiDirectoryNode" />
+              <item name="djbot" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -309,14 +263,15 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\devuri\workspace\server\DajeonBot-server\djbot\blueprint" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\devuri\workspace\server\DajeongBot-server\djbot\func" />
       <recent name="D:\devuri\workspace\server\DajeongBot-server" />
       <recent name="E:\Devuri\workspace\server\DajeongBot-server" />
       <recent name="D:\devuri\workspace\server\DajeonBot-server\djbot" />
       <recent name="D:\devuri\workspace\server\DajeonBot-server\model" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\devuri\workspace\server\DajeonBot-server\djbot\blueprint" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -344,7 +299,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/djbot/blueprints/danbee.py" />
+      <option name="SCRIPT_NAME" value="D:\devuri\workspace\server\DajeongBot-server\djbot\func\danbee.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -450,22 +405,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/info.log.1" />
-    <entry file="file://$PROJECT_DIR$/config.py" />
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/djbot/blueprints/test.py">
+    <entry file="file://$PROJECT_DIR$/db.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="31" column="75" selection-start-line="31" selection-start-column="75" selection-end-line="31" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/djbot/blueprints/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="52" column="25" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="25" />
+        <state relative-caret-position="1102">
+          <caret line="58" selection-start-line="58" selection-end-line="69" />
         </state>
       </provider>
     </entry>
@@ -485,6 +429,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/djbot/func/danbee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/djbot/blueprints/event.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="3" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/djbot/factory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -495,51 +459,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/djbot/models/models.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="33" column="10" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="10" />
+        <state relative-caret-position="38">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/djbot/blueprints/event.py">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="76">
+          <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db.txt">
+    <entry file="file://$PROJECT_DIR$/djbot/blueprints/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="58" selection-start-line="58" selection-end-line="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/djbot/blueprints/danbee.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
+        <state relative-caret-position="136">
+          <caret line="31" column="75" selection-start-line="31" selection-start-column="75" selection-end-line="31" selection-end-column="75" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/djbot/func/notify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="14" selection-start-column="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/djbot/blueprints/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="10" column="47" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/djbot/models/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="67" column="9" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/djbot/blueprints/message.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="254">
+          <caret line="22" selection-start-line="22" selection-end-line="23" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/djbot/blueprints/me.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        <state relative-caret-position="462">
+          <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1535561828651" expanded="true" signature="212:213" ph="..." />
+            <marker date="1535561828651" expanded="true" signature="827:867" ph="..." />
+            <marker date="1535561828651" expanded="true" signature="979:980" ph="..." />
+            <marker date="1535561828651" expanded="true" signature="1106:1107" ph="..." />
+            <marker date="1535561828651" expanded="true" signature="1276:1277" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

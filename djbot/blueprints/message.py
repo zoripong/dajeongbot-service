@@ -24,9 +24,10 @@ def add_messages():
     db.session.commit()
 
     # 챗봇이랑 대화 chat_type 으로 분류
-    if content['chat_type'] == 0:
+    if content['chat_type'] == 0 or content['chat_type'] == 1:
         result = reply_message(content)
-    elif content['chat_type'] == 1:
+
+    elif content['chat_type'] == 2:
         result = reply_message_for_memory(content)
 
     return result
@@ -52,6 +53,7 @@ def reply_message(content):
     for result in reply_result:
         bot_message = result['message']
         node_type = result['nodeType']
+        print(node_type)
         print("node type is ", NODE_TYPE[node_type])
 
         # FIXME FIRST

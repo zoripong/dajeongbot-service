@@ -1,5 +1,62 @@
 Exception on /messages/ [POST]
 Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 56, in reply_message
+    print("node type is ", NODE_TYPE[node_type])
+KeyError: ''
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 56, in reply_message
+    print("node type is ", NODE_TYPE[node_type])
+KeyError: ''
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 57, in reply_message
+    print("node type is ", NODE_TYPE[node_type])
+KeyError: ''
+Exception on /events/dates/32 [GET]
+Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\engine\base.py", line 1193, in _execute_context
     context)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\engine\default.py", line 509, in do_execute
@@ -16,7 +73,7 @@ Traceback (most recent call last):
     db.query(q)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\MySQLdb\connections.py", line 277, in query
     _mysql.connection.query(self, query)
-_mysql_exceptions.OperationalError: (1048, "Column 'node_type' cannot be null")
+_mysql_exceptions.OperationalError: (2013, 'Lost connection to MySQL server during query')
 
 The above exception was the direct cause of the following exception:
 
@@ -33,36 +90,12 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 27, in add_messages
-    result = reply_message(content)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 127, in reply_message
-    db.session.commit()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\scoping.py", line 153, in do
-    return getattr(self.registry(), name)(*args, **kwargs)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 943, in commit
-    self.transaction.commit()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 467, in commit
-    self._prepare_impl()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 447, in _prepare_impl
-    self.session.flush()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 2254, in flush
-    self._flush(objects)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 2380, in _flush
-    transaction.rollback(_capture_exception=True)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\util\langhelpers.py", line 66, in __exit__
-    compat.reraise(exc_type, exc_value, exc_tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\util\compat.py", line 249, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 2344, in _flush
-    flush_context.execute()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 391, in execute
-    rec.execute(self)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 556, in execute
-    uow
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\persistence.py", line 181, in save_obj
-    mapper, table, insert)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\persistence.py", line 866, in _emit_insert_statements
-    execute(statement, params)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\event.py", line 9, in get_dates_having_event
+    return jsonify([ event.schedule_when for event in events])
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\query.py", line 2988, in __iter__
+    return self._execute_and_instances(context)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\query.py", line 3011, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\engine\base.py", line 948, in execute
     return meth(self, multiparams, params)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\sql\elements.py", line 269, in _execute_on_connection
@@ -93,42 +126,4 @@ Traceback (most recent call last):
     db.query(q)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\MySQLdb\connections.py", line 277, in query
     _mysql.connection.query(self, query)
-sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1048, "Column 'node_type' cannot be null") [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`) VALUES (%s, %s, %s, %s, %s, %s)'] [parameters: (32, '어떤건지 자세히 말해줘~ 궁금해!', None, 0, '1535725116236', 1)] (Background on this error at: http://sqlalche.me/e/e3q8)
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
-    result = reply_message(content)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 56, in reply_message
-    print("node type is ", NODE_TYPE['node_type'])
-KeyError: 'node_type'
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
-    result = reply_message(content)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 56, in reply_message
-    print("node type is ", NODE_TYPE[node_type])
-KeyError: ''
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (2013, 'Lost connection to MySQL server during query') [SQL: 'SELECT event.id AS event_id, event.account_id AS event_account_id, event.schedule_when AS event_schedule_when, event.schedule_where AS event_schedule_where, event.schedule_what AS event_schedule_what, event.assign_time AS event_assign_time, event.detail AS event_detail, event.review AS event_review \nFROM event \nWHERE event.account_id = %s ORDER BY event.id'] [parameters: (32,)] (Background on this error at: http://sqlalche.me/e/e3q8)

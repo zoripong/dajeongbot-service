@@ -3,6 +3,7 @@ from djbot.models.models import *
 
 bp = Blueprint('event', __name__, url_prefix='/events')
 
+
 @bp.route('/dates/<int:account_id>')
 def get_dates_having_event(account_id):
     events = Event.query.filter(Event.account_id == account_id).order_by(Event.id)

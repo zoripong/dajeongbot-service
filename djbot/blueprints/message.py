@@ -6,6 +6,7 @@ from flask import Blueprint, jsonify, request
 
 from djbot.func import danbee
 from djbot.models.models import *
+from config import NODE_TYPE
 
 bp = Blueprint('message', __name__, url_prefix='/messages')
 
@@ -17,13 +18,13 @@ def add_messages():
 
     result = jsonify({"status": "Failed"})
 
-    chat = Chat(account_id=content['account_id'], content=content['content'], chat_type=content['chat_type'],
-                time=content['time'], isBot=content['isBot'])
+    chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
+                chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
     db.session.add(chat)
     db.session.commit()
 
-    # 챗봇이랑 대화 chat_type으로 분류
-    if content['chat_type'] == 0 :
+    # 챗봇이랑 대화 chat_type 으로 분류
+    if content['chat_type'] == 0:
         result = reply_message(content)
     elif content['chat_type'] == 1:
         result = reply_message_for_memory(content)
@@ -49,13 +50,16 @@ def reply_message(content):
     reply_result = reply['responseSet']['result']['result']
 
     for result in reply_result:
-        # print(result['message'])
         bot_message = result['message']
-        chat = Chat(account_id=content['account_id'], content=bot_message, chat_type=content['chat_type'],
+        node_type = result['nodeType']
+        print("node type is ", NODE_TYPE[node_type])
+
+        # FIXME FIRST
+        # node type
+        # speak=0 slot=1 carousel=2
+        chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type], chat_type=content['chat_type'],
                     time=str(int(time.time() * 1000)), isBot=1)
         db.session.add(chat)
-
-    # print("receive\n",reply)
 
     if reply['responseSet']['result']['ins_id'] == "" \
             and reply['responseSet']['result']['ref_intent_id'] == "":
@@ -96,7 +100,7 @@ def reply_message(content):
                 } for event in events])
 
                 if len(json_events) == 0:
-                    # TODO db저장
+                    # TODO db 저장
                     result = {
                         "status": "Success",
                         "result": {
@@ -125,6 +129,7 @@ def reply_message(content):
 
         result = reply
     db.session.commit()
+    print(result)
     return jsonify(result)
 
 
@@ -139,7 +144,7 @@ def reply_message_for_memory(content):
         # 궁금한 일정이 없음
         result = {
             "status": "Success",
-            "result" :{
+            "result": {
                 "id": content['account_id'],
                 "node_type": 0,
                 "chat_type": content['chat_type'],
@@ -186,7 +191,7 @@ def get_messages(res_account_id):
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
-        "node_type": chat.node_type,
+        "node_type": 0,                         # 모든 이전의 대화를 speak 로 바꿈..
         "chat_type": chat.chat_type,
         "time": chat.time,
         "isBot": chat.isBot

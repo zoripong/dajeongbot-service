@@ -1,4 +1,4 @@
-Exception on /messages/32 [GET]
+Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\engine\base.py", line 1193, in _execute_context
     context)
@@ -16,7 +16,7 @@ Traceback (most recent call last):
     db.query(q)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\MySQLdb\connections.py", line 277, in query
     _mysql.connection.query(self, query)
-_mysql_exceptions.ProgrammingError: (1146, "Table 'DajeongBot.chat' doesn't exist")
+_mysql_exceptions.OperationalError: (1048, "Column 'node_type' cannot be null")
 
 The above exception was the direct cause of the following exception:
 
@@ -33,14 +33,36 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 185, in get_messages
-    chats = Chat.query.filter(Chat.account_id == res_account_id).order_by(Chat.id.desc()).limit(20).all()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\query.py", line 2836, in all
-    return list(self)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\query.py", line 2988, in __iter__
-    return self._execute_and_instances(context)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\query.py", line 3011, in _execute_and_instances
-    result = conn.execute(querycontext.statement, self._params)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 27, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 127, in reply_message
+    db.session.commit()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\scoping.py", line 153, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 943, in commit
+    self.transaction.commit()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 467, in commit
+    self._prepare_impl()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 447, in _prepare_impl
+    self.session.flush()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 2254, in flush
+    self._flush(objects)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 2380, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\util\langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\util\compat.py", line 249, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\session.py", line 2344, in _flush
+    flush_context.execute()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 391, in execute
+    rec.execute(self)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 556, in execute
+    uow
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\orm\persistence.py", line 866, in _emit_insert_statements
+    execute(statement, params)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\engine\base.py", line 948, in execute
     return meth(self, multiparams, params)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\sqlalchemy\sql\elements.py", line 269, in _execute_on_connection
@@ -71,8 +93,8 @@ Traceback (most recent call last):
     db.query(q)
   File "D:\devuri\workspace\server\venv352\lib\site-packages\MySQLdb\connections.py", line 277, in query
     _mysql.connection.query(self, query)
-sqlalchemy.exc.ProgrammingError: (_mysql_exceptions.ProgrammingError) (1146, "Table 'DajeongBot.chat' doesn't exist") [SQL: 'SELECT chat.id AS chat_id, chat.account_id AS chat_account_id, chat.content AS chat_content, chat.node_type AS chat_node_type, chat.chat_type AS chat_chat_type, chat.time AS chat_time, chat.`isBot` AS `chat_isBot` \nFROM chat \nWHERE chat.account_id = %s ORDER BY chat.id DESC \n LIMIT %s'] [parameters: (32, 20)] (Background on this error at: http://sqlalche.me/e/f405)
-Exception on /me/tokens [PUT]
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1048, "Column 'node_type' cannot be null") [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`) VALUES (%s, %s, %s, %s, %s, %s)'] [parameters: (32, '어떤건지 자세히 말해줘~ 궁금해!', None, 0, '1535725116236', 1)] (Background on this error at: http://sqlalche.me/e/e3q8)
+Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -86,8 +108,12 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-TypeError: update() missing 1 required positional argument: 'account_id'
-Exception on /test/notify [GET]
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 56, in reply_message
+    print("node type is ", NODE_TYPE['node_type'])
+KeyError: 'node_type'
+Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
@@ -101,12 +127,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\test.py", line 56, in noti
-    return notify.notify()
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\func\notify.py", line 11, in notify
-    result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\pyfcm\fcm.py", line 97, in notify_single_device
-    return self.parse_responses()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\pyfcm\baseapi.py", line 333, in parse_responses
-    raise AuthenticationError("There was an error authenticating the sender account")
-pyfcm.errors.AuthenticationError: There was an error authenticating the sender account
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 28, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 56, in reply_message
+    print("node type is ", NODE_TYPE[node_type])
+KeyError: ''

@@ -4,7 +4,8 @@ import time
 
 from flask import Blueprint, jsonify, request
 
-from djbot.func import danbee
+from djbot.controllers import danbee
+from djbot.controllers.schedule import register_event
 from djbot.models.models import *
 from config import NODE_TYPE
 
@@ -53,10 +54,11 @@ def reply_message(content):
     for result in reply_result:
         bot_message = result['message']
         node_type = result['nodeType']
-        print(node_type)
-        print("node type is ", NODE_TYPE[node_type])
 
-        # FIXME FIRST
+        # TODO remove!
+        if bot_message == "그래! 좋은 시간 되었으면 좋겠다.":
+            register_event(reply, result)
+
         # node type
         # speak=0 slot=1 carousel=2
         chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type], chat_type=content['chat_type'],
@@ -70,19 +72,12 @@ def reply_message(content):
         }
     else:
         # TODO : TEST
-        # TODO : DEBUG : result is empty
         # 일정 등록
         # node_id가 SpeakNode_1533084803517에서 Event 저장
-        if reply['responseSet']['result']['node_id'] == "SpeakNode_1533084803517":
-            param = reply['responseSet']['result']['parameters']
-            message_result = reply['responseSet']['result']['result']
-            when = current + datetime.timedelta(days=param['where'])
-            event = Event(account_id=content['account_id'], schedule_when=param['when'], schedule_where=when,
-                          schedule_what=param['what'], assign_time=message_result[0]['timestamp'],
-                          detail=param['detail'])
-            db.session.add(event)
-            # TODO : FCM alarm 예약
+        print("야호",reply['responseSet']['result']['node_id'])
 
+        if reply['responseSet']['result']['node_id'] == "SpeakNode_1533084803517":
+            register_event(reply, result)
         elif reply['responseSet']['result']['node_id'] == "SpeakNode_1533088132355":
             # TODO: 지난 추억 가져오기
             num_date = reply['responseSet']['result']['parameters']['date']
@@ -131,7 +126,7 @@ def reply_message(content):
 
         result = reply
     db.session.commit()
-    print(result)
+# print(result)
     return jsonify(result)
 
 

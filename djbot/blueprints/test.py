@@ -2,7 +2,7 @@ import datetime
 
 from flask import Blueprint, request, jsonify
 
-from djbot.func import notify
+from djbot.controllers import schedule
 from djbot.models.models import *
 
 
@@ -53,6 +53,6 @@ def json22():
 
 @bp.route("/notify")
 def noti():
-    return notify.notify()
+    return schedule.notify()
 
 

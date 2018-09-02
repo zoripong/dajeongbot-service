@@ -5,6 +5,10 @@ import config
 # request module
 # http://dgkim5360.tistory.com/entry/python-requests
 
+#   #   #   #   #   #
+#   챗봇 엔진 연결   #
+#   #   #   #   #   #
+
 URL = 'https://danbee.ai/chatflow/engine.do'
 WELCOME_URL = 'https://danbee.ai/chatflow/welcome.do'
 

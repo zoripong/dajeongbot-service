@@ -2,6 +2,7 @@ from flask import Flask
 from djbot.models import models
 from djbot.models.models import Account
 
+
 def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://djbot:djbotAdmin2018*@119.205.221.104/DajeongBot"

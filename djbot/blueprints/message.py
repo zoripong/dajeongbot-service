@@ -57,7 +57,9 @@ def reply_message(content):
 
         # TODO remove!
         if bot_message == "그래! 좋은 시간 되었으면 좋겠다.":
-            register_event(reply, result)
+            register_event(reply, result, content['account_id'])
+
+        print(content['account_id'])
 
         # node type
         # speak=0 slot=1 carousel=2

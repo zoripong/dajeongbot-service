@@ -6,14 +6,14 @@ from djbot.controllers import schedule
 from djbot.models.models import *
 
 
-bp = Blueprint('test', __name__, url_prefix='/test')
+bp = Blueprint('test', __name__)
 
 
 @bp.route("/")
 def hello_world():
-    current = datetime.datetime.now()
-    tomorrow = current + datetime.timedelta(days=6)
-    print(tomorrow)
+    # current = datetime.datetime.now()
+    # tomorrow = current + datetime.timedelta(days=6)
+    # print(tomorrow)
     return 'hello world'
 
 

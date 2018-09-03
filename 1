@@ -1,0 +1,15 @@
+[source]
+
+[Unit]
+Description=uWSGI instance to serve flaskapp
+After=network.target
+
+[Service]
+User=devuri
+Group=www-data
+WorkingDirectory=/home/devuri/djbot/DajeongBot-server
+Environment="PATH=/home/devuri/djbot/djbot-env/bin"
+ExecStart=/usr/local/bin/uwsgi --ini flaskapp.ini
+
+[Install]
+WantedBy=multi-user.target

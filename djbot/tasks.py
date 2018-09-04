@@ -30,7 +30,9 @@ def register_calendar_notification():
         title = "오늘 일정이 있어요!"
         message = event['schedule_where'] + "에서 " + event['schedule_what']
         send_fcm_message(account['notify_time'], event['account_id'], title, message)
-        # TODO : send update
+        # 해당 일정에 대해 안내 하였음을 업데이트 함
+        event.send = 1
+    db.session.commit()
 
 
 # 회원이 등록한 일정이 끝났을 때 일정에 대한 질문을 예약합니다.

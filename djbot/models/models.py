@@ -15,6 +15,8 @@ class Account(db.Model):
     birthday = db.Column(db.Date)
     account_type = db.Column(db.Integer, server_default=db.FetchedValue())
     bot_type = db.Column(db.Integer, server_default=db.FetchedValue())
+    notify_time = db.Column(db.String(10), nullable=False, server_default=db.FetchedValue())
+    ask_time = db.Column(db.String(10), nullable=False, server_default=db.FetchedValue())
 
 
 class CustomAccount(Account):
@@ -56,7 +58,7 @@ class Event(db.Model):
     assign_time = db.Column(db.String, nullable=False)
     detail = db.Column(db.String)
     review = db.Column(db.String)
-    id = db.Column(db.Integer, primary_key=True)
+    send = db.Column(db.Integer, nullable=False)
     # account = db.relationship('Account', primaryjoin='Event.account_id == Account.id', backref='events')
 
 

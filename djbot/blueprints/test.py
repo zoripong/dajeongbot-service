@@ -51,8 +51,19 @@ def json22():
     print(content)
     return jsonify(content)
 
-@bp.route("/notify")
-def noti():
-    return schedule.notify()
+@bp.route("/none")
+def is_none():
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    events = Event.query.filter(Event.review.is_(None), Event.schedule_when == today).order_by(Event.id).all()
+    return jsonify([{
+        "id": event.id,
+        "schedule_when": event.schedule_when,
+        "schedule_where": event.schedule_where,
+        "schedule_what": event.schedule_what,
+        "assign_time": event.assign_time,
+        "detail": event.detail,
+        "review": event.review
+    } for event in events])
+
 
 

@@ -1,3 +1,4 @@
 ﻿*.log
 config.py
 .idea/
+*.py[cod]

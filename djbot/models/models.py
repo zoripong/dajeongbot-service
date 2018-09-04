@@ -56,7 +56,7 @@ class Event(db.Model):
     assign_time = db.Column(db.String, nullable=False)
     detail = db.Column(db.String)
     review = db.Column(db.String)
-
+    id = db.Column(db.Integer, primary_key=True)
     # account = db.relationship('Account', primaryjoin='Event.account_id == Account.id', backref='events')
 
 

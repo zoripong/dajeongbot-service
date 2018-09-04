@@ -55,6 +55,8 @@ CREATE TABLE event(
     PRIMARY KEY (id),
     FOREIGN KEY (account_id) REFERENCES account(id)
 )DEFAULT CHARSET=utf8;
+alter table event add send int(1) not null default '0';
+
 
 CREATE TABLE chat(
     id INT(10) NOT NULL auto_increment,

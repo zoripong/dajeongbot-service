@@ -14,7 +14,14 @@ def register():
     }
 
     content = json.loads(request.data.decode("utf-8"))
-    add_token(content['account_id'], content['fcm_token'])
+
+    tokens = FcmToken.query\
+        .filter(FcmToken.account_id == content['account_id'], FcmToken.token == content['fcm_token'])\
+        .all()
+
+    if len(tokens) <= 0:
+        add_token(content['account_id'], content['fcm_token'])
+
     result = {
         "status": "Success"
     }
@@ -28,11 +35,12 @@ def update():
         "status": "Failed"
     }
     content = json.loads(request.data.decode("utf-8"))
-    # 기존 토큰 삭제
-    delete_token(content['account_id'], content['fcm_token'])
 
-    # 새로운 토큰 등록
-    add_token(content['account_id'], content['new_token'])
+    token = FcmToken.query\
+        .filter(FcmToken.account_id == content['account_id'], FcmToken.token == content['fcm_token'])
+
+    token.token = content['new_token']
+    db.session.commit()
 
     result = {
         "status": "Success"

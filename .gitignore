@@ -1,7 +1,7 @@
 ﻿*.log
 config.py
 .idea/
-*.py[cod]
+*.pyc
 
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm

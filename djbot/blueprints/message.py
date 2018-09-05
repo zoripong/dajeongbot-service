@@ -62,7 +62,7 @@ def reply_message(content):
         print(content['account_id'])
 
         # node type
-        # speak=0 slot=1 carousel=2
+        # speak=0 slot=flaskapp.service carousel=2
         chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type], chat_type=content['chat_type'],
                     time=str(int(time.time() * 1000)), isBot=1)
         db.session.add(chat)

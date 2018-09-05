@@ -1,13 +1,13 @@
 # 계정 생성
-create user 'djbot'@localhost identified by 'djbotAdmin2018*';
-create user 'djbot'@'%' identified by 'djbotAdmin2018*';
+create user '[id]'@localhost identified by '[password]';
+create user '[id]'@'%' identified by '[password]';
 
 # db 생성
 create database DajeongBot;
 
 # 권한 부여
-grant all privileges on DajeongBot.* to djbot@'%' identified by 'djbotAdmin2018*';
-grant all privileges on DajeongBot.* to djbot@localhost identified by 'djbotAdmin2018*';
+grant all privileges on DajeongBot.* to [id]@'%' identified by '[password]';
+grant all privileges on DajeongBot.* to [id]@localhost identified by '[password]';
 flush privileges;
 
 #user table 생성
@@ -20,6 +20,8 @@ CREATE TABLE account(
     bot_type TINYINT(1) unsigned default '0',
     PRIMARY KEY (id)
 )DEFAULT CHARSET=utf8;
+alter table account add notify_time varchar(10) not null default '08:00';
+alter table account add ask_time varchar(10) not null default '21:00';
 
 CREATE TABLE custom_account(
     account_id INT(10) NOT NULL,
@@ -71,7 +73,7 @@ CREATE TABLE chat(
 )DEFAULT CHARSET=utf8;
 
 # db 구조 추출
-flask-sqlacodegen "mysql://djbot:djbotAdmin2018*@119.205.221.104/DajeongBot" --flask > models.py
+flask-sqlacodegen "mysql://[id]:[password]@[IP address]/[DB]" --flask > models.py
 
 # event data insert
 insert into event values(null, 1, "2018.08.17.", "강변역", "피크닉", 1534096877292, null, "야호, 성래는 잘 생겼다..!");

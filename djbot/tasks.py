@@ -15,10 +15,11 @@ from djbot.models.models import *
 #     print("Hello, celery!")
 
 push_service = FCMNotification(api_key=config.FCM_API)
+celery = app
 
 
 # 회원이 등록한 일정의 시작 시간에 안내를 할 수 있도록 메세지를 예약합니다.
-@app.task
+@celery.task
 def register_calendar_notification():
     # 이벤트 목록 (send is 0)
     # 이벤트에 대한 정보와 회원 account_id
@@ -36,7 +37,7 @@ def register_calendar_notification():
 
 
 # 회원이 등록한 일정이 끝났을 때 일정에 대한 질문을 예약합니다.
-@app.task
+@celery.task
 def register_calendar_question():
     # 오늘 일어난 event 중 후기가 null 이면서 사용자의 일기쓰는 시간이 지난 경우
     today = datetime.datetime.now().strftime("%Y-%m-%d")

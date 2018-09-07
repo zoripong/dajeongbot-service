@@ -31,6 +31,14 @@ def register_calendar_notification():
     for event in events:
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         account = Account.query.filter(Account.id == event['account_id'])
+        contents = ["오늘은 일정이 있는 날이네!",
+                    event['schedule_where'] + "에서 " + event['schedule_what'],
+                    "오늘도 화이팅!"]
+        for content in contents:
+            chat = Chat(account_id=event['account_id'], content=content, node_type=0,
+                        chat_type=3, time=str(int(time.time() * 1000)), isBot=1)
+            db.session.add(chat)
+        db.session.commit()
         param = {
             "title": "오늘 일정이 있어요!",
             "message": event['schedule_where'] + "에서 " + event['schedule_what'],
@@ -42,9 +50,7 @@ def register_calendar_notification():
                     "chat_type": 3,
                     "time": (int(time.time() * 1000)),
                     "img_url": [],
-                    "content": ["오늘은 일정이 있는 날이네!",
-                                event['schedule_where'] + "에서 " + event['schedule_what'],
-                                "오늘도 화이팅!"]
+                    "content": contents
                 }
             }
 
@@ -66,6 +72,13 @@ def register_calendar_question():
     for event in events:
         account = Account.query.filter(Account.id == event['account_id'])
         data = danbee.message("일정 후기")
+        result_array = data['responseSet']['result']['result']
+        for result in result_array:
+            chat = Chat(account_id=event['account_id'], content=result['message'], node_type=0,
+                        chat_type=4, time=str(int(time.time() * 1000)), isBot=1)
+            db.session.add(chat)
+        db.session.commit()
+
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",
             "message": event['schedule_where'] + "에서 " + event['schedule_what'],

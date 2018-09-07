@@ -48,7 +48,7 @@ def add_message_for_new_user(account_id):
 def reply_message(content):
     current = datetime.datetime.now()
     # 챗봇
-    reply = danbee.message(content['content'], content['response'])
+    reply = danbee.message_with_response(content['content'], content['response'])
     reply_result = reply['responseSet']['result']['result']
 
     for result in reply_result:

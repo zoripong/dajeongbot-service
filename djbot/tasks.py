@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import datetime
 import time
+import danbee
 
 from pyfcm import FCMNotification
 
@@ -9,6 +10,8 @@ import config
 from djbot.celery import app
 from djbot.models.models import *
 
+
+# TODO : TEST
 # [ Example ]
 # @app.task
 # def say_hello():          # 실제 백그라운드에서 작업할 내용을 task 로 정의한다.
@@ -32,8 +35,17 @@ def register_calendar_notification():
             "title": "오늘 일정이 있어요!",
             "message": event['schedule_where'] + "에서 " + event['schedule_what'],
             "data": {
-                "a": "A",
-                "b": "B"
+                "status": "Success",
+                "result": {
+                    "node_type": 0,
+                    "id": event['account_id'],
+                    "chat_type": 3,
+                    "time": (int(time.time() * 1000)),
+                    "img_url": [],
+                    "content": ["오늘은 일정이 있는 날이네!",
+                                event['schedule_where'] + "에서 " + event['schedule_what'],
+                                "오늘도 화이팅!"]
+                }
             }
 
         }
@@ -53,14 +65,11 @@ def register_calendar_question():
 
     for event in events:
         account = Account.query.filter(Account.id == event['account_id'])
+        data = danbee.message("일정 후기")
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",
             "message": event['schedule_where'] + "에서 " + event['schedule_what'],
-            "data":{
-                "a": "A",
-                "b": "B"
-            }
-
+            "data": data
         }
         send_fcm_message(account['ask_time'], event['account_id'], param)
         # TODO : review update

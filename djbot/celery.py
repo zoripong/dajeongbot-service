@@ -30,5 +30,6 @@ app.conf.update(
             'task': 'djbot.tasks.register_calendar_question',
             'schedule': crontab(minute='*/1'),
         },
+
     }
 )

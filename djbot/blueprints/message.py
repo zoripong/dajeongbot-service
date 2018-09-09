@@ -48,10 +48,17 @@ def add_message_for_new_user(account_id):
 def reply_message(content):
     current = datetime.datetime.now()
     # 챗봇
-    reply = danbee.message(content['content'], content['response'])
+    reply = danbee.message_with_response(content['content'], content['response'])
     reply_result = reply['responseSet']['result']['result']
 
     for result in reply_result:
+        img_url = result['imgRoute']
+        if img_url is not None and img_url != "":
+            chat = Chat(account_id=content['account_id'], content=img_url, node_type=NODE_TYPE['img'],
+                        chat_type=content['chat_type'],
+                        time=str(int(time.time() * 1000)), isBot=1)
+            db.session.add(chat)
+
         bot_message = result['message']
         node_type = result['nodeType']
 

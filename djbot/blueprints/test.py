@@ -80,7 +80,6 @@ def notification():
             'b': 'B'
         }
     }
-
     push_service.notify_single_device(registration_id='dJMmP1X7zfY:APA91bGB_MWAy1T02JjlWRoufOeZRMr_ulphTdNrFZ31WsXjDjBKtsQaU6h6zJWeolDjhGlu_9oCxoYQHwNqkYIirU493BRczsKQ2rmBodyXZUpGZzBsGuQkzrKAyl6mBgpfd5_77zya',
                                       data_message=data, content_available=True)
 

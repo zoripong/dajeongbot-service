@@ -1,6 +1,6 @@
 ﻿*.log
 config.py
-.idea/
+.idea/*
 *.pyc
 
 

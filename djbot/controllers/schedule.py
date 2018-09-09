@@ -27,6 +27,6 @@ def register_event(reply, content, id):
 
     event = Event(account_id=id, schedule_when=when, schedule_where=param['where'],
                   schedule_what=param['what'], assign_time=message_result[0]['timestamp'],
-                  detail=param['detail'])
+                  detail=param['detail_content'])
     db.session.add(event)
 

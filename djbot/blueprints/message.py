@@ -18,18 +18,24 @@ def add_messages():
     content = request.get_json(force=True)
 
     result = jsonify({"status": "Failed"})
+    select_idx = -1
+    if content['chat_type'] == 4:
+        select_idx = content['content'].split(':')[0]
+        content['content'] = content['content'].split('/')[1]
 
     chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
                 chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
     db.session.add(chat)
     db.session.commit()
 
+    print("채트 타입입니다. : ", content['chat_type'])
     # 챗봇이랑 대화 chat_type 으로 분류
     if content['chat_type'] == 0 or content['chat_type'] == 1:
         result = reply_message(content)
-
     elif content['chat_type'] == 2:
         result = reply_message_for_memory(content)
+    elif content['chat_type'] == 4:
+        result = reply_message_for_review(content, select_idx)
 
     return result
 
@@ -62,40 +68,24 @@ def reply_message(content):
         bot_message = result['message']
         node_type = result['nodeType']
 
+        if reply['responseSet']['result']['ins_id'] == "" \
+                and reply['responseSet']['result']['ref_intent_id'] == "":
+            result_json = {
+                "status": "Intent is not Found",
+            }
+
         # TODO remove!
         if bot_message == "그래! 좋은 시간 되었으면 좋겠다.":
             register_event(reply, result, content['account_id'])
-
-        print(content['account_id'])
-
-        # node type
-        # speak=0 slot=flaskapp.service carousel=2
-        chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type], chat_type=content['chat_type'],
-                    time=str(int(time.time() * 1000)), isBot=1)
-        db.session.add(chat)
-
-    if reply['responseSet']['result']['ins_id'] == "" \
-            and reply['responseSet']['result']['ref_intent_id'] == "":
-        result = {
-            "status": "Intent is not Found",
-        }
-    else:
-        # TODO : TEST
-        # 일정 등록
-        # node_id가 SpeakNode_1533084803517에서 Event 저장
-        print("야호",reply['responseSet']['result']['node_id'])
-
-        if reply['responseSet']['result']['node_id'] == "SpeakNode_1533084803517":
-            register_event(reply, result)
-        elif reply['responseSet']['result']['node_id'] == "SpeakNode_1533088132355":
-            # TODO: 지난 추억 가져오기
-            num_date = reply['responseSet']['result']['parameters']['date']
+        elif bot_message == "잠시만요! 그때 무슨 일이 있었더라..":
+            node_type = 'carousel'
+            num_date = int(reply['responseSet']['result']['parameters']['date'])
             if num_date < 0:
                 when = current + datetime.timedelta(days=num_date)
-                events = Event.query.filter(Event.account_id == content['account_id'], Event.schedule_when == when)\
-                    .order_by(Event.id)
+                events = Event.query.filter(Event.account_id == content['account_id'], Event.schedule_when == when) \
+                    .order_by(Event.id).all()
 
-                json_events = jsonify([{
+                json_events = [{
                     "id": event.id,
                     "schedule_when": event.schedule_when,
                     "schedule_where": event.schedule_where,
@@ -103,11 +93,21 @@ def reply_message(content):
                     "assign_time": event.assign_time,
                     "detail": event.detail,
                     "review": event.review
-                } for event in events])
+                } for event in events]
 
-                if len(json_events) == 0:
+                json_events = []
+                for event in events:
+                    json_events.append({
+                        "id": event.id,
+                        "event_detail": event.schedule_where+"에서 "+event.schedule_what,
+                        "event_image": "",
+                        "detail": event.detail,
+                        "review": event.review
+                    })
+
+                if len(events) == 0:
                     # TODO db 저장
-                    result = {
+                    result_json = {
                         "status": "Success",
                         "result": {
                             "id": content['account_id'],
@@ -115,28 +115,37 @@ def reply_message(content):
                             "chat_type": content['chat_type'],
                             "time": str(int(time.time() * 1000)),
                             "img_url": [],
-                            "content": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
+                            "contents": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
                             "events": json_events
                         }
 
                     }
-                result = {
-                    "status": "Success",
-                    "result": {
-                        "id": content['account_id'],
-                        "node_type": 2,
-                        "chat_type": 1,
-                        "time": str(int(time.time() * 1000)),
-                        "img_url": [],
-                        "content": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
-                        "events": json_events
+                else:
+                    result_json = {
+                        "status": "Success",
+                        "result": {
+                            "id": content['account_id'],
+                            "node_type": 2,
+                            "chat_type": 1,
+                            "time": str(int(time.time() * 1000)),
+                            "img_url": [],
+                            "contents": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
+                            "events": json_events
+                        }
                     }
-                }
+                print(type(result_json))
+        else:
+            result_json = reply
+        # node type
+        # speak=0 slot=1 carousel=2
+        chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type],
+                    chat_type=content['chat_type'], time=str(int(time.time() * 1000)), isBot=1)
+        db.session.add(chat)
 
-        result = reply
     db.session.commit()
-# print(result)
-    return jsonify(result)
+    print("리턴 결과")
+    print(result_json)
+    return jsonify(result_json)
 
 
 # 추억회상 답장을 주는 로직
@@ -176,7 +185,7 @@ def reply_message_for_memory(content):
 
         result = {
             "status": "Success",
-            "result" :{
+            "result":{
                 "id": content['account_id'],
                 "node_type": 2,
                 "chat_type": content['chat_type'],
@@ -190,6 +199,14 @@ def reply_message_for_memory(content):
     return jsonify(result)
 
 
+def reply_message_for_review(content, select_idx):
+    # TODO : make them
+    return jsonify({
+        "content" : content,
+        "select_idx" : select_idx
+    })
+
+    
 @bp.route('/<int:res_account_id>')
 def get_messages(res_account_id):
     # 사용자가 메세지 내역을 요청함
@@ -197,10 +214,11 @@ def get_messages(res_account_id):
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
-        "node_type": 0,                         # 모든 이전의 대화를 speak 로 바꿈..
+        "node_type": chat.node_type,                         # 모든 이전의 대화를 speak 로 바꿈..
         "chat_type": chat.chat_type,
         "time": chat.time,
-        "isBot": chat.isBot
+        "isBot": chat.isBot,
+        "carousel_list": chat.carousel_list
     }for chat in chats])
 
 
@@ -215,5 +233,6 @@ def get_more_messages(res_account_id, last_index):
         "node_type": chat.node_type,
         "chat_type": chat.chat_type,
         "time": chat.time,
-        "isBot": chat.isBot
+        "isBot": chat.isBot,
+        "carousel_list": chat.carousel_list
     }for chat in chats])

@@ -43,7 +43,7 @@ class Chat(db.Model):
     chat_type = db.Column(db.Integer, nullable=False)
     time = db.Column(db.String, nullable=False)
     isBot = db.Column(db.Integer, nullable=False)
-
+    carousel_list = db.Column(db.String)
     # account = db.relationship('Account', primaryjoin='Chat.account_id == Account.id', backref='chats')
 
 
@@ -58,7 +58,8 @@ class Event(db.Model):
     assign_time = db.Column(db.String, nullable=False)
     detail = db.Column(db.String)
     review = db.Column(db.String)
-    send = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    notification_send = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
+    question_send = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
     # account = db.relationship('Account', primaryjoin='Event.account_id == Account.id', backref='events')
 
 

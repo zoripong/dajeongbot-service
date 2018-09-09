@@ -98,9 +98,6 @@ def send_fcm_message(event, check_time, account_id, chat_type, contents, param):
         for token in tokens:
             # send the fcm notification
             push_service.notify_single_device(registration_id=token['token'], data_message=param, content_available=True)
-<<<<<<< HEAD
-=======
 
         event.send = 1
         db.session.commit()
->>>>>>> 739c76ca11c02a9b28bb626a1feffe67879b61b8

@@ -1,4 +1,4 @@
-Exception on /users/signup [POST]
+Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
     context)
@@ -16,7 +16,7 @@ Traceback (most recent call last):
     db.query(q)
   File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
     _mysql.connection.query(self, query)
-_mysql_exceptions.OperationalError: (1292, "Incorrect date value: '-0-0' for column 'birthday' at row 1")
+_mysql_exceptions.OperationalError: (1048, "Column 'send' cannot be null")
 
 The above exception was the direct cause of the following exception:
 
@@ -33,7 +33,9 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/user.py", line 92, in signup
+  File "./djbot/blueprints/message.py", line 29, in add_messages
+    result = reply_message(content)
+  File "./djbot/blueprints/message.py", line 130, in reply_message
     db.session.commit()
   File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/scoping.py", line 153, in do
     return getattr(self.registry(), name)(*args, **kwargs)
@@ -91,4 +93,4 @@ Traceback (most recent call last):
     db.query(q)
   File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
     _mysql.connection.query(self, query)
-sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1292, "Incorrect date value: '-0-0' for column 'birthday' at row 1") [SQL: 'INSERT INTO account (user_id, name, birthday, account_type, bot_type) VALUES (%s, %s, %s, %s, %s)'] [parameters: ('', 'yuri', '-0-0', 1, 1)] (Background on this error at: http://sqlalche.me/e/e3q8)
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1048, "Column 'send' cannot be null") [SQL: 'INSERT INTO event (account_id, schedule_when, schedule_where, schedule_what, assign_time, detail, review, send) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'] [parameters: (32, '2018-09-08', '집', '코딩', 1536252993659, '응', None, None)] (Background on this error at: http://sqlalche.me/e/e3q8)

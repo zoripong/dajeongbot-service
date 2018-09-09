@@ -29,6 +29,6 @@ app.conf.update(
         'ask-every-minutes': {
             'task': 'djbot.tasks.register_calendar_question',
             'schedule': crontab(minute='*/1'),
-        }
+        },
     }
 )

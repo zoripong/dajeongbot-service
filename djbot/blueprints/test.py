@@ -1,7 +1,9 @@
 import datetime
 
 from flask import Blueprint, request, jsonify
+from pyfcm import FCMNotification
 
+import config
 from djbot.controllers import schedule
 from djbot.models.models import *
 
@@ -51,6 +53,7 @@ def json22():
     print(content)
     return jsonify(content)
 
+
 @bp.route("/none")
 def is_none():
     today = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -66,4 +69,20 @@ def is_none():
     } for event in events])
 
 
+@bp.route('/nofications')
+def notification():
+    push_service = FCMNotification(api_key=config.FCM_API)
+    data = {
+        'title': '야호',
+        'body':  '제목입니다.',
+        'data': {
+            'a': 'A',
+            'b': 'B'
+        }
+    }
+
+    push_service.notify_single_device(registration_id='dJMmP1X7zfY:APA91bGB_MWAy1T02JjlWRoufOeZRMr_ulphTdNrFZ31WsXjDjBKtsQaU6h6zJWeolDjhGlu_9oCxoYQHwNqkYIirU493BRczsKQ2rmBodyXZUpGZzBsGuQkzrKAyl6mBgpfd5_77zya',
+                                      data_message=data, content_available=True)
+
+    return jsonify(data)
 

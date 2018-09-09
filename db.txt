@@ -57,7 +57,9 @@ CREATE TABLE event(
     PRIMARY KEY (id),
     FOREIGN KEY (account_id) REFERENCES account(id)
 )DEFAULT CHARSET=utf8;
-alter table event add send int(1) not null default '0';
+alter table event add notification_send int(1) not null default '0';
+alter table event add question_send int(1) not null default '0';
+
 
 
 CREATE TABLE chat(
@@ -71,6 +73,8 @@ CREATE TABLE chat(
     PRIMARY KEY (id),
     FOREIGN KEY (account_id) REFERENCES account(id)
 )DEFAULT CHARSET=utf8;
+
+alter table chat add carousel_list TEXT(65535);
 
 # db 구조 추출
 flask-sqlacodegen "mysql://[id]:[password]@[IP address]/[DB]" --flask > models.py

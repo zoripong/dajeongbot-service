@@ -1,94 +1,130 @@
-Exception on /users/signup [POST]
+Exception on /messages/ [POST]
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
-    context)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/default.py", line 509, in do_execute
-    cursor.execute(statement, parameters)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 250, in execute
-    self.errorhandler(self, exc, value)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 50, in defaulterrorhandler
-    raise errorvalue
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 247, in execute
-    res = self._query(query)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 411, in _query
-    rowcount = self._do_query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 374, in _do_query
-    db.query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
-    _mysql.connection.query(self, query)
-_mysql_exceptions.OperationalError: (1292, "Incorrect date value: '-0-0' for column 'birthday' at row 1")
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/user.py", line 92, in signup
-    db.session.commit()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/scoping.py", line 153, in do
-    return getattr(self.registry(), name)(*args, **kwargs)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 943, in commit
-    self.transaction.commit()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 467, in commit
-    self._prepare_impl()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 447, in _prepare_impl
-    self.session.flush()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 2254, in flush
-    self._flush(objects)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 2380, in _flush
-    transaction.rollback(_capture_exception=True)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
-    compat.reraise(exc_type, exc_value, exc_tb)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 249, in reraise
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 128, in reply_message
+    return jsonify(result_json)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 321, in jsonify
+    dumps(data, indent=indent, separators=separators) + '\n',
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 179, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\__init__.py", line 237, in dumps
+    **kw).encode(obj)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 198, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 256, in iterencode
+    return _iterencode(o, 0)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 81, in default
+    return _json.JSONEncoder.default(self, o)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 179, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <Response 3 bytes [200 OK]> is not JSON serializable
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 2344, in _flush
-    flush_context.execute()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/unitofwork.py", line 391, in execute
-    rec.execute(self)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/unitofwork.py", line 556, in execute
-    uow
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
-    mapper, table, insert)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/persistence.py", line 866, in _emit_insert_statements
-    execute(statement, params)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 948, in execute
-    return meth(self, multiparams, params)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/sql/elements.py", line 269, in _execute_on_connection
-    return connection._execute_clauseelement(self, multiparams, params)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1060, in _execute_clauseelement
-    compiled_sql, distilled_params
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1200, in _execute_context
-    context)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1413, in _handle_dbapi_exception
-    exc_info
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
-    reraise(type(exception), exception, tb=exc_tb, cause=cause)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 248, in reraise
-    raise value.with_traceback(tb)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
-    context)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/default.py", line 509, in do_execute
-    cursor.execute(statement, parameters)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 250, in execute
-    self.errorhandler(self, exc, value)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 50, in defaulterrorhandler
-    raise errorvalue
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 247, in execute
-    res = self._query(query)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 411, in _query
-    rowcount = self._do_query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 374, in _do_query
-    db.query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
-    _mysql.connection.query(self, query)
-sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1292, "Incorrect date value: '-0-0' for column 'birthday' at row 1") [SQL: 'INSERT INTO account (user_id, name, birthday, account_type, bot_type) VALUES (%s, %s, %s, %s, %s)'] [parameters: ('', 'yuri', '-0-0', 1, 1)] (Background on this error at: http://sqlalche.me/e/e3q8)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 129, in reply_message
+    return jsonify(result_json)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 321, in jsonify
+    dumps(data, indent=indent, separators=separators) + '\n',
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 179, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\__init__.py", line 237, in dumps
+    **kw).encode(obj)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 198, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 256, in iterencode
+    return _iterencode(o, 0)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 81, in default
+    return _json.JSONEncoder.default(self, o)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 179, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <Response 3 bytes [200 OK]> is not JSON serializable
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 129, in reply_message
+    return jsonify(result_json)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 321, in jsonify
+    dumps(data, indent=indent, separators=separators) + '\n',
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 179, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\__init__.py", line 237, in dumps
+    **kw).encode(obj)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 198, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 256, in iterencode
+    return _iterencode(o, 0)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\json\__init__.py", line 81, in default
+    return _json.JSONEncoder.default(self, o)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 179, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <Response 3 bytes [200 OK]> is not JSON serializable
+Exception on /notifications [GET]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\test.py", line 101, in notification
+    push_service.notify_single_device(registration_id=token, data_message=param, content_available=True)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\pyfcm\fcm.py", line 94, in notify_single_device
+    **extra_kwargs)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\pyfcm\baseapi.py", line 203, in parse_payload
+    return self.json_dumps(fcm_payload)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\pyfcm\baseapi.py", line 71, in json_dumps
+    return (json.dumps(data, separators=(',', ':'), sort_keys=True, cls=self.json_encoder)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\__init__.py", line 237, in dumps
+    **kw).encode(obj)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 198, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 256, in iterencode
+    return _iterencode(o, 0)
+  File "c:\users\hanyuri\appdata\local\programs\python\python35\Lib\json\encoder.py", line 179, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <Event 16> is not JSON serializable

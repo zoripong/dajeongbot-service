@@ -31,14 +31,10 @@ def register_calendar_notification():
     for event in events:
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         account = Account.query.filter(Account.id == event['account_id'])
+
         contents = ["오늘은 일정이 있는 날이네!",
                     event['schedule_where'] + "에서 " + event['schedule_what'],
                     "오늘도 화이팅!"]
-        for content in contents:
-            chat = Chat(account_id=event['account_id'], content=content, node_type=0,
-                        chat_type=3, time=str(int(time.time() * 1000)), isBot=1)
-            db.session.add(chat)
-        db.session.commit()
         param = {
             "title": "오늘 일정이 있어요!",
             "message": event['schedule_where'] + "에서 " + event['schedule_what'],
@@ -56,7 +52,7 @@ def register_calendar_notification():
 
         }
 
-        send_fcm_message(account['notify_time'], event['account_id'], param)
+        send_fcm_message(account['notify_time'], event['account_id'], 3, contents, param)
         # 해당 일정에 대해 안내 하였음을 업데이트 함
         event.send = 1
     db.session.commit()
@@ -71,32 +67,36 @@ def register_calendar_question():
 
     for event in events:
         account = Account.query.filter(Account.id == event['account_id'])
+
+        # danbee.ai 에 request
         data = danbee.message("일정 후기")
         result_array = data['responseSet']['result']['result']
-        for result in result_array:
-            chat = Chat(account_id=event['account_id'], content=result['message'], node_type=0,
-                        chat_type=4, time=str(int(time.time() * 1000)), isBot=1)
-            db.session.add(chat)
-        db.session.commit()
 
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",
             "message": event['schedule_where'] + "에서 " + event['schedule_what'],
             "data": data
         }
-        send_fcm_message(account['ask_time'], event['account_id'], param)
+
+        send_fcm_message(account['ask_time'], event['account_id'], 4, result_array, param)
         # TODO : review update
 
 
 # 시간을 비교하여 사용자의 기기에 fcm 알림을 보냅니다.
 # param : 비교 시간, 계정 식별번호, 알림 제목, 알림 내용
-def send_fcm_message(check_time, account_id, param):
+def send_fcm_message(check_time, account_id, chat_type, contents, param):
 
     user_datetime_object = time.strptime(check_time, '%H:%M')
     user_time = datetime.time(user_datetime_object[3], user_datetime_object[4]).strftime("%H:%M")
     now_time = datetime.datetime.now().strftime("%H:%M")
 
     if now_time > user_time:
+        for content in contents:
+            chat = Chat(account_id=account_id, content=content, node_type=0,
+                        chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1)
+            db.session.add(chat)
+        db.session.commit()
+
         tokens = FcmToken.query.filter(FcmToken.account_id == account_id).all
         for token in tokens:
             # send the fcm notification

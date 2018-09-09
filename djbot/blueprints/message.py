@@ -52,6 +52,13 @@ def reply_message(content):
     reply_result = reply['responseSet']['result']['result']
 
     for result in reply_result:
+        img_url = result['imgRoute']
+        if img_url is not None and img_url != "":
+            chat = Chat(account_id=content['account_id'], content=img_url, node_type=NODE_TYPE['img'],
+                        chat_type=content['chat_type'],
+                        time=str(int(time.time() * 1000)), isBot=1)
+            db.session.add(chat)
+
         bot_message = result['message']
         node_type = result['nodeType']
 

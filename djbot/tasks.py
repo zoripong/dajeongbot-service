@@ -94,7 +94,7 @@ def register_calendar_question():
                 "result": {
                     "id": account['id'],
                     "node_type": 2,
-                    "chat_type": 4 ,
+                    "chat_type": 5,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
                     "content": content,
@@ -104,7 +104,7 @@ def register_calendar_question():
         }
 
         # 해당 일정에 대해 안내 하였음을 업데이트 함
-        if send_fcm_message(account['ask_time'], account['id'], 4, content, param):
+        if send_fcm_message(account['ask_time'], account['id'], 5, content, param):
             for event in events:
                 event.question_send = 1
     db.session.commit()

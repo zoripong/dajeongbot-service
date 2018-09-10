@@ -104,7 +104,7 @@ def notification():
             "result": {
                 "id": 32,
                 "node_type": 2,
-                "chat_type": 4,
+                "chat_type": 5,
                 "time": str(int(time.time() * 1000)),
                 "img_url": [],
                 "content": contents,

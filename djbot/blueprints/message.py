@@ -36,9 +36,9 @@ def add_messages():
     elif content['chat_type'] == 2:
         result = reply_message_for_memory(content)
     elif content['chat_type'] == 4:
-            result = reply_message_for_select_review(content, contents[0])
+        result = reply_message_for_select_review(content, contents['response']['select_idx'])
     elif content['chat_type'] == 5:
-            result = reply_message_for_reply_review(content, contents[0])
+        result = reply_message_for_reply_review(content, contents['response']['select_idx'])
 
     return result
 
@@ -213,7 +213,7 @@ def reply_message_for_select_review(content, select_idx):
             "status": "Success",
             "result": {
                 "id": content['account_id'],
-                "node_type": 2,
+                "node_type": 0,
                 "chat_type": 0,
                 "time": now,
                 "img_url": [],
@@ -243,7 +243,7 @@ def reply_message_for_select_review(content, select_idx):
             "status": "Success",
             "result": {
                 "id": content['account_id'],
-                "node_type": 2,
+                "node_type": 0,
                 "chat_type": content['chat_type'],  # 4
                 "time": now,
                 "img_url": [],
@@ -272,37 +272,51 @@ def reply_message_for_reply_review(content, select_idx):
         .filter(Event.review.is_(None), Event.schedule_when == today, Event.account_id == content['account_id']) \
         .order_by(Event.id).all()
 
-    event_json = []
-    for event in events:
-        event_json.append({
-            "id": event['id'],
-            "account_id": event['account_id'],
-            "schedule_when": event['schedule_when'],
-            "schedule_where": event['schedule_where'],
-            "schedule_what": event['schedule_what'],
-            "assign_time": event['assign_time'],
-            "detail": event['detail'],
-            "review": event['review'],
-            "notification_send": event['notification_send'],
-            "question_send": event['question_send']
-        })
+    if len(events) > 0:
+        event_json = []
+        for event in events:
+            event_json.append({
+                "id": event['id'],
+                "account_id": event['account_id'],
+                "schedule_when": event['schedule_when'],
+                "schedule_where": event['schedule_where'],
+                "schedule_what": event['schedule_what'],
+                "assign_time": event['assign_time'],
+                "detail": event['detail'],
+                "review": event['review'],
+                "notification_send": event['notification_send'],
+                "question_send": event['question_send']
+            })
 
-    content = ["또 들려줄 이야기가 있니?"]
-    result = {
-        "status": "Success",
-        "result": {
-            "id": content['account_id'],
-            "node_type": 2,
-            "chat_type": content['chat_type'], # 5
-            "time": now,
-            "img_url": [],
-            "content": content,
-            "events": event_json
+        content = ["또 들려줄 이야기가 있니?"]
+        result = {
+            "status": "Success",
+            "result": {
+                "id": content['account_id'],
+                "node_type": 2,
+                "chat_type": content['chat_type'], # 5
+                "time": now,
+                "img_url": [],
+                "content": content,
+                "events": event_json
+            }
         }
-    }
+    else:
+        messages = ["이제 오늘 이야기가 끝이네!", "고생 많았어~"]
+        result = {
+            "status": "Success",
+            "result": {
+                "id": content['account_id'],
+                "node_type": 0,
+                "chat_type": 0,
+                "time": now,
+                "img_url": [],
+                "content": messages,
+                "events": []
+            }
+        }
 
     insert_message_multiple(content['account_id'], content=result['result'], timestamp=now)
-
     return jsonify(result)
 
 

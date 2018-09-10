@@ -31,14 +31,18 @@ def add_messages():
 
     print("채트 타입입니다. : ", content['chat_type'])
     # 챗봇이랑 대화 chat_type 으로 분류
-    if content['chat_type'] == 0 or content['chat_type'] == 1:
+    try:
+        if content['chat_type'] == 0 or content['chat_type'] == 1:
+            result = reply_message(content)
+        elif content['chat_type'] == 2:
+            result = reply_message_for_memory(content)
+        elif content['chat_type'] == 4:
+            result = reply_message_for_select_review(content, contents['response']['select_idx'])
+        elif content['chat_type'] == 5:
+            result = reply_message_for_reply_review(content, contents['response']['select_idx'])
+    except TypeError:
+        print("?")
         result = reply_message(content)
-    elif content['chat_type'] == 2:
-        result = reply_message_for_memory(content)
-    elif content['chat_type'] == 4:
-        result = reply_message_for_select_review(content, contents['response']['select_idx'])
-    elif content['chat_type'] == 5:
-        result = reply_message_for_reply_review(content, contents['response']['select_idx'])
 
     return result
 
@@ -85,17 +89,6 @@ def reply_message(content):
                 when = current + datetime.timedelta(days=num_date)
                 events = Event.query.filter(Event.account_id == content['account_id'], Event.schedule_when == when) \
                     .order_by(Event.id).all()
-
-                json_events = [{
-                    "id": event.id,
-                    "schedule_when": event.schedule_when,
-                    "schedule_where": event.schedule_where,
-                    "schedule_what": event.schedule_what,
-                    "assign_time": event.assign_time,
-                    "detail": event.detail,
-                    "review": event.review
-                } for event in events]
-
                 json_events = []
                 for event in events:
                     json_events.append({
@@ -105,8 +98,7 @@ def reply_message(content):
                         "detail": event.detail,
                         "review": event.review
                     })
-
-                if len(events) == 0:
+                if len(json_events) == 0:
                     # TODO db 저장
                     result_json = {
                         "status": "Success",
@@ -116,7 +108,7 @@ def reply_message(content):
                             "chat_type": content['chat_type'],
                             "time": str(int(time.time() * 1000)),
                             "img_url": [],
-                            "content": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
+                            "content": ["잠시만요! 그때 무슨 일이 있었더라..", "그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
                             "events": json_events
                         }
 
@@ -130,18 +122,20 @@ def reply_message(content):
                             "chat_type": 1,
                             "time": str(int(time.time() * 1000)),
                             "img_url": [],
-                            "content": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
+                            "content": ["잠시만요! 그때 무슨 일이 있었더라..", "일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
                             "events": json_events
                         }
                     }
                 print(type(result_json))
+                insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
         else:
             result_json = reply
         # node type
         # speak=0 slot=1 carousel=2
-        chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type],
-                    chat_type=content['chat_type'], time=str(int(time.time() * 1000)), isBot=1)
-        db.session.add(chat)
+        if bot_message != "잠시만요! 그때 무슨 일이 있었더라..":
+            chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type],
+                        chat_type=content['chat_type'], time=str(int(time.time() * 1000)), isBot=1)
+            db.session.add(chat)
 
     db.session.commit()
     print("리턴 결과")
@@ -326,7 +320,7 @@ def insert_message_multiple(account_id, content, timestamp):
 
 
 def insert_messages_single(account_id, message, node_tye, chat_type, timestamp):
-    chat = Chat(account_id=account_id, content=message, node_tye=node_tye, chat_type=chat_type, time=timestamp, isBot=1)
+    chat = Chat(account_id=account_id, content=message, node_type=node_tye, chat_type=chat_type, time=timestamp, isBot=1)
     db.session.add(chat)
     db.session.commit()
 

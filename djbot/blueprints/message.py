@@ -48,7 +48,7 @@ def add_message_for_new_user(account_id):
     # TODO : 캐릭터 컨셉으로 변환
     content = '반가워요 무엇을 도와드릴까요?'
 
-    chat = Chat(account_id=account_id, content=content, node_tyoe=0, chat_type=0, time=str(ts), isBot=1)
+    chat = Chat(account_id=account_id, content=content, node_type=0, chat_type=0, time=str(ts), isBot=1)
     db.session.add(chat)
     db.session.commit()
 

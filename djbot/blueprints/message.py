@@ -18,10 +18,11 @@ def add_messages():
     content = request.get_json(force=True)
 
     result = jsonify({"status": "Failed"})
-    select_idx = -1
-    if content['chat_type'] == 4:
-        select_idx = content['content'].split(':')[0]
-        content['content'] = content['content'].split('/')[1]
+
+    contents = content['content'].split(':')
+    if content['chat_type'] == 4 or content['chat_type'] == 5:
+        if len(contents) == 2:
+            content['content'] = contents[1]
 
     chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
                 chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
@@ -35,7 +36,9 @@ def add_messages():
     elif content['chat_type'] == 2:
         result = reply_message_for_memory(content)
     elif content['chat_type'] == 4:
-        result = reply_message_for_review(content, select_idx)
+        result = reply_message_for_select_review(content, contents['response']['select_idx'])
+    elif content['chat_type'] == 5:
+        result = reply_message_for_reply_review(content, contents['response']['select_idx'])
 
     return result
 
@@ -45,7 +48,7 @@ def add_message_for_new_user(account_id):
     # TODO : 캐릭터 컨셉으로 변환
     content = '반가워요 무엇을 도와드릴까요?'
 
-    chat = Chat(account_id=account_id, content=content, chat_type=0, time=str(ts), isBot=1)
+    chat = Chat(account_id=account_id, content=content, node_tyoe=0, chat_type=0, time=str(ts), isBot=1)
     db.session.add(chat)
     db.session.commit()
 
@@ -74,7 +77,6 @@ def reply_message(content):
                 "status": "Intent is not Found",
             }
 
-        # TODO remove!
         if bot_message == "그래! 좋은 시간 되었으면 좋겠다.":
             register_event(reply, result, content['account_id'])
         elif bot_message == "잠시만요! 그때 무슨 일이 있었더라..":
@@ -115,7 +117,7 @@ def reply_message(content):
                             "chat_type": content['chat_type'],
                             "time": str(int(time.time() * 1000)),
                             "img_url": [],
-                            "contents": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
+                            "content": ["그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
                             "events": json_events
                         }
 
@@ -129,7 +131,7 @@ def reply_message(content):
                             "chat_type": 1,
                             "time": str(int(time.time() * 1000)),
                             "img_url": [],
-                            "contents": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
+                            "content": ["일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
                             "events": json_events
                         }
                     }
@@ -199,12 +201,135 @@ def reply_message_for_memory(content):
     return jsonify(result)
 
 
-def reply_message_for_review(content, select_idx):
-    # TODO : make them
-    return jsonify({
-        "content" : content,
-        "select_idx" : select_idx
-    })
+# 일정등록 답장을 주는 로직
+# 후기를 남길 이벤트를 선택함 -> 질문을 해줌
+def reply_message_for_select_review(content, select_idx):
+    now = str(int(time.time() * 1000))
+    result = {}
+    if select_idx == -1:
+        # 이제 그만 등록하겠습니당
+        messages = ["오늘도 고생 많았어~"]
+        result = {
+            "status": "Success",
+            "result": {
+                "id": content['account_id'],
+                "node_type": 0,
+                "chat_type": 0,
+                "time": now,
+                "img_url": [],
+                "content": messages,
+                "events": []
+            }
+        }
+    else:
+        # 이벤트 가져오기
+        event = Event.query.filter(Event.event_id == select_idx)
+        event_json = [{
+            "id": event['id'],
+            "account_id": event['account_id'],
+            "schedule_when": event['schedule_when'],
+            "schedule_where": event['schedule_where'],
+            "schedule_what": event['schedule_what'],
+            "assign_time": event['assign_time'],
+            "detail": event['detail'],
+            "review": event['review'],
+            "notification_send": event['notification_send'],
+            "question_send": event['question_send']
+        }]
+
+        messages = [event.schedule_where+"에서 "+event.schedule_what, "이건 오늘 어땠니"]
+        # 이벤트 내용 보내주기
+        result = {
+            "status": "Success",
+            "result": {
+                "id": content['account_id'],
+                "node_type": 0,
+                "chat_type": content['chat_type'],  # 4
+                "time": now,
+                "img_url": [],
+                "content": messages,
+                "events": event_json
+            }
+        }
+
+    insert_message_multiple(content['account_id'], content=result['result'], timestamp=now)
+
+    return jsonify(result)
+
+
+# 일정등록 답장을 주는 로직
+# 후기를 남김 -> 더 물어볼지 이벤트 리스트를 넘김
+def reply_message_for_reply_review(content, select_idx):
+    now = str(int(time.time() * 1000))
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+
+    # 이벤트 후기 db 업데이트
+    select_event = Event.query.filter(Event.id == select_idx)
+    select_event.review = content['content']
+    db.session.commit()
+
+    # 이벤트 리스트를 넘김
+    events = Event.query \
+        .filter(Event.review.is_(None), Event.schedule_when == today, Event.account_id == content['account_id']) \
+        .order_by(Event.id).all()
+
+    if len(events) > 0:
+        event_json = []
+        for event in events:
+            event_json.append({
+                "id": event['id'],
+                "account_id": event['account_id'],
+                "schedule_when": event['schedule_when'],
+                "schedule_where": event['schedule_where'],
+                "schedule_what": event['schedule_what'],
+                "assign_time": event['assign_time'],
+                "detail": event['detail'],
+                "review": event['review'],
+                "notification_send": event['notification_send'],
+                "question_send": event['question_send']
+            })
+
+        content = ["또 들려줄 이야기가 있니?"]
+        result = {
+            "status": "Success",
+            "result": {
+                "id": content['account_id'],
+                "node_type": 2,
+                "chat_type": content['chat_type'], # 5
+                "time": now,
+                "img_url": [],
+                "content": content,
+                "events": event_json
+            }
+        }
+    else:
+        messages = ["이제 오늘 이야기가 끝이네!", "고생 많았어~"]
+        result = {
+            "status": "Success",
+            "result": {
+                "id": content['account_id'],
+                "node_type": 0,
+                "chat_type": 0,
+                "time": now,
+                "img_url": [],
+                "content": messages,
+                "events": []
+            }
+        }
+
+    insert_message_multiple(content['account_id'], content=result['result'], timestamp=now)
+    return jsonify(result)
+
+
+def insert_message_multiple(account_id, content, timestamp):
+    for message in content['content']:
+        insert_messages_single(account_id, message, content['node_type'], content['chat_type'], timestamp)
+
+
+def insert_messages_single(account_id, message, node_tye, chat_type, timestamp):
+    chat = Chat(account_id=account_id, content=message, node_tye=node_tye, chat_type=chat_type, time=timestamp, isBot=1)
+    db.session.add(chat)
+    db.session.commit()
 
 
 @bp.route('/<int:res_account_id>')

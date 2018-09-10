@@ -206,7 +206,7 @@ def reply_message_for_review(content, select_idx):
         "select_idx" : select_idx
     })
 
-    
+
 @bp.route('/<int:res_account_id>')
 def get_messages(res_account_id):
     # 사용자가 메세지 내역을 요청함

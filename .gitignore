@@ -1,5 +1,5 @@
 ﻿*.log
-*.log.1
+info.log.1
 config.py
 .idea/*
 *.pyc

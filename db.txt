@@ -75,6 +75,7 @@ CREATE TABLE chat(
 )DEFAULT CHARSET=utf8;
 
 alter table chat add carousel_list TEXT(65535);
+alter table chat add slot_list TEXT(65535);
 
 # db 구조 추출
 flask-sqlacodegen "mysql://[id]:[password]@[IP address]/[DB]" --flask > models.py

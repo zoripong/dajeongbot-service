@@ -337,7 +337,8 @@ def get_messages(res_account_id):
         "chat_type": chat.chat_type,
         "time": chat.time,
         "isBot": chat.isBot,
-        "carousel_list": chat.carousel_list
+        "carousel_list": chat.carousel_list,
+        "slot_list": chat.slot_list
     }for chat in chats])
 
 
@@ -353,5 +354,6 @@ def get_more_messages(res_account_id, last_index):
         "chat_type": chat.chat_type,
         "time": chat.time,
         "isBot": chat.isBot,
-        "carousel_list": chat.carousel_list
+        "carousel_list": chat.carousel_list,
+        "slot_list": chat.slot_list
     }for chat in chats])

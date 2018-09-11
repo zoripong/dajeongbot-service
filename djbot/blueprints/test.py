@@ -147,7 +147,7 @@ def ask():
                 "status": "Success",
                 "result": {
                     "id": account.id,
-                    "node_type": 2,
+                    "node_type": 1,
                     "chat_type": 5,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
@@ -181,9 +181,9 @@ def send_fcm_message(check_time, account_id, chat_type, contents, param):
                 db.session.add(chat)
         elif chat_type == 5:
             for content in contents:
-                chat = Chat(account_id=account_id, content=content, node_type=2,
+                chat = Chat(account_id=account_id, content=content, node_type=1,
                             chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1,
-                            carousel_list=str(param['data']['result']['events']))
+                            slot_list=str(param['data']['result']['events']))
                 db.session.add(chat)
 
         db.session.commit()

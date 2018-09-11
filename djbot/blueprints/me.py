@@ -1,6 +1,8 @@
 import json
 
 from flask import Blueprint, jsonify, request
+
+from djbot.controllers.data import delete_token, add_token
 from djbot.models.models import *
 
 bp = Blueprint('me', __name__, url_prefix='/me')
@@ -61,17 +63,3 @@ def release(account_id, fcm_token):
     }
     return json.dumps(result)
 
-
-# 토큰을 추가합니다.
-def add_token(account_id, token):
-    fcm_token = FcmToken(account_id=account_id, token=token)
-    db.session.add(fcm_token)
-    db.session.commit()
-
-
-# 토큰을 삭제합니다.
-def delete_token(account_id, token):
-    tokens = FcmToken.query.filter(FcmToken.account_id == account_id, FcmToken.token == token).all()
-    for token in tokens:
-        db.session.delete(token)
-    db.session.commit()

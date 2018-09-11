@@ -2,7 +2,7 @@ import json
 
 from flask import Blueprint, jsonify, request
 
-from djbot.blueprints.message import add_message_for_new_user
+from djbot.controllers.message import add_message_for_new_user
 from djbot.models.models import *
 
 bp = Blueprint('user', __name__, url_prefix='/users')

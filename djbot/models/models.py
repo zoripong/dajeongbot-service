@@ -73,3 +73,4 @@ class FcmToken(db.Model):
     token = db.Column(db.String(300), nullable=False)
 
     # account = db.relationship('Account', primaryjoin='FcmToken.account_id == Account.id', backref='fcm_tokens')
+

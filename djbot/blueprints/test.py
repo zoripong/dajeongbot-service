@@ -195,3 +195,4 @@ def send_fcm_message(check_time, account_id, chat_type, contents, param):
 
         return True
     return False
+

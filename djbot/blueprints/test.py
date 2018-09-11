@@ -17,7 +17,7 @@ def hello_world():
     # current = datetime.datetime.now()
     # tomorrow = current + datetime.timedelta(days=6)
     # print(tomorrow)
-    return 'hello world'
+    return jsonify({"status": "Success"})
 
 
 @bp.route("/register")

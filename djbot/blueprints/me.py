@@ -8,6 +8,63 @@ from djbot.models.models import *
 bp = Blueprint('me', __name__, url_prefix='/me')
 
 
+#   #   #   #   #   #
+#     사용자 정보     #
+#   #   #   #   #   #
+# 닉네임 변경
+@bp.route('/names', method=['PUT'])
+def update_name():
+    result = {
+        "status": "Failed"
+    }
+    content = json.loads(request.data.decode("utf-8"))
+    account = Account.query.filter(Account.id == content['account_id'])
+    account.name = content['new_name']
+    db.session.commit()
+
+    result = {
+        "status": "Success"
+    }
+    return json.dumps(result)
+
+
+# 챗봇 캐릭터 변경
+@bp.route('/bots', method=['PUT'])
+def update_bots():
+    result = {
+        "status": "Failed"
+    }
+    content = json.loads(request.data.decode("utf-8"))
+    account = Account.query.filter(Account.id == content['account_id'])
+    account.bot_type = content['new_bot_type']
+    db.session.commit()
+
+    result = {
+        "status": "Success"
+    }
+    return json.dumps(result)
+
+
+# 시간 변경
+@bp.route('/times', method=['PUT'])
+def update_times():
+    result = {
+        "status": "Failed"
+    }
+    content = json.loads(request.data.decode("utf-8"))
+    account = Account.query.filter(Account.id == content['account_id'])
+    account.notify_time = content['new_notify_time']
+    account.ask_time = content['new_ask_time']
+    db.session.commit()
+
+    result = {
+        "status": "Success"
+    }
+    return json.dumps(result)
+
+#   #   #   #   #   #
+#       토큰        #
+#   #   #   #   #   #
 # 새로운 토큰을 등록
 @bp.route('/tokens', methods=['POST'])
 def register():

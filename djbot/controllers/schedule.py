@@ -57,7 +57,7 @@ def reply_message_for_reply_review(content, select_idx):
                 "question_send": event['question_send']
             })
 
-        content = ["또 들려줄 이야기가 있니?"]
+        content = ["또 들려줄 이야기가 있니?"]  # schedule_message[0][bot_type]
         result = {
             "status": "Success",
             "result": {
@@ -71,7 +71,7 @@ def reply_message_for_reply_review(content, select_idx):
             }
         }
     else:
-        messages = ["이제 오늘 이야기가 끝이네!", "고생 많았어~"]
+        messages = ["이제 오늘 이야기가 끝이네!", "고생 많았어~"]  # schedule_message[1][bot_type]
         result = {
             "status": "Success",
             "result": {
@@ -96,7 +96,7 @@ def reply_message_for_select_review(content, select_idx):
     result = {}
     if select_idx == -1:
         # 이제 그만 등록하겠습니당
-        messages = ["오늘도 고생 많았어~"]
+        messages = ["오늘도 고생 많았어~"]  # schedule_message[2][bot_type]
         result = {
             "status": "Success",
             "result": {
@@ -125,6 +125,7 @@ def reply_message_for_select_review(content, select_idx):
             "question_send": event['question_send']
         }]
 
+        # TODO: make the def
         messages = [event.schedule_where+"에서 "+event.schedule_what, "이건 오늘 어땠니"]
         # 이벤트 내용 보내주기
         result = {

@@ -4,6 +4,7 @@ from djbot.models.models import *
 # DATABASE 컨트롤러 #
 #   #   #   #   #   #
 
+
 def insert_message_multiple(account_id, content, timestamp):
     for message in content['content']:
         insert_messages_single(account_id, message, content['node_type'], content['chat_type'], timestamp)

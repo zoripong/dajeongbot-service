@@ -27,8 +27,8 @@ def reply_message_for_memory(content):
                 "node_type": 0,
                 "chat_type": content['chat_type'],
                 "time": str(int(time.time() * 1000)),
-                "img_url":[],
-                "content": ["그래, 또 궁금한 거 있으면 물어봐!"],
+                "img_url": [],
+                "content": ["그래, 또 궁금한 거 있으면 물어봐!"], # memory_message[0][bot_type]
                 "events": []
             }
         }
@@ -37,6 +37,7 @@ def reply_message_for_memory(content):
         event = content['response']['events'][select_idx]
         message = []
 
+        # TODO: make def
         schedule = event['schedule_where'] + "에서 " + event['schedule_what']+"했었구나!"
         message.append(schedule)
 
@@ -44,7 +45,7 @@ def reply_message_for_memory(content):
             message.append("자세한 일정으로는 \""+event['detail']+"\"라고 말해줬어~")
 
         if event['review'] != 'null':
-            message.append("그리고 그 일정을 다녀온 너는 \""+event['review']+"\"라고 나에게 이야기 해주었어!")
+            message.append("그리고 그 일정을 한 후 너는 \""+event['review']+"\"라고 나에게 이야기 해주었어!")
 
         result = {
             "status": "Success",
@@ -53,7 +54,7 @@ def reply_message_for_memory(content):
                 "node_type": 2,
                 "chat_type": content['chat_type'],
                 "time": str(int(time.time() * 1000)),
-                "img_url":[],
+                "img_url": [],
                 "content": message,
                 "events": content['response']['events']
             }
@@ -89,6 +90,7 @@ def get_memory(reply, content, current):
                     "chat_type": content['chat_type'],
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
+                    # memory_message[1][bot_type]
                     "content": ["잠시만요! 그때 무슨 일이 있었더라..", "그 날 알려준 이야기가 없네.. ㅠㅠ!", "혹시 다른 날이 아닐까?"],
                     "events": json_events
                 }
@@ -103,6 +105,7 @@ def get_memory(reply, content, current):
                     "chat_type": 1,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
+                    # memory_message[2][bot_type]
                     "content": ["잠시만요! 그때 무슨 일이 있었더라..", "일정들은 이렇게 돼!", "궁금한 날을 골라봐!"],
                     "events": json_events
                 }

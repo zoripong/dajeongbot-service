@@ -147,7 +147,7 @@ def ask():
                 "status": "Success",
                 "result": {
                     "id": account.id,
-                    "node_type": 2,
+                    "node_type": 1,
                     "chat_type": 5,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
@@ -161,7 +161,8 @@ def ask():
         if send_fcm_message(account.ask_time, account.id, 5, content, param):
             for event in events:
                 event.question_send = 1
-        # db.session.commit()
+
+        db.session.commit()
     return jsonify({"result": "ok"})
 
 
@@ -173,12 +174,19 @@ def send_fcm_message(check_time, account_id, chat_type, contents, param):
     now_time = datetime.datetime.now().strftime("%H:%M")
 
     if now_time > user_time:
-        for content in contents:
-            chat = Chat(account_id=account_id, content=content, node_type=0,
-                        chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1)
-            db.session.add(chat)
-            db.session.commit()
+        if chat_type == 4:
+            for content in contents:
+                chat = Chat(account_id=account_id, content=content, node_type=0,
+                            chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1)
+                db.session.add(chat)
+        elif chat_type == 5:
+            for content in contents:
+                chat = Chat(account_id=account_id, content=content, node_type=1,
+                            chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1,
+                            slot_list=str(param['data']['result']['events']))
+                db.session.add(chat)
 
+        db.session.commit()
         tokens = FcmToken.query.filter(FcmToken.account_id == account_id).all()
         for token in tokens:
             # send the fcm notification

@@ -81,6 +81,7 @@ def reply_message(content):
             }
 
         if bot_message == "그래! 좋은 시간 되었으면 좋겠다.":
+            result_json = reply
             register_event(reply, result, content['account_id'])
         elif bot_message == "잠시만요! 그때 무슨 일이 있었더라..":
             node_type = 'carousel'

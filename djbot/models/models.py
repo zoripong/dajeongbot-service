@@ -44,6 +44,8 @@ class Chat(db.Model):
     time = db.Column(db.String, nullable=False)
     isBot = db.Column(db.Integer, nullable=False)
     carousel_list = db.Column(db.String)
+    slot_list = db.Column(db.String)
+
     # account = db.relationship('Account', primaryjoin='Chat.account_id == Account.id', backref='chats')
 
 

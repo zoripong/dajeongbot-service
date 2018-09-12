@@ -7,10 +7,12 @@ from pyfcm import FCMNotification
 
 import config
 from djbot.celery import app
+from djbot.controllers.tone import ask_review_message, convert_notification_message
 from djbot.models.models import *
 
 
 # TODO : TEST
+# TODO : convert the tone
 # [ Example ]
 # @app.task
 # def say_hello():          # 실제 백그라운드에서 작업할 내용을 task 로 정의한다.
@@ -33,27 +35,23 @@ def register_calendar_notification():
     for event in events:
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         accounts = Account.query.filter(Account.id == event.account_id).all()
-
-        contents = ["오늘은 일정이 있는 날이네!",
-                    event.schedule_where + "에서 " + event.schedule_what,
-                    "오늘도 화이팅!"]
-        param = {
-            "title": "오늘 일정이 있어요!",
-            "message": event.schedule_where + "에서 " + event.schedule_what,
-            "data": {
-                "status": "Success",
-                "result": {
-                    "node_type": 0,
-                    "id": event.account_id,
-                    "chat_type": 3,
-                    "time": str(int(time.time() * 1000)),
-                    "img_url": [],
-                    "content": contents
+        for account in accounts:
+            contents = convert_notification_message(event, account.bot_type)
+            param = {
+                "title": "오늘 일정이 있어요!",
+                "message": event.schedule_where + "에서 " + event.schedule_what,
+                "data": {
+                    "status": "Success",
+                    "result": {
+                        "node_type": 0,
+                        "id": event.account_id,
+                        "chat_type": 3,
+                        "time": str(int(time.time() * 1000)),
+                        "img_url": [],
+                        "content": contents
+                    }
                 }
             }
-        }
-        print(param)
-        for account in accounts:
             # 해당 일정에 대해 안내 하였음을 업데이트 함
             if send_fcm_message(account.notify_time, event.account_id, 0, 3, contents, param):
                 event.notification_send = 1
@@ -87,7 +85,8 @@ def register_calendar_question():
                 "question_send": event.question_send
             })
 
-        content = ["오늘 하루 어땠니?"]
+        content = ask_review_message[0][content['bot_type']]
+
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",
             "message": "오늘 " + str(len(events)) + "개의 일정이 있습니다.",

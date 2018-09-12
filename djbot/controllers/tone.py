@@ -1,3 +1,4 @@
+# coding=utf-8
 gif = {
     "https://bit.ly/2oX627x": [
         "https://bit.ly/2oX627x",
@@ -6,6 +7,8 @@ gif = {
         "https://bit.ly/2N2jgya"
     ],
 }
+
+welcome_message = ["반가워요 무엇을 도와드릴까요?", "반가워요 무엇을 도와드릴까요?", "반가워요 무엇을 도와드릴까요?", "반가워요 무엇을 도와드릴까요?"]
 
 danbee_message = {
     # 일정 등록
@@ -29,12 +32,11 @@ danbee_message = {
     # 채트플로우의 마지막으로 데이터가 넘어오지 않음
     "last_node": {
         "SpeakNode_1536422714561": ["안녕 반가워!", "안녕 나는 다정군이야", "안녕 나는 다정냥이야", "안녕 나는 다정곰이야", "안녕 나는 다정몽이야"],
-
     }
 }
 
-memory_message = [ #memory_chat
-    [ # bot type
+memory_message = [  # memory_chat
+    [  # bot type
         ["다정군 그래, 또 궁금한 거 있으면 물어봐!"],
         ["다정냥 그래, 또 궁금한 거 있으면 물어봐!2"],
         ["다정곰 그래, 또 궁금한 거 있으면 물어봐!2"],
@@ -74,3 +76,101 @@ schedule_message = [
         ["오늘도 고생 많았어~"]
     ]
 ]
+
+ask_review_message = [
+    [
+        ["오늘 하루 어땠니?"],
+        ["오늘 하루 어땠니?"],
+        ["오늘 하루 어땠니?"],
+        ["오늘 하루 어땠니?"]
+    ]
+]
+
+
+def convert_memory_message(event, bot_type):
+    message = []
+    if bot_type == 0:                                       # 다정군
+        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        message.append(schedule)
+
+        if event['detail'] != 'null':
+            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+
+        if event['review'] != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+
+    elif bot_type == 1:                                       # 다정냥
+        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        message.append(schedule)
+
+        if event['detail'] != 'null':
+            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+
+        if event['review'] != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+
+    elif bot_type == 2:                                       # 다정곰
+        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        message.append(schedule)
+
+        if event['detail'] != 'null':
+            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+
+        if event['review'] != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+
+    elif bot_type == 3:                                       # 다정몽
+        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        message.append(schedule)
+
+        if event['detail'] != 'null':
+            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+
+        if event['review'] != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+    else:
+        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        message.append(schedule)
+
+        if event['detail'] != 'null':
+            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+
+        if event['review'] != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+
+    return message
+
+
+def convert_schedule_message(event, bot_type):
+    if bot_type == 0:
+        return [event.schedule_where+"에서 "+event.schedule_what, "이건 오늘 어땠니"]
+    elif bot_type == 1:
+        return [event.schedule_where + "에서 " + event.schedule_what, "이건 오늘 어땠니"]
+    elif bot_type == 2:
+        return [event.schedule_where + "에서 " + event.schedule_what, "이건 오늘 어땠니"]
+    elif bot_type == 4:
+        return [event.schedule_where+"에서 "+event.schedule_what, "이건 오늘 어땠니"]
+    return [event.schedule_where+"에서 "+event.schedule_what, "이건 오늘 어땠니"]
+
+
+def convert_notification_message(event, bot_type):
+    if bot_type == 0:
+        return ["오늘은 일정이 있는 날이네!",
+                event.schedule_where + "에서 " + event.schedule_what,
+                "오늘도 화이팅!"]
+    elif bot_type == 1:
+        return ["오늘은 일정이 있는 날이네!",
+                event.schedule_where + "에서 " + event.schedule_what,
+                "오늘도 화이팅!"]
+    elif bot_type == 2:
+        return ["오늘은 일정이 있는 날이네!",
+                event.schedule_where + "에서 " + event.schedule_what,
+                "오늘도 화이팅!"]
+    elif bot_type == 4:
+        return ["오늘은 일정이 있는 날이네!",
+                event.schedule_where + "에서 " + event.schedule_what,
+                "오늘도 화이팅!"]
+
+    return ["오늘은 일정이 있는 날이네!",
+            event.schedule_where + "에서 " + event.schedule_what,
+            "오늘도 화이팅!"]

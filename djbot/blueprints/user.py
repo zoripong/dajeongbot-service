@@ -103,7 +103,7 @@ def signup():
                 "bot_type": new_account[0].bot_type
             }
         }
-        add_message_for_new_user(new_account[0].id)
+        add_message_for_new_user(new_account[0].id, new_account[0].bot_type)
 
     elif len(account) >= 1:
         result = {

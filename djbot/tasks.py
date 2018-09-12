@@ -10,9 +10,8 @@ from djbot.celery import app
 from djbot.controllers.tone import ask_review_message, convert_notification_message
 from djbot.models.models import *
 
-
+# TODO : 일정이 없는 날
 # TODO : TEST
-# TODO : convert the tone
 # [ Example ]
 # @app.task
 # def say_hello():          # 실제 백그라운드에서 작업할 내용을 task 로 정의한다.

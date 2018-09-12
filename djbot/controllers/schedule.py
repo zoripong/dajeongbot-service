@@ -29,12 +29,14 @@ def register_event(reply, content, account_id):
 # 일정등록 답장을 주는 로직
 # 후기를 남김 -> 더 물어볼지 이벤트 리스트를 넘김
 def reply_message_for_reply_review(content, select_idx):
+    print(content['account_id'])
     now = str(int(time.time() * 1000))
     today = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # 이벤트 후기 db 업데이트
-    select_event = Event.query.filter(Event.id == select_idx)
-    select_event.review = content['content']
+    print(select_idx+"가 수정됨")
+    select_event = Event.query.filter(Event.id == select_idx).all()
+    select_event[0].review = content['content']
     db.session.commit()
 
     # 이벤트 리스트를 넘김
@@ -46,29 +48,29 @@ def reply_message_for_reply_review(content, select_idx):
         event_json = []
         for event in events:
             event_json.append({
-                "id": event['id'],
-                "account_id": event['account_id'],
-                "schedule_when": event['schedule_when'],
-                "schedule_where": event['schedule_where'],
-                "schedule_what": event['schedule_what'],
-                "assign_time": event['assign_time'],
-                "detail": event['detail'],
-                "review": event['review'],
-                "notification_send": event['notification_send'],
-                "question_send": event['question_send']
+                "id": event.id,
+                "account_id": event.account_id,
+                "schedule_when": event.schedule_when,
+                "schedule_where": event.schedule_where,
+                "schedule_what": event.schedule_what,
+                "assign_time": event.assign_time,
+                "detail": event.detail,
+                "review": event.review,
+                "notification_send": event.notification_send,
+                "question_send": event.question_send
             })
 
-        content = schedule_message[0][content['bot_type']]
+        messages = schedule_message[0][content['bot_type']]
         result = {
             "status": "Success",
             "result": {
-                "id": content['account_id'],
-                "node_type": 2,
-                "chat_type": content['chat_type'], # 5
-                "time": now,
-                "img_url": [],
-                "content": content,
-                "events": event_json
+                'id': content['account_id'],
+                'node_type': 2,
+                'chat_type': content['chat_type'],  # 5
+                'time': now,
+                'img_url': [],
+                'content': messages,
+                'events': event_json
             }
         }
     else:
@@ -93,6 +95,7 @@ def reply_message_for_reply_review(content, select_idx):
 # 일정등록 답장을 주는 로직
 # 후기를 남길 이벤트를 선택함 -> 질문을 해줌
 def reply_message_for_select_review(content, select_idx):
+    print("???")
     now = str(int(time.time() * 1000))
     result = {}
     if select_idx == -1:
@@ -112,21 +115,22 @@ def reply_message_for_select_review(content, select_idx):
         }
     else:
         # 이벤트 가져오기
-        event = Event.query.filter(Event.event_id == select_idx)
+        events = Event.query.filter(Event.id == select_idx).all()
+
         event_json = [{
-            "id": event['id'],
-            "account_id": event['account_id'],
-            "schedule_when": event['schedule_when'],
-            "schedule_where": event['schedule_where'],
-            "schedule_what": event['schedule_what'],
-            "assign_time": event['assign_time'],
-            "detail": event['detail'],
-            "review": event['review'],
-            "notification_send": event['notification_send'],
-            "question_send": event['question_send']
+            "id": events[0].id,
+            "account_id": events[0].account_id,
+            "schedule_when": events[0].schedule_when,
+            "schedule_where": events[0].schedule_where,
+            "schedule_what": events[0].schedule_what,
+            "assign_time": events[0].assign_time,
+            "detail": events[0].detail,
+            "review": events[0].review,
+            "notification_send": events[0].notification_send,
+            "question_send": events[0].question_send
         }]
 
-        messages = convert_schedule_message(event)
+        messages = convert_schedule_message(events[0], content['bot_type'])
         # 이벤트 내용 보내주기
         result = {
             "status": "Success",

@@ -12,7 +12,7 @@ bp = Blueprint('me', __name__, url_prefix='/me')
 #     사용자 정보     #
 #   #   #   #   #   #
 # 닉네임 변경
-@bp.route('/names', method=['PUT'])
+@bp.route('/names', methods=['PUT'])
 def update_name():
     result = {
         "status": "Failed"
@@ -29,7 +29,7 @@ def update_name():
 
 
 # 챗봇 캐릭터 변경
-@bp.route('/bots', method=['PUT'])
+@bp.route('/bots', methods=['PUT'])
 def update_bots():
     result = {
         "status": "Failed"
@@ -46,7 +46,7 @@ def update_bots():
 
 
 # 시간 변경
-@bp.route('/times', method=['PUT'])
+@bp.route('/times', methods=['PUT'])
 def update_times():
     result = {
         "status": "Failed"

@@ -36,6 +36,7 @@ def reply_message(content):
     }
     for result in reply_result:
         img_url = result['imgRoute']
+        result['imgRoute'] = gif[img_url][content['bot_type']]
         if img_url is not None and img_url != "":
             chat = Chat(account_id=content['account_id'], content=gif[img_url][content['bot_type']],
                         node_type=NODE_TYPE['img'], chat_type=content['chat_type'],
@@ -49,22 +50,23 @@ def reply_message(content):
             }
 
         # 챗봇 타입에 따라 말투를 달리함
-        bot_message = danbee_message[result['message']][content['bot_type']]
+        primitive_message = result['message']
+        result['message'] = danbee_message[result['message']][content['bot_type']]
         node_type = result['nodeType']
 
         # 커스텀 챗봇으로 넘김
-        if result['message'] == "SpeakNode_1533088132355":
+        if primitive_message == "SpeakNode_1533088132355":
             # 추억 회상
             result_json = get_memory(reply, content, current)
         else:
-            if result['message'] == "그래! 좋은 시간 되었으면 좋겠다.":  # FIXME 그래! 좋은 시간 되었으면 좋겠다. --> SpeakNode_1533084803517
+            if primitive_message == "SpeakNode_1533084803517":  # FIXME 그래! 좋은 시간 되었으면 좋겠다. --> SpeakNode_1533084803517
                 # 일정 등록
                 register_event(reply, result, content['account_id'])
             result_json = reply
 
             # node type
             # speak=0 slot=1 carousel=2
-            chat = Chat(account_id=content['account_id'], content=bot_message, node_type=NODE_TYPE[node_type],
+            chat = Chat(account_id=content['account_id'], content=result['message'], node_type=NODE_TYPE[node_type],
                         chat_type=content['chat_type'], time=str(int(time.time() * 1000)), isBot=1)
             db.session.add(chat)
 

@@ -1,0 +1,135 @@
+<<<<<<< HEAD
+=======
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message_for_select_review(content, content_message[0])
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 118, in reply_message_for_select_review
+    "id": event[0]['id'],
+TypeError: 'Event' object is not subscriptable
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message_for_select_review(content, content_message[0])
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 118, in reply_message_for_select_review
+    "id": events[0]['id'],
+TypeError: 'Event' object is not subscriptable
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message_for_select_review(content, content_message[0])
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 130, in reply_message_for_select_review
+    messages = convert_schedule_message(events[0])
+TypeError: convert_schedule_message() missing 1 required positional argument: 'bot_type'
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message_for_select_review(content, content_message[0])
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 118, in reply_message_for_select_review
+    "id": events[0].id,
+IndexError: list index out of range
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message_for_select_review(content, content_message[0])
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 119, in reply_message_for_select_review
+    "id": events[0].id,
+IndexError: list index out of range
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+    result = reply_message_for_reply_review(content, content_message[0])
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 49, in reply_message_for_reply_review
+    "id": event['id'],
+TypeError: 'Event' object is not subscriptable
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 49, in reply_message_for_reply_review
+    "id": event['id'],
+TypeError: 'Event' object is not subscriptable
+>>>>>>> 03791059141a45d2be6f9e2b6840d3124ad2c2c0

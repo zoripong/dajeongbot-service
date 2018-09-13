@@ -15,6 +15,19 @@ def insert_messages_single(account_id, message, node_tye, chat_type, timestamp):
     db.session.add(chat)
     db.session.commit()
 
+
+def insert_message_multiple_with_carousel(account_id, content, timestamp, carousel_list):
+    for message in content['content']:
+        insert_messages_single_with_carousel(account_id, message, content['node_type'], content['chat_type'], timestamp, carousel_list)
+
+
+def insert_messages_single_with_carousel(account_id, message, node_tye, chat_type, timestamp, carousel_list):
+    chat = Chat(account_id=account_id, content=message, node_type=node_tye, chat_type=chat_type, time=timestamp,
+                isBot=1, carousel_list=str(carousel_list))
+    db.session.add(chat)
+    db.session.commit()
+
+
 # 토큰을 추가합니다.
 def add_token(account_id, token):
     fcm_token = FcmToken(account_id=account_id, token=token)

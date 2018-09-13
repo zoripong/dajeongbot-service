@@ -3,7 +3,7 @@ import time
 
 from flask import jsonify
 
-from djbot.controllers.data import insert_message_multiple
+from djbot.controllers.data import insert_message_multiple, insert_message_multiple_with_carousel
 from djbot.controllers.tone import convert_memory_message, memory_message
 from djbot.models.models import *
 
@@ -18,8 +18,9 @@ def reply_message_for_memory(content):
         "status": "Failed",
     }
     messages = []
-    max_index = len(content['response']['events'])
-    if max_index <= content['response']['select_idx']:
+    # max_index = len(content['response']['events'])
+    # print(max_index)
+    if content['response']['select_idx'] == -1:
         # 궁금한 일정이 없음
         messages = memory_message[0][content['bot_type']]
         result_json = {
@@ -36,8 +37,16 @@ def reply_message_for_memory(content):
         }
     else:
         select_idx = content['response']['select_idx']
-        event = content['response']['events'][select_idx]
-        messages = convert_memory_message(event, type)
+
+        # print(str(select_idx))
+        # print(len(content['response']['events']))
+
+        # event = content['response']['events'][select_idx]
+
+        # TODO ? DB쿼리말구..?
+        event = Event.query.filter(Event.id == select_idx).all()
+
+        messages = convert_memory_message(event[0], type)
 
         result_json = {
             "status": "Success",
@@ -62,7 +71,13 @@ def get_memory(reply, content, current):
     node_type = 'carousel'
     num_date = int(reply['responseSet']['result']['parameters']['date'])
     if num_date < 0:
+        # FIXME : DEBUGGING CODE
+        num_date = -1
         when = current + datetime.timedelta(days=num_date)
+        when = when.strftime("%Y-%m-%d")
+        print(content['account_id'])
+        print(num_date)
+        print(when)
         events = Event.query.filter(Event.account_id == content['account_id'], Event.schedule_when == when) \
             .order_by(Event.id).all()
         json_events = []
@@ -88,6 +103,7 @@ def get_memory(reply, content, current):
                 }
 
             }
+            insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
         else:
             result_json = {
                 "status": "Success",
@@ -101,8 +117,11 @@ def get_memory(reply, content, current):
                     "events": json_events
                 }
             }
+            insert_message_multiple_with_carousel(content['account_id'], result_json['result'], result_json['result']['time'],
+                                    json_events)
+
+        print(len(json_events))
         print(type(result_json))
-        insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
 
     return result_json
 

@@ -1,135 +1,121 @@
-<<<<<<< HEAD
-=======
 Exception on /messages/ [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1193, in _execute_context
+    context)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\default.py", line 509, in do_execute
+    cursor.execute(statement, parameters)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 250, in execute
+    self.errorhandler(self, exc, value)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 247, in execute
+    res = self._query(query)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 411, in _query
+    rowcount = self._do_query(q)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 374, in _do_query
+    db.query(q)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\connections.py", line 277, in query
+    _mysql.connection.query(self, query)
+_mysql_exceptions.OperationalError: (1241, 'Operand should contain 1 column(s)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-    result = reply_message_for_select_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 118, in reply_message_for_select_review
-    "id": event[0]['id'],
-TypeError: 'Event' object is not subscriptable
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 34, in add_messages
+    result = reply_message(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\message.py", line 62, in reply_message
+    result_json = get_memory(reply, content, current)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 113, in get_memory
+    json_events)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\data.py", line 21, in insert_message_multiple_with_carousel
+    insert_messages_single_with_carousel(account_id, message, content['node_type'], content['chat_type'], timestamp, carousel_list)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\data.py", line 28, in insert_messages_single_with_carousel
+    db.session.commit()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\scoping.py", line 153, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 943, in commit
+    self.transaction.commit()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 467, in commit
+    self._prepare_impl()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 447, in _prepare_impl
+    self.session.flush()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 2254, in flush
+    self._flush(objects)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 2380, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\util\langhelpers.py", line 66, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\util\compat.py", line 249, in reraise
+    raise value
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\session.py", line 2344, in _flush
+    flush_context.execute()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 391, in execute
+    rec.execute(self)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 556, in execute
+    uow
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\orm\persistence.py", line 866, in _emit_insert_statements
+    execute(statement, params)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\base.py", line 948, in execute
+    return meth(self, multiparams, params)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\sql\elements.py", line 269, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1060, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1200, in _execute_context
+    context)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1413, in _handle_dbapi_exception
+    exc_info
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\util\compat.py", line 265, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\util\compat.py", line 248, in reraise
+    raise value.with_traceback(tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\base.py", line 1193, in _execute_context
+    context)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\sqlalchemy\engine\default.py", line 509, in do_execute
+    cursor.execute(statement, parameters)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 250, in execute
+    self.errorhandler(self, exc, value)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\connections.py", line 50, in defaulterrorhandler
+    raise errorvalue
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 247, in execute
+    res = self._query(query)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 411, in _query
+    rowcount = self._do_query(q)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\cursors.py", line 374, in _do_query
+    db.query(q)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\MySQLdb\connections.py", line 277, in query
+    _mysql.connection.query(self, query)
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1241, 'Operand should contain 1 column(s)') [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`, carousel_list, slot_list) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'] [parameters: (32, '다정냥 잠시만요! 그때 무슨 일이 있었더라..', 2, 1, '1536801952574', 1, [{'id': 18, 'event_detail': '집에서 코딩', 'detail': '', 'review': None, 'event_image': ''}, {'id': 21, 'event_detail': '집에서 코딩', 'detail': '', 'review': N ... (491 characters truncated) ... 집에서 코딩', 'detail': '', 'review': None, 'event_image': ''}, {'id': 32, 'event_detail': '학교에서 프로젝트', 'detail': '아니', 'review': None, 'event_image': ''}], None)] (Background on this error at: http://sqlalche.me/e/e3q8)
 Exception on /messages/ [POST]
 Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 38, in add_messages
     result = reply_message_for_select_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 118, in reply_message_for_select_review
-    "id": events[0]['id'],
-TypeError: 'Event' object is not subscriptable
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-    result = reply_message_for_select_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 130, in reply_message_for_select_review
-    messages = convert_schedule_message(events[0])
-TypeError: convert_schedule_message() missing 1 required positional argument: 'bot_type'
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-    result = reply_message_for_select_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 118, in reply_message_for_select_review
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 121, in reply_message_for_select_review
     "id": events[0].id,
 IndexError: list index out of range
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-    result = reply_message_for_select_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 119, in reply_message_for_select_review
-    "id": events[0].id,
-IndexError: list index out of range
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-    result = reply_message_for_reply_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 49, in reply_message_for_reply_review
-    "id": event['id'],
-TypeError: 'Event' object is not subscriptable
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 49, in reply_message_for_reply_review
-    "id": event['id'],
-TypeError: 'Event' object is not subscriptable
->>>>>>> 03791059141a45d2be6f9e2b6840d3124ad2c2c0

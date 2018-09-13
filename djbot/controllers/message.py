@@ -28,6 +28,7 @@ def add_message_for_new_user(account_id, bot_type):
 # 답장을 주는 부분
 def reply_message(content):
     current = datetime.datetime.now()
+    print("current : "+ current.strftime("%Y-%m-%d"))
     # 챗봇
     reply = danbee.message_with_response(content['content'], content['response'])
     reply_result = reply['responseSet']['result']['result']
@@ -54,7 +55,7 @@ def reply_message(content):
         primitive_message = result['message']
         result['message'] = danbee_message[result['message']][content['bot_type']]
         node_type = result['nodeType']
-
+        print("primitive : " + primitive_message)
         # 커스텀 챗봇으로 넘김
         if primitive_message == "SpeakNode_1533088132355":
             # 추억 회상

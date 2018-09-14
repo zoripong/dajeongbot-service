@@ -95,53 +95,54 @@ ask_review_message = [
 def convert_memory_message(event, bot_type):
     message = []
     if bot_type == 0:                                       # 다정군
-        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        schedule = event.schedule_where + "에서 " + event.schedule_what + "했었구나!"
         message.append(schedule)
 
-        if event['detail'] != 'null':
-            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+        if event.detail != 'null':
+            message.append("자세한 일정으로는 \"" + event.detail + "\"라고 말해줬어~")
 
-        if event['review'] != 'null':
-            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+        if event.review != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event.review + "\"라고 나에게 이야기 해주었어!")
 
     elif bot_type == 1:                                       # 다정냥
-        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        schedule = event.schedule_where + "에서 " + event.schedule_what + "했었구나!"
         message.append(schedule)
 
-        if event['detail'] != 'null':
-            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+        if event.detail is not None:
+            message.append("자세한 일정으로는 \"" + event.detail + "\"라고 말해줬어~")
 
-        if event['review'] != 'null':
-            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+        if event.review is not None:
+            message.append("그리고 그 일정을 한 후 너는 \"" + event.review + "\"라고 나에게 이야기 해주었어!")
 
     elif bot_type == 2:                                       # 다정곰
-        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        schedule = event.schedule_where + "에서 " + event.schedule_what + "했었구나!"
         message.append(schedule)
 
-        if event['detail'] != 'null':
-            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+        if event.detail != 'null':
+            message.append("자세한 일정으로는 \"" + event.detail + "\"라고 말해줬어~")
 
-        if event['review'] != 'null':
-            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+        if event.review != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event.review + "\"라고 나에게 이야기 해주었어!")
 
     elif bot_type == 3:                                       # 다정몽
-        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        schedule = event.schedule_where + "에서 " + event.schedule_what + "했었구나!"
         message.append(schedule)
 
-        if event['detail'] != 'null':
-            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+        if event.detail != 'null':
+            message.append("자세한 일정으로는 \"" + event.detail + "\"라고 말해줬어~")
 
-        if event['review'] != 'null':
-            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+        if event.review != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event.review + "\"라고 나에게 이야기 해주었어!")
+
     else:
-        schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
+        schedule = event.schedule_where + "에서 " + event.schedule_what + "했었구나!"
         message.append(schedule)
 
-        if event['detail'] != 'null':
-            message.append("자세한 일정으로는 \"" + event['detail'] + "\"라고 말해줬어~")
+        if event.detail != 'null':
+            message.append("자세한 일정으로는 \"" + event.detail + "\"라고 말해줬어~")
 
-        if event['review'] != 'null':
-            message.append("그리고 그 일정을 한 후 너는 \"" + event['review'] + "\"라고 나에게 이야기 해주었어!")
+        if event.review != 'null':
+            message.append("그리고 그 일정을 한 후 너는 \"" + event.review + "\"라고 나에게 이야기 해주었어!")
 
     return message
 

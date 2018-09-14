@@ -100,7 +100,7 @@ def get_memory(reply, content, current):
                 "result": {
                     "id": content['account_id'],
                     "node_type": 0,
-                    "chat_type": 2,
+                    "chat_type": 0,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
                     "content": memory_message[1][content['bot_type']][randint(0, 3)],

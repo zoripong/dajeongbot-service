@@ -1,9 +1,10 @@
 import datetime
 import time
+from random import randint
 
 from flask import jsonify
 
-from djbot.controllers.data import insert_message_multiple
+from djbot.controllers.data import insert_message_multiple, insert_message_multiple_with_carousel
 from djbot.controllers.tone import convert_memory_message, memory_message
 from djbot.models.models import *
 
@@ -18,27 +19,39 @@ def reply_message_for_memory(content):
         "status": "Failed",
     }
     messages = []
-    max_index = len(content['response']['events'])
-    if max_index >= content['response']['select_idx']:
+    # max_index = len(content['response']['events'])
+    # print(max_index)
+    # if "version" in response:
+    if content['response']['select_idx'] == -1:
         # 궁금한 일정이 없음
-        messages = memory_message[0][content['bot_type']]
+        messages = memory_message[0][content['bot_type']][randint(0, 3)]
         result_json = {
             "status": "Success",
             "result": {
                 "id": content['account_id'],
                 "node_type": 0,
-                "chat_type": content['chat_type'],
+                "chat_type": 0,
                 "time": str(int(time.time() * 1000)),
                 "img_url": [],
                 "content": messages,
                 "events": []
             }
         }
+        insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
+
     else:
         select_idx = content['response']['select_idx']
-        event = content['response']['events'][select_idx]
-        messages = convert_memory_message(event, type)
 
+        # print(str(select_idx))
+        # print(len(content['response']['events']))
+
+        # event = content['response']['events'][select_idx]
+
+        # FIXME ? DB쿼리말구..?
+        event = Event.query.filter(Event.id == select_idx).all()
+
+        messages = convert_memory_message(event[0], content['bot_type'], randint(0, 3))
+        print(content['response']['events'])
         result_json = {
             "status": "Success",
             "result":{
@@ -52,7 +65,10 @@ def reply_message_for_memory(content):
             }
         }
 
-    insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
+        insert_message_multiple_with_carousel(content['account_id'], result_json['result'],
+                                              result_json['result']['time'], content['response']['events'])
+    print("ㅎㅇㅎㅇ")
+    print(content['response']['events'])
 
     return jsonify(result_json)
 
@@ -63,6 +79,10 @@ def get_memory(reply, content, current):
     num_date = int(reply['responseSet']['result']['parameters']['date'])
     if num_date < 0:
         when = current + datetime.timedelta(days=num_date)
+        when = when.strftime("%Y-%m-%d")
+        print(content['account_id'])
+        print(num_date)
+        print(when)
         events = Event.query.filter(Event.account_id == content['account_id'], Event.schedule_when == when) \
             .order_by(Event.id).all()
         json_events = []
@@ -80,29 +100,32 @@ def get_memory(reply, content, current):
                 "result": {
                     "id": content['account_id'],
                     "node_type": 0,
-                    "chat_type": content['chat_type'],
+                    "chat_type": 2,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
-                    "content": memory_message[1][content['bot_type']],
+                    "content": memory_message[1][content['bot_type']][randint(0, 3)],
                     "events": json_events
                 }
 
             }
+            insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
         else:
             result_json = {
                 "status": "Success",
                 "result": {
                     "id": content['account_id'],
                     "node_type": 2,
-                    "chat_type": 1,
+                    "chat_type": 2,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
-                    "content": memory_message[2][content['bot_type']],
+                    "content": memory_message[2][content['bot_type']][randint(0, 3)],
                     "events": json_events
                 }
             }
-        print(type(result_json))
-        insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
+            insert_message_multiple_with_carousel(content['account_id'], result_json['result'], result_json['result']['time'],
+                                                  json_events)
 
+        print("???????")
+        print(json_events)
     return result_json
 

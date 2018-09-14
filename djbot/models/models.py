@@ -1,8 +1,5 @@
 # coding: utf-8
-from sqlalchemy import Column, Date, ForeignKey, Integer, String
-from sqlalchemy.schema import FetchedValue
-from sqlalchemy.orm import relationship
-from flask_sqlalchemy import SQLAlchemy
+
 from djbot import db
 
 

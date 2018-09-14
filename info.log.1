@@ -12,67 +12,11 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 30, in add_messages
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 49, in reply_message_for_reply_review
-    "id": event['id'],
-TypeError: 'Event' object is not subscriptable
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 41, in add_messages
-    result = reply_message_for_reply_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 65, in reply_message_for_reply_review
-    "id": content['account_id'],
-TypeError: list indices must be integers or slices, not str
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 41, in add_messages
-    result = reply_message_for_reply_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 66, in reply_message_for_reply_review
-    "id": content['account_id'],
-TypeError: list indices must be integers or slices, not str
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
-    raise value
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 41, in add_messages
-    result = reply_message_for_reply_review(content, content_message[0])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\schedule.py", line 66, in reply_message_for_reply_review
-    'id': content['account_id'],
-TypeError: list indices must be integers or slices, not str
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 60, in reply_message_for_memory
+    "events": content['response']['events']
+KeyError: 'events'
 Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
@@ -89,11 +33,9 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
     result = reply_message_for_memory(content)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 49, in reply_message_for_memory
-    messages = convert_memory_message(event[0], type)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\tone.py", line 137, in convert_memory_message
-    schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
-TypeError: 'Event' object is not subscriptable
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 60, in reply_message_for_memory
+    "events": content['response']['events']
+KeyError: 'events'
 Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
@@ -110,11 +52,9 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
     result = reply_message_for_memory(content)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 49, in reply_message_for_memory
-    messages = convert_memory_message(event[0], content['bot_type'])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\tone.py", line 108, in convert_memory_message
-    schedule = event['schedule_where'] + "에서 " + event['schedule_what'] + "했었구나!"
-TypeError: 'Event' object is not subscriptable
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 50, in reply_message_for_memory
+    print(content['response']['events'])
+KeyError: 'events'
 Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
@@ -131,8 +71,63 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
     result = reply_message_for_memory(content)
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 49, in reply_message_for_memory
-    messages = convert_memory_message(event[0], content['bot_type'])
-  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\tone.py", line 115, in convert_memory_message
-    message.append("그리고 그 일정을 한 후 너는 \"" + event.review + "\"라고 나에게 이야기 해주었어!")
-TypeError: Can't convert 'NoneType' object to str implicitly
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 23, in reply_message_for_memory
+    if content['response']['select_idx'] == -1:
+KeyError: 'select_idx'
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 23, in reply_message_for_memory
+    if content['response']['select_idx'] == -1:
+KeyError: 'select_idx'
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 24, in reply_message_for_memory
+    if content['response']['select_idx'] == -1:
+KeyError: 'select_idx'
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\devuri\workspace\server\venv352\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "D:\devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 24, in reply_message_for_memory
+    if content['response']['select_idx'] == -1:
+KeyError: 'select_idx'

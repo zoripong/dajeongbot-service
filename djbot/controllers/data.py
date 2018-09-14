@@ -16,10 +16,8 @@ def insert_messages_single(account_id, message, node_tye, chat_type, timestamp):
     db.session.commit()
 
 
-# TODO 마지막에만 carousel_list도
 def insert_message_multiple_with_carousel(account_id, content, timestamp, carousel_list):
     for idx, message in enumerate(content['content']):
-        print (idx ,len(content['content']))
         if idx != (len(content['content'])-1):
             insert_messages_single(account_id, message, content['node_type'], content['chat_type'], timestamp)
         else:

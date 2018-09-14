@@ -1,6 +1,7 @@
 import calendar
 import datetime
 import time
+from random import randint
 
 from flask import jsonify
 
@@ -19,7 +20,7 @@ from config import NODE_TYPE
 def add_message_for_new_user(account_id, bot_type):
     ts = calendar.timegm(time.gmtime())
     # 챗봇 타입에 따라 말투를 달리함
-    content = welcome_message[bot_type]
+    content = welcome_message[bot_type][randint(0, 3)]
     chat = Chat(account_id=account_id, content=content, node_type=0, chat_type=0, time=str(ts), isBot=1)
     db.session.add(chat)
     db.session.commit()
@@ -53,7 +54,7 @@ def reply_message(content):
 
         # 챗봇 타입에 따라 말투를 달리함
         primitive_message = result['message']
-        result['message'] = danbee_message[result['message']][content['bot_type']]
+        result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]
         node_type = result['nodeType']
         print("primitive : " + primitive_message)
         # 커스텀 챗봇으로 넘김

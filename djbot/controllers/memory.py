@@ -1,5 +1,6 @@
 import datetime
 import time
+from random import randint
 
 from flask import jsonify
 
@@ -23,7 +24,7 @@ def reply_message_for_memory(content):
     # if "version" in response:
     if content['response']['select_idx'] == -1:
         # 궁금한 일정이 없음
-        messages = memory_message[0][content['bot_type']]
+        messages = memory_message[0][content['bot_type']][randint(0, 3)]
         result_json = {
             "status": "Success",
             "result": {
@@ -49,7 +50,7 @@ def reply_message_for_memory(content):
         # FIXME ? DB쿼리말구..?
         event = Event.query.filter(Event.id == select_idx).all()
 
-        messages = convert_memory_message(event[0], content['bot_type'])
+        messages = convert_memory_message(event[0], content['bot_type'], randint(0, 3))
         print(content['response']['events'])
         result_json = {
             "status": "Success",
@@ -102,7 +103,7 @@ def get_memory(reply, content, current):
                     "chat_type": 2,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
-                    "content": memory_message[1][content['bot_type']],
+                    "content": memory_message[1][content['bot_type']][randint(0, 3)],
                     "events": json_events
                 }
 
@@ -117,7 +118,7 @@ def get_memory(reply, content, current):
                     "chat_type": 2,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
-                    "content": memory_message[2][content['bot_type']],
+                    "content": memory_message[2][content['bot_type']][randint(0, 3)],
                     "events": json_events
                 }
             }

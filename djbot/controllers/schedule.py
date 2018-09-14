@@ -1,5 +1,6 @@
 import datetime
 import time
+from random import randint
 
 from flask import jsonify
 
@@ -60,7 +61,7 @@ def reply_message_for_reply_review(content, select_idx):
                 "question_send": event.question_send
             })
 
-        messages = schedule_message[0][content['bot_type']]
+        messages = schedule_message[0][content['bot_type']][randint(0, 3)]
         result = {
             "status": "Success",
             "result": {
@@ -74,7 +75,7 @@ def reply_message_for_reply_review(content, select_idx):
             }
         }
     else:
-        messages = schedule_message[1][content['bot_type']]
+        messages = schedule_message[1][content['bot_type']][randint(0, 3)]
         result = {
             "status": "Success",
             "result": {
@@ -100,7 +101,7 @@ def reply_message_for_select_review(content, select_idx):
     result = {}
     if select_idx == -1:
         # 이제 그만 등록하겠습니당
-        messages = schedule_message[2][content['bot_type']]
+        messages = schedule_message[2][content['bot_type']][randint(0, 3)]
         result = {
             "status": "Success",
             "result": {
@@ -130,7 +131,7 @@ def reply_message_for_select_review(content, select_idx):
             "question_send": events[0].question_send
         }]
 
-        messages = convert_schedule_message(events[0], content['bot_type'])
+        messages = convert_schedule_message(events[0], content['bot_type'], randint(0, 3))
         # 이벤트 내용 보내주기
         result = {
             "status": "Success",

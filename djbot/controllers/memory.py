@@ -19,7 +19,7 @@ def reply_message_for_memory(content):
     }
     messages = []
     max_index = len(content['response']['events'])
-    if max_index <= content['response']['select_idx']:
+    if max_index >= content['response']['select_idx']:
         # 궁금한 일정이 없음
         messages = memory_message[0][content['bot_type']]
         result_json = {

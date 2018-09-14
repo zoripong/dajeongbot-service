@@ -17,9 +17,10 @@ def add_messages():
 
     content_message = content['content'].split(':')
 
-    if content['chat_type'] == 4 or content['chat_type'] == 5:
+    if content['chat_type'] == 1 or content['chat_type'] == 4 or content['chat_type'] == 5:
         if len(content_message) == 2:
             content['content'] = content_message[1]
+
 
     chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
                 chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])

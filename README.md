@@ -6,7 +6,26 @@ DajeongBot server Document
   - 일정 등록, 일정 알림, 일정 후기, 추억 회상의 기능을 포함하고 있습니다.
 - DANBEE.ai의 채트플로우를 활용하여 사용자의 말에 대한 의도를 파악하고 대화를 진행할 수 있도록 구현하였습니다.
 
+> chat type
 
+|                                        | type |
+|----------------------------------------|------|
+| **BASIC_CHAT**                       | 0    |
+| **REGISTER_CHAT**                   |  1    |
+| **MEMORY_CHAT**                      | 2    |
+| ~~NOTIFICATION_CHAT~~                  | 3    |
+| **QUESTION_SCHEDULE_SELECT_CHAT** | 3    |
+| **QUESTION_SCHEDULE_REPLY_CHAT**  | 3    |
+
+
+> node type
+
+|                     | type |
+|---------------------|------|
+| **SPEAK_NODE**    | 0    |
+| **SLOT_NODE**     | 1    |
+| **CAROUSEL_NODE**| 2    |
+| **IMAGE_NODE**    | 3    |
 
 ### 채팅내역 가져오기
 > 첫 메세지 요청시
@@ -62,7 +81,7 @@ POST /messages
 {
     "account_id": 32,
     "content": "할 일이 생겼어",
-    "nodeType": 0,
+    "node_type": 0,
     "chat_type": 1, 
     "time" : 1534097877292,
     "isBot" : 0,
@@ -70,11 +89,12 @@ POST /messages
 }
 ```
 > 챗봇과의 대화 중
+ - 챗봇과의 대화를 유지하기 위하여 챗봇 대화 데이터를 함께 전송합니다.
 ```json
 {
     "account_id": 32,
     "content": "홍대에서 치킨 먹기",
-    "nodeType": 0,
+    "node_type": 0,
     "chat_type": 1, 
     "time" : 1534097877292,
     "isBot" : 0,
@@ -249,3 +269,47 @@ POST /messages
 
 ```
 
+## USER API
+- 회원을 관리하기 위한 API 입니다.
+  - 회원가입, 로그인 기능을 포함하고 있습니다.
+- ~~SNS 로그인(Facebook, Google, Kakao)를 지원합니다.~~
+> account type
+
+|          | type |
+|----------|------|
+| Basic    | 0    |
+| Facebook | 1    |
+| Kakao    | 2    |
+| Google   | 3    |
+> bot type
+
+|          | type |
+|----------|------|
+| *다정군* | 0    |
+| *다정냥* | 1    |
+| *다정곰* | 2    |
+| *다정몽* | 3    |
+### 회원가입
+
+##### Request Example
+```json
+
+```
+##### Response Example
+````json
+{
+    "status": "Success",
+    "user_info": {
+        "id": 32,
+        "user_id": "devuri404@gmail.com",
+        "name": "한유리",
+        "birthday": "2000-05-09",
+        "account_type": 0,
+        "bot_type": 1
+    }
+}
+````
+
+#### 일반유저
+
+#### SNS 유저

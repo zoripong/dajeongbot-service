@@ -17,8 +17,12 @@ def insert_messages_single(account_id, message, node_tye, chat_type, timestamp):
 
 
 def insert_message_multiple_with_carousel(account_id, content, timestamp, carousel_list):
-    for message in content['content']:
-        insert_messages_single_with_carousel(account_id, message, content['node_type'], content['chat_type'], timestamp, carousel_list)
+    for idx, message in enumerate(content['content']):
+        if idx != (len(content['content'])-1):
+            insert_messages_single(account_id, message, content['node_type'], content['chat_type'], timestamp)
+        else:
+            print("얍!")
+            insert_messages_single_with_carousel(account_id, message, content['node_type'], content['chat_type'], timestamp, carousel_list)
 
 
 def insert_messages_single_with_carousel(account_id, message, node_tye, chat_type, timestamp, carousel_list):

@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import datetime
 import time
+from random import randint
 
 from pyfcm import FCMNotification
 
@@ -35,7 +36,7 @@ def register_calendar_notification():
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         accounts = Account.query.filter(Account.id == event.account_id).all()
         for account in accounts:
-            contents = convert_notification_message(event, account.bot_type)
+            contents = convert_notification_message(event, account.bot_type, randint(0, 3))
             param = {
                 "title": "오늘 일정이 있어요!",
                 "message": event.schedule_where + "에서 " + event.schedule_what,
@@ -84,7 +85,7 @@ def register_calendar_question():
                 "question_send": event.question_send
             })
 
-        content = ask_review_message[0][content['bot_type']]
+        content = ask_review_message[0][content['bot_type']][randint(0, 3)]
 
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",

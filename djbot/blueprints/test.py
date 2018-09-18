@@ -158,11 +158,12 @@ def ask():
         }
 
         # 해당 일정에 대해 안내 하였음을 업데이트 함
-        if send_fcm_message(account.ask_time, account.id, 5, content, param):
-            for event in events:
-                event.question_send = 1
+        if len(event_json) > 0:
+            if send_fcm_message(account.ask_time, account.id, 5, content, param):
+                for event in events:
+                    event.question_send = 1
 
-        db.session.commit()
+        # db.session.commit()
     return jsonify({"result": "ok"})
 
 

@@ -7,7 +7,7 @@ from pyfcm import FCMNotification
 
 import config
 from djbot.celery import app
-from djbot.controllers.tone import ask_review_message, convert_notification_message
+from djbot.controllers.tone import ask_review_message, convert_notification_message, bot_img
 from djbot.models.models import *
 
 # TODO : 일정이 없는 날
@@ -111,6 +111,46 @@ def register_calendar_question():
     db.session.commit()
 
 
+# TODO TEST
+# 생일 축하 메세지
+@celery.task
+def congratulate_birthday():
+    # 이벤트 목록 (send is 0)
+    # 이벤트에 대한 정보와 회원 account_id
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    accounts = Account.query.filter(Account.birthday == today).all()
+    reg_time = str(int(time.time() * 1000))
+    for account in accounts:
+        param = {
+            "title": "다정봇이 당신의 생일을 축하해줄게요!",
+            "message": account.name + "!" + congratulate_birthday[0][account.bot_type],
+            "data": {
+                "status": "Success",
+                "result": {
+                    "node_type": 0,
+                    "id": account.account_id,
+                    "chat_type": 0,
+                    "time": reg_time,
+                    "img_url": [bot_img["hbd"][account.bot_type]],
+                    "content": congratulate_birthday[0][account.bot_type]
+                }
+            }
+        }
+        # db
+        for content in param["data"]["result"]["content"]:
+            chat = Chat(account_id=account.id, content=content, node_type=0,
+                        chat_type=0, time=reg_time, isBot=1)
+            db.session.add(chat)
+
+        # fcm 알림
+        tokens = FcmToken.query.filter(FcmToken.account_id == account.id).all()
+        for token in tokens:
+            push_service.notify_single_device(registration_id=token.token, data_message=param, content_available=True)
+
+    db.session.commit()
+
+
+
 # 시간을 비교하여 사용자의 기기에 fcm 알림을 보냅니다.
 # param : 비교 시간, 계정 식별번호, 알림 제목, 알림 내용
 def send_fcm_message(check_time, account_id, node_type, chat_type, contents, param):
@@ -140,4 +180,5 @@ def send_fcm_message(check_time, account_id, node_type, chat_type, contents, par
 
         return True
     return False
+
 

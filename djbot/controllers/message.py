@@ -7,7 +7,7 @@ from flask import jsonify
 from djbot.controllers import danbee
 from djbot.controllers.memory import get_memory
 from djbot.controllers.schedule import register_event
-from djbot.controllers.tone import danbee_message, welcome_message, gif
+from djbot.controllers.tone import danbee_message, welcome_message, bot_img
 from djbot.models.models import *
 from config import NODE_TYPE
 
@@ -39,8 +39,8 @@ def reply_message(content):
         img_url = result['imgRoute']
         print(img_url)
         if img_url is not None and img_url != "":
-            result['imgRoute'] = gif[img_url][content['bot_type']]
-            chat = Chat(account_id=content['account_id'], content=gif[img_url][content['bot_type']],
+            result['imgRoute'] = bot_img[img_url][content['bot_type']]
+            chat = Chat(account_id=content['account_id'], content=bot_img[img_url][content['bot_type']],
                         node_type=NODE_TYPE['img'], chat_type=content['chat_type'],
                         time=str(int(time.time() * 1000)), isBot=1)
             db.session.add(chat)

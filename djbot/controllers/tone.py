@@ -1,12 +1,20 @@
 # coding=utf-8
-gif = {
+
+bot_img = {
     "https://bit.ly/2oX627x": [
         "https://bit.ly/2oX627x",
         "https://bit.ly/2NycfEJ",
         "https://bit.ly/2oX627x",
         "https://bit.ly/2N2jgya"
     ],
+    "hbd": [
+        "https://bit.ly/2MFaz7T",
+        "https://bit.ly/2NPEXRF",
+        "https://bit.ly/2NWxekK",
+        "https://bit.ly/2QBqJT4"
+    ]
 }
+
 
 welcome_message = ["반가워요 무엇을 도와드릴까요?", "반가워요 무엇을 도와드릴까요?", "반가워요 무엇을 도와드릴까요?", "반가워요 무엇을 도와드릴까요?"]
 
@@ -88,6 +96,15 @@ ask_review_message = [
         ["오늘 하루 어땠니?"],
         ["오늘 하루 어땠니?"],
         ["오늘 하루 어땠니?"]
+    ]
+]
+
+congratulate_birthday = [
+    [
+        ["생일 축하한다네"],
+        ["생일 축하한다냥"],
+        ["생일 축하해 :3"],
+        ["생일 축하한다 뭉!"]
     ]
 ]
 

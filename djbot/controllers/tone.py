@@ -1,12 +1,17 @@
 # coding=utf-8
-# 다정군 다정냥 다정곰 다정몽
-gif = {
+bot_img = {
     "https://bit.ly/2oX627x": [
         "https://bit.ly/2oX627x",
         "https://bit.ly/2NycfEJ",
         "https://bit.ly/2xcksFg",
         "https://bit.ly/2N2jgya"
     ],
+    "hbd": [
+        "https://bit.ly/2MFaz7T",
+        "https://bit.ly/2NPEXRF",
+        "https://bit.ly/2NWxekK",
+        "https://bit.ly/2QBqJT4"
+    ]
 }
 
 welcome_message = [
@@ -669,6 +674,15 @@ ask_review_message = [
             ["빨리 오늘은 어땠는지 듣고 싶당ㅎㅎ 말해줘...!"],
             ["만족스러운 하루였어? 궁금하당...! 알려줘!!"]
         ]
+    ]
+]
+
+congratulate_birthday = [
+    [
+        ["생일 축하한다네"],
+        ["생일 축하한다냥"],
+        ["생일 축하해 :3"],
+        ["생일 축하한다 뭉!"]
     ]
 ]
 

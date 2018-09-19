@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from djbot.models.models import *
 
 bp = Blueprint('event', __name__, url_prefix='/events')
@@ -26,4 +26,18 @@ def get_events(account_id, year, month, date):
     }for event in events])
 
 
+@bp.route('/<int:event_id>', methods=['DELETE'])
+def remove_event(event_id):
+    result = {
+        "status": "Failed"
+    }
+    events = Event.query.filter(Event.id == event_id).all()
+    for event in events:
+        db.session.delete(event)
+    db.session.commit()
+
+    result = {
+        "status": "Success"
+    }
+    return jsonify(result)
 

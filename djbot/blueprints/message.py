@@ -21,7 +21,6 @@ def add_messages():
         if len(content_message) == 2:
             content['content'] = content_message[1]
 
-
     chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
                 chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
     db.session.add(chat)

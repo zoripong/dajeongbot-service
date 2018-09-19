@@ -30,6 +30,10 @@ app.conf.update(
             'task': 'djbot.tasks.register_calendar_question',
             'schedule': crontab(minute='*/1'),
         },
+        'congratulate-every-day': {
+            'task': 'djbot.tasks.congratulate_birthday',
+            'schedule': crontab(minute=0, hour=0),
+        },
 
     }
 )

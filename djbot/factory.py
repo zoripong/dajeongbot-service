@@ -36,6 +36,7 @@ def register_blueprints(app):
     """
     for name in find_modules('djbot.blueprints', include_packages=True):
         mod = import_string(name)
+        print(mod)
         if hasattr(mod, 'bp'):
             app.register_blueprint(mod.bp)
 

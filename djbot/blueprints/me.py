@@ -63,6 +63,13 @@ def update_times():
     return json.dumps(result)
 
 
+# 사용자 정보 초기화
+@bp.route('/all/<int:account_id>', methods=['DELETE'])
+def reset_data(account_id):
+    # TODO
+    return jsonify("{}")
+
+
 #   #   #   #   #   #
 #       토큰        #
 #   #   #   #   #   #

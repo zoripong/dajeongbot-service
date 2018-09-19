@@ -4,7 +4,7 @@ gif = {
     "https://bit.ly/2oX627x": [
         "https://bit.ly/2oX627x",
         "https://bit.ly/2NycfEJ",
-        "https://bit.ly/2oX627x",
+        "https://bit.ly/2xcksFg",
         "https://bit.ly/2N2jgya"
     ],
 }

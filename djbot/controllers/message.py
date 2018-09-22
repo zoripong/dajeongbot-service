@@ -7,7 +7,7 @@ from flask import jsonify
 
 from djbot.controllers import danbee
 from djbot.controllers.memory import get_memory
-from djbot.controllers.schedule import register_event
+from djbot.controllers.schedule import register_event, update_event
 from djbot.controllers.tone import danbee_message, welcome_message, bot_img
 from djbot.models.models import *
 from config import NODE_TYPE
@@ -65,6 +65,9 @@ def reply_message(content):
             if primitive_message == "SpeakNode_1533084803517":
                 # 일정 등록
                 register_event(reply, result, content['account_id'])
+            elif primitive_message == "SpeakNode_1537356062991":
+                # 일정 수정
+                update_event(reply)
             result_json = reply
 
             # node type

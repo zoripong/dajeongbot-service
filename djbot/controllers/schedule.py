@@ -25,6 +25,22 @@ def register_event(reply, content, account_id):
                   schedule_what=param['what'], assign_time=message_result[0]['timestamp'],
                   detail=param['detail_content'])
     db.session.add(event)
+    db.session.commit()
+
+
+# 일정 수정하기 위한 로직
+def update_event(reply):
+    current = datetime.datetime.now()
+
+    param = reply['responseSet']['result']['parameters']
+    events = Event.query.filter(Event.id == param['event_id']).all()
+    for event in events:
+        event.schedule_when = current + datetime.timedelta(days=int(param['schedule_when']))
+        event.schedule_where = param['schedule_where']
+        event.schedule_what = param['schedule_what']
+        event.detail = param['schedule_detail']
+        event.review = param['schedule_review']
+    db.session.commit()
 
 
 # 일정등록 답장을 주는 로직

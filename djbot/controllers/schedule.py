@@ -27,6 +27,8 @@ def register_event(reply, content, account_id):
     db.session.add(event)
     db.session.commit()
 
+# def reply_update_event(content):
+
 
 # 일정 수정하기 위한 로직
 def update_event(reply):
@@ -35,11 +37,16 @@ def update_event(reply):
     param = reply['responseSet']['result']['parameters']
     events = Event.query.filter(Event.id == param['event_id']).all()
     for event in events:
-        event.schedule_when = current + datetime.timedelta(days=int(param['schedule_when']))
-        event.schedule_where = param['schedule_where']
-        event.schedule_what = param['schedule_what']
-        event.detail = param['schedule_detail']
-        event.review = param['schedule_review']
+        if param['schedule_when'] != "":
+            event.schedule_when = current + datetime.timedelta(days=int(param['schedule_when']))
+        if param['schedule_where'] != "":
+            event.schedule_where = param['schedule_where']
+        if param['schedule_what'] != "":
+            event.schedule_what = param['schedule_what']
+        if param['schedule_detail'] != "":
+            event.detail = param['schedule_detail']
+        if param['schedule_review'] != "":
+            event.review = param['schedule_review']
     db.session.commit()
 
 

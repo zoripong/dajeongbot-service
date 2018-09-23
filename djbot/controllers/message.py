@@ -27,11 +27,17 @@ def add_message_for_new_user(account_id, bot_type):
 
 
 # 답장을 주는 부분
-def reply_message(content):
+def reply_message(content, chat_type):
     current = datetime.datetime.now()
     print("current : "+ current.strftime("%Y-%m-%d"))
     # 챗봇
-    reply = danbee.message_with_response(content['content'], content['response'])
+    if chat_type == 6:
+        param = {
+            "event_id": content['content']
+        }
+        reply = danbee.message_with_param("이유리바보", param)
+    else:
+        reply = danbee.message_with_response(content['content'], content['response'])
     reply_result = reply['responseSet']['result']['result']
     result_json = {
         "status": "Failed",

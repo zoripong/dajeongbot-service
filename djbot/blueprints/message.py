@@ -21,26 +21,28 @@ def add_messages():
         if len(content_message) == 2:
             content['content'] = content_message[1]
 
-    chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
-                chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
-    db.session.add(chat)
-    db.session.commit()
+    if content['chat_type'] != 6:           # 일정 수정이 아닐 때에만 저장
+        chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
+                    chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
+        db.session.add(chat)
 
     print("채트 타입입니다. : ", content['chat_type'])
 
     # 챗봇이랑 대화 chat_type 으로 분류
-    # try:
-    if content['chat_type'] == 0 or content['chat_type'] == 1:
-        result = reply_message(content)
-    elif content['chat_type'] == 2:
-        result = reply_message_for_memory(content)
-    elif content['chat_type'] == 4:
-        result = reply_message_for_select_review(content, content_message[0])
-    elif content['chat_type'] == 5:
-        result = reply_message_for_reply_review(content, content_message[0])
-    # except TypeError as err:
-    #     print("TYPE error: {0}".format(err))
-    #     result = reply_message(content)
+    try:
+        if content['chat_type'] == 0 or content['chat_type'] == 1 or content['chat_type'] == 6:
+            result = reply_message(content,content['chat_type'] )
+        elif content['chat_type'] == 2:
+            result = reply_message_for_memory(content)
+        elif content['chat_type'] == 4:
+            result = reply_message_for_select_review(content, content_message[0])
+        elif content['chat_type'] == 5:
+            result = reply_message_for_reply_review(content, content_message[0])
+    except TypeError as err:
+        print("TYPE error: {0}".format(err))
+        result = reply_message(content, 0)
+
+    db.session.commit()
 
     return result
 

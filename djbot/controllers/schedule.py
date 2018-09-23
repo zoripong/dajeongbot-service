@@ -38,7 +38,8 @@ def update_event(reply):
     events = Event.query.filter(Event.id == param['event_id']).all()
     for event in events:
         if param['schedule_when'] != "":
-            event.schedule_when = current + datetime.timedelta(days=int(param['schedule_when']))
+            new_time = current + datetime.timedelta(days=int(param['schedule_when']))
+            event.schedule_when = new_time.strftime("%Y-%m-%d")
         if param['schedule_where'] != "":
             event.schedule_where = param['schedule_where']
         if param['schedule_what'] != "":

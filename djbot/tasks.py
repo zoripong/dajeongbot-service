@@ -6,11 +6,13 @@ from random import randint
 
 from flask import logging
 from pyfcm import FCMNotification
+#from celery.utils.log import get_task_logger
 
 import config
 from djbot.celery import app
 from djbot.controllers.tone import ask_review_message, convert_notification_message, bot_img
 from djbot.models.models import *
+from djbot.factory import create_app
 
 # TODO : 일정이 없는 날
 # TODO : TEST
@@ -19,9 +21,11 @@ from djbot.models.models import *
 # def say_hello():          # 실제 백그라운드에서 작업할 내용을 task 로 정의한다.
 #     print("Hello, celery!")
 
+flask_app = create_app()
+flask_app.app_context().push()
 push_service = FCMNotification(api_key=config.FCM_API)
 celery = app
-
+#logging = get_task_logger(__name__)
 
 # 회원이 등록한 일정의 시작 시간에 안내를 할 수 있도록 메세지를 예약합니다.
 @celery.task

@@ -32,10 +32,12 @@ def register_calendar_notification():
     print(today)
     events = Event.query.filter(Event.notification_send == 0, Event.schedule_when == today).order_by(Event.id).all()
     print(len(today))
+    logging.info("line 35")
 
     for event in events:
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         accounts = Account.query.filter(Account.id == event.account_id).all()
+        logging.info("line 40")
         for account in accounts:
             contents = convert_notification_message(event, account.bot_type, randint(0, 3))
             param = {
@@ -53,6 +55,8 @@ def register_calendar_notification():
                     }
                 }
             }
+            logging.info("line 58")
+
             # 해당 일정에 대해 안내 하였음을 업데이트 함
             if send_fcm_message(account.notify_time, event.account_id, 0, 3, contents, param):
                 event.notification_send = 1
@@ -86,7 +90,7 @@ def register_calendar_question():
                 "question_send": event.question_send
             })
 
-        content = ask_review_message[0][content['bot_type']][randint(0, 3)]
+        content = ask_review_message[0][account.bot_type][randint(0, 3)]
 
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",
@@ -152,14 +156,14 @@ def congratulate_birthday():
     db.session.commit()
 
 
-
 # 시간을 비교하여 사용자의 기기에 fcm 알림을 보냅니다.
 # param : 비교 시간, 계정 식별번호, 알림 제목, 알림 내용
 def send_fcm_message(check_time, account_id, node_type, chat_type, contents, param):
+    logging.info("send_fcm_message")
     user_datetime_object = time.strptime(check_time, '%H:%M')
     user_time = datetime.time(user_datetime_object[3], user_datetime_object[4]).strftime("%H:%M")
     now_time = datetime.datetime.now().strftime("%H:%M")
-
+    logging.info("now_time > user_time", now_time, user_time)
     if now_time > user_time:
         if chat_type == 4:
             for content in contents:

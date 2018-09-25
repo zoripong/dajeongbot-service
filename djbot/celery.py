@@ -25,6 +25,11 @@ app.conf.update(
     CELERY_TIMEZONE='Asia/Seoul',
     CELERY_ENABLE_UTC=False,
     CELERYBEAT_SCHEDULE={
+        'test': {
+            'task': 'djbot.tasks.test',
+            'schedule': crontab(minute='*/1'),  # 특정 시간 뿐만 아니라 특정 요일과 같은 다양한 단위시간 설정을 지원
+
+        },
         'notification-every-minutes': {
             'task': 'djbot.tasks.register_calendar_notification',
             'schedule': crontab(minute='*/1'),      # 특정 시간 뿐만 아니라 특정 요일과 같은 다양한 단위시간 설정을 지원

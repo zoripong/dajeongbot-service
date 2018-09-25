@@ -6,7 +6,6 @@ from random import randint
 
 from flask import logging
 from pyfcm import FCMNotification
-#from celery.utils.log import get_task_logger
 
 import config
 from djbot.celery import app
@@ -25,7 +24,21 @@ flask_app = create_app()
 flask_app.app_context().push()
 push_service = FCMNotification(api_key=config.FCM_API)
 celery = app
-#logging = get_task_logger(__name__)
+
+
+@celery.task
+def test():
+    param = {
+        "title": "오늘 일정이 있어요!",
+        "message": "야호",
+        "data": {
+            "status": "Success",
+            "result": {}
+        }
+    }
+    token = "c9bJWWrnf_M:APA91bEqLUkgYEo_WskW5gQ-NFLIG_I8_WPVkA5mwtE4iBnqdyGoEmubj2jDmhioSOcKjZwpgd2J79agd59Ky7NMjZc0qurxqZNYaiBAiuANngfgwpblTT3MPGQ3BPgMdbbokOzvBQj2"
+    push_service.notify_single_device(registration_id=token, data_message=param, content_available=True)
+
 
 # 회원이 등록한 일정의 시작 시간에 안내를 할 수 있도록 메세지를 예약합니다.
 @celery.task

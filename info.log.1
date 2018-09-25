@@ -16,7 +16,7 @@ Traceback (most recent call last):
     db.query(q)
   File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
     _mysql.connection.query(self, query)
-_mysql_exceptions.OperationalError: (1366, "Incorrect string value: '\\xF0\\x9F\\x98\\xBF\\xF0\\x9F...' for column 'content' at row 1")
+_mysql_exceptions.OperationalError: (1366, "Incorrect string value: '\\xF0\\x9F\\x96\\x92' for column 'content' at row 1")
 
 The above exception was the direct cause of the following exception:
 
@@ -33,7 +33,7 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 28, in add_messages
+  File "./djbot/blueprints/message.py", line 27, in add_messages
     db.session.commit()
   File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/scoping.py", line 153, in do
     return getattr(self.registry(), name)(*args, **kwargs)
@@ -91,7 +91,7 @@ Traceback (most recent call last):
     db.query(q)
   File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
     _mysql.connection.query(self, query)
-sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1366, "Incorrect string value: '\\xF0\\x9F\\x98\\xBF\\xF0\\x9F...' for column 'content' at row 1") [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`, carousel_list, slot_list) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'] [parameters: (51, '광화문 광화문 ㅅ공화문 광화문 이거 그 머냐 줄바꿈이 안되는 거 같아요 화면에 꽉 차게 나와요 따흐ㅡㅡ흐흐흐ㅡ흐흑 😿😿😿😿😿😿😿😿😿😿', 0, 0, '1537250746523', 0, None, None)] (Background on this error at: http://sqlalche.me/e/e3q8)
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1366, "Incorrect string value: '\\xF0\\x9F\\x96\\x92' for column 'content' at row 1") [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`, carousel_list, slot_list) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'] [parameters: (131, '🖒', 0, 0, '1537780325201', 0, None, None)] (Background on this error at: http://sqlalche.me/e/e3q8)
 Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
@@ -106,43 +106,7 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 25, in add_messages
-    chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
-KeyError: 'node_type'
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
-    raise value
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 35, in add_messages
-    result = reply_message(content)
-  File "./djbot/controllers/message.py", line 57, in reply_message
-    result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]
-KeyError: '이런 의미이신가요?'
-Exception on /messages/ [POST]
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
-    raise value
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 35, in add_messages
+  File "./djbot/blueprints/message.py", line 34, in add_messages
     result = reply_message(content)
   File "./djbot/controllers/message.py", line 57, in reply_message
     result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]

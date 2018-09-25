@@ -1,11 +1,13 @@
 import datetime
 import time
+from random import randint
 
 from flask import Blueprint, request, jsonify
 from pyfcm import FCMNotification
 
 import config
 from djbot.controllers import schedule
+from djbot.controllers.tone import convert_notification_message, ask_review_message
 from djbot.models.models import *
 
 
@@ -86,9 +88,8 @@ def notification():
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         accounts = Account.query.filter(Account.id == event.account_id).all()
 
-        contents = ["오늘은 일정이 있는 날이네!",
-                    event.schedule_where + "에서 " + event.schedule_what,
-                    "오늘도 화이팅!"]
+        contents = convert_notification_message(event, account.bot_type, randint(0, 3))
+
         param = {
             "title": "오늘 일정이 있어요!",
             "message": event.schedule_where + "에서 " + event.schedule_what,
@@ -139,7 +140,7 @@ def ask():
                 "question_send": event.question_send
             })
 
-        content = ["오늘 하루 어땠니?"]
+        content = ask_review_message[0][content['bot_type']][randint(0, 3)]
         param = {
             "title": "당신의 하루를 다정봇에게 들려주세요 :)",
             "message": "오늘 " + str(len(events)) + "개의 일정이 있습니다.",

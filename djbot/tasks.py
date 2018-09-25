@@ -4,6 +4,7 @@ import datetime
 import time
 from random import randint
 
+from flask import logging
 from pyfcm import FCMNotification
 
 import config
@@ -177,6 +178,7 @@ def send_fcm_message(check_time, account_id, node_type, chat_type, contents, par
         for token in tokens:
             # send the fcm notification
             print("메세지 전송 얍!")
+            logging.info("메세지 전송 : ", token)
             push_service.notify_single_device(registration_id=token.token, data_message=param, content_available=True)
 
         return True

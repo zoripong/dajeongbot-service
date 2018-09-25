@@ -13,7 +13,6 @@ app = Celery('djbot',                               # 첫번째 값은 현재 �
              broker=BROKER_URL,                      # broker: 브로커에 접속할 수 있는 URL을 설정.
              backend=CELERY_RESULT_BACKEND)
 
-
 app.conf.update(
     BROKER_URL=BROKER_URL,
     CELERY_TASK_SERIALIZER='json',

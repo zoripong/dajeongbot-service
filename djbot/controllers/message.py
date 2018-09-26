@@ -18,9 +18,11 @@ from config import NODE_TYPE
 
 
 def add_message_for_new_user(account_id, bot_type):
+    print("add_message_for_new_user")
     ts = calendar.timegm(time.gmtime())
     # 챗봇 타입에 따라 말투를 달리함
-    content = welcome_message[bot_type][randint(0, 3)]
+    content = welcome_message[bot_type]
+    print(content)
     chat = Chat(account_id=account_id, content=content, node_type=0, chat_type=0, time=str(ts), isBot=1)
     db.session.add(chat)
     db.session.commit()

@@ -95,8 +95,23 @@ def update_times():
 # 사용자 정보 초기화
 @bp.route('/all/<int:account_id>', methods=['DELETE'])
 def reset_data(account_id):
-    # TODO
-    return jsonify("{}")
+    result = {
+        "status": "Failed"
+    }
+
+    chats = Chat.query.filter(Chat.account_id == account_id).all()
+    for chat in chats:
+        db.session.delete(chat)
+
+    events = Event.query.filter(Event.account_id == account_id).all()
+    for event in events:
+        db.session.delete(event)
+
+    db.session.commit()
+    result = {
+        "status": "Success"
+    }
+    return json.dumps(result)
 
 
 #   #   #   #   #   #

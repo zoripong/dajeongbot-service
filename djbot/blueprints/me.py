@@ -32,8 +32,8 @@ def update_name():
         "status": "Failed"
     }
     content = json.loads(request.data.decode("utf-8"))
-    account = Account.query.filter(Account.id == content['account_id'])
-    account.name = content['new_name']
+    account = Account.query.filter(Account.id == content['account_id']).all()
+    account[0].name = content['new_name']
     db.session.commit()
 
     result = {
@@ -49,8 +49,8 @@ def update_bots():
         "status": "Failed"
     }
     content = json.loads(request.data.decode("utf-8"))
-    account = Account.query.filter(Account.id == content['account_id'])
-    account.bot_type = content['new_bot_type']
+    account = Account.query.filter(Account.id == content['account_id']).all()
+    account[0].bot_type = content['new_bot_type']
     db.session.commit()
 
     result = {
@@ -81,9 +81,9 @@ def update_times():
         "status": "Failed"
     }
     content = json.loads(request.data.decode("utf-8"))
-    account = Account.query.filter(Account.id == content['account_id'])
-    account.notify_time = content['new_notify_time']
-    account.ask_time = content['new_ask_time']
+    account = Account.query.filter(Account.id == content['account_id']).all()
+    account[0].notify_time = content['new_notify_time']
+    account[0].ask_time = content['new_ask_time']
     db.session.commit()
 
     result = {
@@ -133,9 +133,9 @@ def update():
     content = json.loads(request.data.decode("utf-8"))
 
     token = FcmToken.query\
-        .filter(FcmToken.account_id == content['account_id'], FcmToken.token == content['fcm_token'])
+        .filter(FcmToken.account_id == content['account_id'], FcmToken.token == content['fcm_token']).all()
 
-    token.token = content['new_token']
+    token[0].token = content['new_token']
     db.session.commit()
 
     result = {

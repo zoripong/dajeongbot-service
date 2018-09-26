@@ -11,6 +11,20 @@ bp = Blueprint('me', __name__, url_prefix='/me')
 #   #   #   #   #   #
 #     사용자 정보     #
 #   #   #   #   #   #
+# 닉네임 가져오기
+@bp.route('/names/<int:account_id>', methods=['GET'])
+def get_name(account_id):
+    account = Account.query.filter(Account.id == account_id).all()
+    result = {
+        "status": "Success",
+        "data": {
+            "account_id": account_id,
+            "name": account[0].name
+        }
+    }
+    return jsonify(result)
+
+
 # 닉네임 변경
 @bp.route('/names', methods=['PUT'])
 def update_name():
@@ -43,6 +57,21 @@ def update_bots():
         "status": "Success"
     }
     return json.dumps(result)
+
+
+# 설정 시간 가져오기
+@bp.route('/times/<int:account_id>', methods=['GET'])
+def get_times(account_id):
+    account = Account.query.filter(Account.id == account_id).all()
+    result = {
+        "status": "Success",
+        "data": {
+            "account_id": account_id,
+            "notify_time": account[0].notify_time,
+            "ask_time": account[0].ask_time
+        }
+    }
+    return jsonify(result)
 
 
 # 시간 변경

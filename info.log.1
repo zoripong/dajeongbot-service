@@ -1,113 +1,137 @@
 Exception on /messages/ [POST]
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
-    context)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/default.py", line 509, in do_execute
-    cursor.execute(statement, parameters)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 250, in execute
-    self.errorhandler(self, exc, value)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 50, in defaulterrorhandler
-    raise errorvalue
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 247, in execute
-    res = self._query(query)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 411, in _query
-    rowcount = self._do_query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 374, in _do_query
-    db.query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
-    _mysql.connection.query(self, query)
-_mysql_exceptions.OperationalError: (1366, "Incorrect string value: '\\xF0\\x9F\\x96\\x92' for column 'content' at row 1")
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 27, in add_messages
-    db.session.commit()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/scoping.py", line 153, in do
-    return getattr(self.registry(), name)(*args, **kwargs)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 943, in commit
-    self.transaction.commit()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 467, in commit
-    self._prepare_impl()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 447, in _prepare_impl
-    self.session.flush()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 2254, in flush
-    self._flush(objects)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 2380, in _flush
-    transaction.rollback(_capture_exception=True)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/langhelpers.py", line 66, in __exit__
-    compat.reraise(exc_type, exc_value, exc_tb)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 249, in reraise
-    raise value
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/session.py", line 2344, in _flush
-    flush_context.execute()
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/unitofwork.py", line 391, in execute
-    rec.execute(self)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/unitofwork.py", line 556, in execute
-    uow
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
-    mapper, table, insert)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/persistence.py", line 866, in _emit_insert_statements
-    execute(statement, params)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 948, in execute
-    return meth(self, multiparams, params)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/sql/elements.py", line 269, in _execute_on_connection
-    return connection._execute_clauseelement(self, multiparams, params)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1060, in _execute_clauseelement
-    compiled_sql, distilled_params
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1200, in _execute_context
-    context)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1413, in _handle_dbapi_exception
-    exc_info
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 265, in raise_from_cause
-    reraise(type(exception), exception, tb=exc_tb, cause=cause)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/util/compat.py", line 248, in reraise
-    raise value.with_traceback(tb)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
-    context)
-  File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/default.py", line 509, in do_execute
-    cursor.execute(statement, parameters)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 250, in execute
-    self.errorhandler(self, exc, value)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 50, in defaulterrorhandler
-    raise errorvalue
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 247, in execute
-    res = self._query(query)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 411, in _query
-    rowcount = self._do_query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/cursors.py", line 374, in _do_query
-    db.query(q)
-  File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
-    _mysql.connection.query(self, query)
-sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1366, "Incorrect string value: '\\xF0\\x9F\\x96\\x92' for column 'content' at row 1") [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`, carousel_list, slot_list) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'] [parameters: (131, 'üñí', 0, 0, '1537780325201', 0, None, None)] (Background on this error at: http://sqlalche.me/e/e3q8)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 21, in reply_message_for_memory
+    max_index = len(content['response']['events'])
+KeyError: 'events'
 Exception on /messages/ [POST]
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
     response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
     raise value
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 34, in add_messages
-    result = reply_message(content)
-  File "./djbot/controllers/message.py", line 57, in reply_message
-    result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]
-KeyError: 'Ïù¥Îü∞ ÏùòÎØ∏Ïù¥Ïã†Í∞ÄÏöî?'
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 40, in reply_message_for_memory
+    event = content['response']['events'][select_idx]
+IndexError: list index out of range
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 44, in reply_message_for_memory
+    event = content['response']['events']['event_'+str(select_idx)]
+TypeError: list indices must be integers or slices, not str
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 44, in reply_message_for_memory
+    event = content['response']['events'][select_idx]
+IndexError: list index out of range
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 45, in reply_message_for_memory
+    messages = convert_memory_message(event, type)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\tone.py", line 137, in convert_memory_message
+    schedule = event['schedule_where'] + "ø°º≠ " + event['schedule_what'] + "«ﬂæ˙±∏≥™!"
+KeyError: 'schedule_where'
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 21, in reply_message_for_memory
+    max_index = len(content['response']['events'])
+KeyError: 'events'
+Exception on /messages/ [POST]
+Traceback (most recent call last):
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\_compat.py", line 35, in reraise
+    raise value
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Devuri\workspace\server\djbot-venv\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\blueprints\message.py", line 36, in add_messages
+    result = reply_message_for_memory(content)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\memory.py", line 49, in reply_message_for_memory
+    messages = convert_memory_message(event[0], type)
+  File "E:\Devuri\workspace\server\DajeongBot-server\djbot\controllers\tone.py", line 137, in convert_memory_message
+    schedule = event['schedule_where'] + "ø°º≠ " + event['schedule_what'] + "«ﬂæ˙±∏≥™!"
+TypeError: 'Event' object is not subscriptable

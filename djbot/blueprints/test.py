@@ -87,26 +87,24 @@ def notification():
     for event in events:
         # 해당 이벤트를 등록한 계정의 알림 설정 시간과 현재시간을 비교
         accounts = Account.query.filter(Account.id == event.account_id).all()
+        for account in accounts:
+            contents = convert_notification_message(event, account.bot_type, randint(0, 3))
 
-        contents = convert_notification_message(event, account.bot_type, randint(0, 3))
-
-        param = {
-            "title": "오늘 일정이 있어요!",
-            "message": event.schedule_where + "에서 " + event.schedule_what,
-            "data": {
-                "status": "Success",
-                "result": {
-                    "node_type": 0,
-                    "id": event.account_id,
-                    "chat_type": 3,
-                    "time": str(int(time.time() * 1000)),
-                    "img_url": [],
-                    "content": contents
+            param = {
+                "title": "오늘 일정이 있어요!",
+                "message": event.schedule_where + "에서 " + event.schedule_what,
+                "data": {
+                    "status": "Success",
+                    "result": {
+                        "node_type": 0,
+                        "id": event.account_id,
+                        "chat_type": 3,
+                        "time": str(int(time.time() * 1000)),
+                        "img_url": [],
+                        "content": contents
+                    }
                 }
             }
-        }
-        print(param)
-        for account in accounts:
             # 해당 일정에 대해 안내 하였음을 업데이트 함
             if send_fcm_message(account.notify_time, event.account_id, 3, contents, param):
                 event.notification_send = 1
@@ -122,7 +120,7 @@ def ask():
     accounts = Account.query.all()
     for account in accounts:
         events = Event.query \
-            .filter(Event.review.is_(None), Event.schedule_when == today, Event.account_id == account.id) \
+            .filter(Event.schedule_when == today, Event.account_id == account.id) \
             .order_by(Event.id).all()
 
         event_json = []
@@ -176,7 +174,7 @@ def send_fcm_message(check_time, account_id, chat_type, contents, param):
     now_time = datetime.datetime.now().strftime("%H:%M")
 
     if now_time > user_time:
-        if chat_type == 4:
+        if chat_type == 3:
             for content in contents:
                 chat = Chat(account_id=account_id, content=content, node_type=0,
                             chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1)

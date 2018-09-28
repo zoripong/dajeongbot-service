@@ -1,4 +1,4 @@
-Exception on /messages/ [POST]
+Exception on /users/signup [POST]
 Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/engine/base.py", line 1193, in _execute_context
     context)
@@ -16,7 +16,7 @@ Traceback (most recent call last):
     db.query(q)
   File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
     _mysql.connection.query(self, query)
-_mysql_exceptions.OperationalError: (1366, "Incorrect string value: '\\xF0\\x9F\\x96\\x92' for column 'content' at row 1")
+_mysql_exceptions.OperationalError: (1366, "Incorrect string value: '\\xF0\\x9F\\x90\\xA5\\xEC\\xA7...' for column 'name' at row 1")
 
 The above exception was the direct cause of the following exception:
 
@@ -33,7 +33,7 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "./djbot/blueprints/message.py", line 27, in add_messages
+  File "./djbot/blueprints/user.py", line 92, in signup
     db.session.commit()
   File "/usr/local/lib/python3.5/dist-packages/sqlalchemy/orm/scoping.py", line 153, in do
     return getattr(self.registry(), name)(*args, **kwargs)
@@ -91,7 +91,7 @@ Traceback (most recent call last):
     db.query(q)
   File "/usr/local/lib/python3.5/dist-packages/MySQLdb/connections.py", line 277, in query
     _mysql.connection.query(self, query)
-sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1366, "Incorrect string value: '\\xF0\\x9F\\x96\\x92' for column 'content' at row 1") [SQL: 'INSERT INTO chat (account_id, content, node_type, chat_type, time, `isBot`, carousel_list, slot_list) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)'] [parameters: (131, '🖒', 0, 0, '1537780325201', 0, None, None)] (Background on this error at: http://sqlalche.me/e/e3q8)
+sqlalchemy.exc.OperationalError: (_mysql_exceptions.OperationalError) (1366, "Incorrect string value: '\\xF0\\x9F\\x90\\xA5\\xEC\\xA7...' for column 'name' at row 1") [SQL: 'INSERT INTO account (user_id, name, birthday, account_type, bot_type) VALUES (%s, %s, %s, %s, %s)'] [parameters: ('tessjung05@naver.com', '🐥짐꾹🐰', '2005-01-24', 0, 2)] (Background on this error at: http://sqlalche.me/e/e3q8)
 Exception on /messages/ [POST]
 Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
@@ -107,7 +107,7 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
   File "./djbot/blueprints/message.py", line 34, in add_messages
-    result = reply_message(content)
-  File "./djbot/controllers/message.py", line 57, in reply_message
+    result = reply_message(content,content['chat_type'] )
+  File "./djbot/controllers/message.py", line 65, in reply_message
     result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]
 KeyError: '이런 의미이신가요?'

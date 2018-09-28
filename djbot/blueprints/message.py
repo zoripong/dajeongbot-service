@@ -50,7 +50,7 @@ def add_messages():
 @bp.route('/<int:res_account_id>')
 def get_messages(res_account_id):
     # 사용자가 메세지 내역을 요청함
-    chats = Chat.query.filter(Chat.account_id == res_account_id).order_by(Chat.id.desc()).limit(30).all()
+    chats = Chat.query.filter(Chat.account_id == res_account_id).order_by(Chat.id.desc()).limit(20).all()
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
@@ -67,7 +67,7 @@ def get_messages(res_account_id):
 def get_more_messages(res_account_id, last_index):
     # 사용자가 메세지 내역을 요청함
     chats = Chat.query.filter(Chat.account_id == res_account_id, Chat.id < last_index)\
-        .order_by(Chat.id.desc()).limit(20).all()
+        .order_by(Chat.id.desc()).limit(5).all()
     return jsonify([{
         "id": chat.id,
         "content": chat.content,

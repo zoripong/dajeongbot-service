@@ -74,7 +74,7 @@ def reply_message(content, chat_type):
                 # 일정 등록
                 register_event(reply, result, content['account_id'])
             # elif primitive_message == "SpeakNode_1537355664283":
-                #TODO 일정이 있는지 없는지
+                # TODO 일정이 있는지 없는지
                 # 있으면 REQUEST 요청 후 RETURN
                 # 없으면 그냥 TEXT RETURN
             elif primitive_message == "SpeakNode_1537356062991":

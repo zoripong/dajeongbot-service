@@ -42,11 +42,6 @@ def reply_message_for_memory(content):
     else:
         select_idx = content['response']['select_idx']
 
-        # print(str(select_idx))
-        # print(len(content['response']['events']))
-
-        # event = content['response']['events'][select_idx]
-
         # FIXME ? DB쿼리말구..?
         event = Event.query.filter(Event.id == select_idx).all()
 
@@ -67,15 +62,12 @@ def reply_message_for_memory(content):
 
         insert_message_multiple_with_carousel(content['account_id'], result_json['result'],
                                               result_json['result']['time'], content['response']['events'])
-    print("ㅎㅇㅎㅇ")
     print(content['response']['events'])
-
     return jsonify(result_json)
 
 
 def get_memory(reply, content, current):
     result_json = {"status": "Failed"}
-    node_type = 'carousel'
     num_date = int(reply['responseSet']['result']['parameters']['date'])
     if num_date < 0:
         when = current + datetime.timedelta(days=num_date)
@@ -122,10 +114,9 @@ def get_memory(reply, content, current):
                     "events": json_events
                 }
             }
-            insert_message_multiple_with_carousel(content['account_id'], result_json['result'], result_json['result']['time'],
-                                                  json_events)
+            insert_message_multiple_with_carousel(content['account_id'], result_json['result'],
+                                                  result_json['result']['time'], json_events)
 
-        print("???????")
         print(json_events)
     return result_json
 

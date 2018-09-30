@@ -196,3 +196,25 @@ def send_fcm_message(check_time, account_id, chat_type, contents, param):
         return True
     return False
 
+
+@bp.route('/fcm')
+def test_fcm():
+    param = {
+        "title": "오늘 일정이 있어요!",
+        "message": "[ 장소 ] 에서 [ 뭐하기 ]",
+        "data": {
+            "status": "Success",
+            "result": {
+                "node_type": 0,
+                "id": 32,
+                "chat_type": 3,
+                "time": str(int(time.time() * 1000)),
+                "img_url": [],
+                "content": ["키키"]
+            }
+        }
+    }
+    token = "f0sOjiOPahk:APA91bF4wR1sLn-xuDcNLO62Qk5NppAvXTVNe2fZ0LuueAIAbKrWLhLCaKUp-tdgKx_jPLQf4tkTxYo69BjPV7vl_l3IVNsiQ-vOCJEtzPhyn98koi35JZVGCMGuDEV_WbXKPLYOd6gI"
+    push_service.notify_single_device(registration_id=token, data_message=param, content_available=True)
+
+    return jsonify(param)

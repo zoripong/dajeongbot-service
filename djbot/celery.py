@@ -4,9 +4,6 @@ from celery import Celery
 from celery.schedules import crontab
 
 from config import BROKER_URL, CELERY_RESULT_BACKEND
-from .factory import create_app
-#from flask import Flask
-from djbot.models.models import db
 
 # pip install eventlet
 # celery -A djbot.tasks worker -l info -P eventlet

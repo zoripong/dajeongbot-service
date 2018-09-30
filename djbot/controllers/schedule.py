@@ -54,12 +54,10 @@ def update_event(reply):
 # 일정등록 답장을 주는 로직
 # 후기를 남김 -> 더 물어볼지 이벤트 리스트를 넘김
 def reply_message_for_reply_review(content, select_idx):
-    print(content['account_id'])
     now = str(int(time.time() * 1000))
     today = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # 이벤트 후기 db 업데이트
-    print(select_idx+"가 수정됨")
     select_event = Event.query.filter(Event.id == select_idx).all()
     select_event[0].review = content['content']
     db.session.commit()
@@ -120,7 +118,6 @@ def reply_message_for_reply_review(content, select_idx):
 # 일정등록 답장을 주는 로직
 # 후기를 남길 이벤트를 선택함 -> 질문을 해줌
 def reply_message_for_select_review(content, select_idx):
-    print("???")
     now = str(int(time.time() * 1000))
     result = {}
     if select_idx == -1:

@@ -10,17 +10,16 @@ bp = Blueprint('user', __name__, url_prefix='/users')
 
 @bp.route('/<int:account_type>/<string:user_id>/<string:password>')
 def login(account_type, user_id, password):
-    j1 = [{
+    result = [{
         "status": "Failed",
     }]
 
     if account_type == 0:
-        # print(str(account_type) + "/" + user_id + "/" + password)
         account = CustomAccount.query.filter(CustomAccount.user_id == user_id, CustomAccount.password == password,
                                              CustomAccount.account_type == account_type).all()
         print(len(account))
         if len(account) == 1:
-            j1 = [{
+            result = [{
                 "status": "OK",
                 "user_info": {
                     "id": account[0].id,
@@ -29,7 +28,7 @@ def login(account_type, user_id, password):
                 }
             }]
         elif len(account) < 1:
-            j1 = [{
+            result = [{
                 "status": "NOT EXIST",
             }]
     else:
@@ -45,7 +44,7 @@ def login(account_type, user_id, password):
                 db.session.delete(account[0])
                 db.session.add(new_account)
                 db.session.commit()
-            j1 = [{
+            result = [{
                 "status": "OK",
                 "user_info": {
                     "id": account[0].id,
@@ -54,30 +53,23 @@ def login(account_type, user_id, password):
                 }
             }]
         else:
-            j1 = [{
+            result = [{
                 "status": "NEW_API_USER",
                 "account_type": account_type,
                 "token": password,
             }]
-
     # TODO: 성공했을 경우 SESSION
-    return jsonify(j1)
+    return jsonify(result)
 
 
 @bp.route('/signup', methods=['POST'])
 def signup():
-    # content = request.get_json(force=True)
-    print(request.data, type(request.data))
-    jsonString = request.data.decode("utf-8")
-    content2 = json.loads(jsonString)
-    print(type(content2))
-    content = content2
+    content = json.loads(request.data.decode("utf-8"))
     # 존재하는 아이디인지 체크
     result = {
         "status": "Failed"
         # "id": content["user_id"]
     }
-    # print(type(content['account_type']))
     account = Account.query.filter(Account.user_id == content['user_id'], Account.account_type == content['account_type']).all()
     if len(account) == 0:
         # 존재하지 않는 아이디라면 insert
@@ -88,10 +80,11 @@ def signup():
             detail = CustomAccount(user_id=content['user_id'], name=content['name'], birthday=content['birthday'],
                                    account_type=content['account_type'], bot_type=content['bot_type'],
                                    password=content['password'])
+
         db.session.add(detail)
         db.session.commit()
         new_account = Account.query.filter(Account.user_id == content['user_id'],
-                                       Account.account_type == content['account_type']).all()
+                                           Account.account_type == content['account_type']).all()
         result = {
             "status": "Success",
             "user_info": {

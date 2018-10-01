@@ -184,7 +184,7 @@ POST /messages
 ```json
 {
     "title": "오늘 일정이 있어요!",
-    "message": "(장소)에서(일정)",
+    "message": "[ 장소 ]에서 [ 일정 ]",
     "data": {
         "status": "Success",
         "result": {
@@ -195,7 +195,7 @@ POST /messages
             "img_url": [],
             "content": [
                 "오늘은 일정이 있는 날이네!",
-                "(장소)에서(일정)",
+                "[ 장소 ]에서 [ 일정 ]",
                 "오늘도 화이팅!"
             ]
         }
@@ -292,6 +292,12 @@ POST /messages
 ### 회원가입
 
 ##### Request Example
+> 일반유저
+```json
+
+```
+
+> SNS 유저
 ```json
 
 ```
@@ -309,7 +315,36 @@ POST /messages
     }
 }
 ````
+### 로그인
+##### Request Example
+> 일반유저
+```json
 
-#### 일반유저
+```
 
-#### SNS 유저
+> SNS 유저
+```json
+
+```
+##### Response Example
+```json
+
+```
+### 회원정보 관리
+> 닉네임
+```
+[GET] /me/names/<int:account_id>
+```
+
+
+> 챗봇 캐릭터
+
+
+> 알림 시간
+
+
+> 초기화
+
+
+> 토근
+

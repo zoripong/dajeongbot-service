@@ -4,9 +4,9 @@ python:
 - 3.5
 install: pip install --user -r requirements.txt
 before_script:
-  - export FLASK_APP="$TRAVIS_BUILD_DIR/worker.py"
-  - export FLASK_DEBUG=1
-
+- export FLASK_APP="$TRAVIS_BUILD_DIR/worker.py"
+- export FLASK_DEBUG=1
 script: flask test
 before_install:
-openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_iv -in config.py.enc -out config.py -d
+- openssl aes-256-cbc -K $encrypted_a4b499dc97d4_key -iv $encrypted_a4b499dc97d4_iv
+  -in config.py.enc -out config.py -d

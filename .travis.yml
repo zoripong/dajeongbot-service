@@ -8,5 +8,5 @@ before_script:
 - export FLASK_DEBUG=1
 script: flask test
 before_install:
-- openssl aes-256-cbc -K $encrypted_1073ed66c70d_key -iv $encrypted_1073ed66c70d_iv
+- openssl aes-256-cbc -K $encrypted_17b768b9576a_key -iv $encrypted_17b768b9576a_iv
   -in config.py.enc -out config.py -d

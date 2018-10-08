@@ -1,8 +1,10 @@
-﻿language: python
-
+﻿sudo: false  # http://docs.travis-ci.com/user/migrating-from-legacy/
+language: python
 python:
-    - "3.5"
+  - 3.5
+install: pip install -r requirements.txt
+before_script:
+  - export FLASK_APP="$TRAVIS_BUILD_DIR/worker.py"
+  - export FLASK_DEBUG=1
 
-# install dependencies
-install: 
-  -pip install -r requirements.txt
+script: python worker.py

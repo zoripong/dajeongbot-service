@@ -42,6 +42,23 @@ def update_name():
     return json.dumps(result)
 
 
+# 비밀번호 변경
+@bp.route('/passwords', methods=['PUT'])
+def update_password():
+    result = {
+        "status": "Failed"
+    }
+    content = json.loads(request.data.decode("utf-8"))
+    account = CustomAccount.query.filter(CustomAccount.id == content['account_id']).all()
+    account[0].password = content['new_password']
+    db.session.commit()
+
+    result = {
+        "status": "Success"
+    }
+    return json.dumps(result)
+
+
 # 챗봇 캐릭터 변경
 @bp.route('/bots', methods=['PUT'])
 def update_bots():

@@ -1,11 +1,9 @@
 import pytest
-import json
-from flask import url_for
 
 from djbot.models.models import *
 
 
-@pytest.mark.usefixtures('app')
+@pytest.mark.usefixtures('client')
 class TestLogin:
 
     def test_add(self):
@@ -23,6 +21,11 @@ class TestLogin:
     def login(self, user_id, password):
         return self.client.get('/user/0/test24/test', follow_redirects=True)
 
+
+
+    #
     # def test_login(self):
     #     rv = self.login('test', 'test')
     #     assert rv.data['status'] == 'NOT EXIST'
+
+

@@ -1,4 +1,4 @@
-﻿# 다정봇 서버 [![Build Status](https://travis-ci.org/zoripong/DajeongBot-server.svg?branch=master)](https://travis-ci.org/zoripong/DajeongBot-server)
+﻿# 다정봇 서버 [![Build Status](https://travis-ci.org/zoripong/DajeongBot-server.svg?branch=master)](https://travis-ci.org/zoripong/DajeongBot-server) [![Coverage Status](https://coveralls.io/repos/github/zoripong/DajeongBot-server/badge.svg?branch=master)](https://coveralls.io/github/zoripong/DajeongBot-server?branch=master)
 
 다정봇은 당신의 하루를 챗봇과의 대화 중 자연스럽게 기록해줄 챗봇 다이어리입니다.  서비스에 대한 자세한 내용은 [android 레포지토리](https://github.com/zoripong/DajeongBot)를 참고해주세요.
 

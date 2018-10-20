@@ -11,10 +11,6 @@ from djbot.controllers.tone import convert_notification_message, ask_review_mess
 from djbot.models.models import *
 
 
-bp = Blueprint('test', __name__)
-
-
-@bp.route("/")
 def hello_world():
     # current = datetime.datetime.now()
     # tomorrow = current + datetime.timedelta(days=6)
@@ -22,7 +18,6 @@ def hello_world():
     return jsonify({"status": "Success"})
 
 
-@bp.route("/register")
 def register():
     user = Account(user_id="test2", name="test2", birthday="2000.05.09.", account_type=1, bot_type=1)
     db.session.add(user)
@@ -31,7 +26,6 @@ def register():
     return 'hello world'
 
 
-@bp.route("/join")
 def join():
     user_id = 'test'
     password = 'test'
@@ -46,18 +40,6 @@ def join():
         return "Failed"
 
 
-@bp.route("/json", methods=['POST'])
-def json22():
-    content = request.get_json(force=True)
-    # if "id" in content['response']:
-    #     print("hi")
-    # else:
-    #     print("hello")
-    print(content)
-    return jsonify(content)
-
-
-@bp.route("/none")
 def is_none():
     today = datetime.datetime.now().strftime("%Y-%m-%d")
     events = Event.query.filter(Event.review.is_(None), Event.schedule_when == today).order_by(Event.id).all()
@@ -75,7 +57,6 @@ def is_none():
 push_service = FCMNotification(api_key=config.FCM_API)
 
 
-@bp.route('/notifications')
 def notification():
     # 이벤트 목록 (send is 0)
     # 이벤트에 대한 정보와 회원 account_id
@@ -112,7 +93,6 @@ def notification():
     return jsonify({"result": "ok"})
 
 
-@bp.route('/ask')
 def ask():
     # 오늘 일어난 event 중 후기가 null 이면서 사용자의 일기쓰는 시간이 지난 경우
     today = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -197,8 +177,7 @@ def send_fcm_message(check_time, account_id, chat_type, contents, param):
     return False
 
 
-@bp.route('/fcm')
-def test_fcm():
+def send_fcm():
     param = {
         "title": "오늘 일정이 있어요!",
         "message": "[ 장소 ] 에서 [ 뭐하기 ]",
@@ -208,7 +187,7 @@ def test_fcm():
                 "node_type": 0,
                 "id": 32,
                 "chat_type": 3,
-                "time": str(int(time.time() * 1000)),
+                "time": '1539778057393',
                 "img_url": [],
                 "content": ["키키"]
             }
@@ -217,4 +196,22 @@ def test_fcm():
     token = "f0sOjiOPahk:APA91bF4wR1sLn-xuDcNLO62Qk5NppAvXTVNe2fZ0LuueAIAbKrWLhLCaKUp-tdgKx_jPLQf4tkTxYo69BjPV7vl_l3IVNsiQ-vOCJEtzPhyn98koi35JZVGCMGuDEV_WbXKPLYOd6gI"
     push_service.notify_single_device(registration_id=token, data_message=param, content_available=True)
 
-    return jsonify(param)
+    return param
+
+
+def test_send_fcm():
+    assert send_fcm() == {
+        "title": "오늘 일정이 있어요!",
+        "message": "[ 장소 ] 에서 [ 뭐하기 ]",
+        "data": {
+            "status": "Success",
+            "result": {
+                "node_type": 0,
+                "id": 32,
+                "chat_type": 3,
+                "time": '1539778057393',
+                "img_url": [],
+                "content": ["키키"]
+            }
+        }
+    }

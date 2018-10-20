@@ -12,13 +12,9 @@ from djbot.celery import app
 from djbot.controllers.tone import ask_review_message, convert_notification_message, bot_img
 from djbot.models.models import *
 from djbot.factory import create_app
+from celery.utils.log import get_task_logger
 
 # TODO : 일정이 없는 날
-# TODO : TEST
-# [ Example ]
-# @app.task
-# def say_hello():          # 실제 백그라운드에서 작업할 내용을 task 로 정의한다.
-#     print("Hello, celery!")
 
 flask_app = create_app()
 flask_app.app_context().push()
@@ -36,6 +32,10 @@ def test():
             "result": {}
         }
     }
+    logger = get_task_logger('djbot')
+    logger.setLevel(logging.INFO)
+    logger.info("loggggg")
+
     token = "c9bJWWrnf_M:APA91bEqLUkgYEo_WskW5gQ-NFLIG_I8_WPVkA5mwtE4iBnqdyGoEmubj2jDmhioSOcKjZwpgd2J79agd59Ky7NMjZc0qurxqZNYaiBAiuANngfgwpblTT3MPGQ3BPgMdbbokOzvBQj2"
     push_service.notify_single_device(registration_id=token, data_message=param, content_available=True)
 

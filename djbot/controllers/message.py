@@ -37,12 +37,16 @@ def reply_message(content, chat_type):
     else:
         reply = danbee.message_with_response(content['content'], content['response'])
 
-    reply_result = reply['responseSet']['result']['result']
+    reply_results = reply['responseSet']['result']['result']
+    ignore_messages = ['danbee.Ai에서 만든 챗봇입니다.( https://danbee.ai )']
     result_json = {
         "status": "Failed",
     }
 
-    for result in reply_result:
+    for result in reply_results:
+        primitive_message = result['message']
+        if primitive_message in ignore_messages:
+            pass
         img_url = result['imgRoute']
         if img_url is not None and img_url != "":
             result['imgRoute'] = bot_img[img_url][content['bot_type']]
@@ -52,7 +56,6 @@ def reply_message(content, chat_type):
             db.session.add(chat)
 
         # 챗봇 타입에 따라 말투를 달리함
-        primitive_message = result['message']
         result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]
         node_type = result['nodeType']
 

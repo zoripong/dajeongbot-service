@@ -9,7 +9,7 @@ bp = Blueprint('me', __name__, url_prefix='/me')
 
 
 #   #   #   #   #   #
-#     사용자 정보     #
+#     사용자 정보      #
 #   #   #   #   #   #
 # 닉네임 가져오기
 @bp.route('/names/<int:account_id>', methods=['GET'])
@@ -28,9 +28,6 @@ def get_name(account_id):
 # 닉네임 변경
 @bp.route('/names', methods=['PUT'])
 def update_name():
-    result = {
-        "status": "Failed"
-    }
     content = json.loads(request.data.decode("utf-8"))
     account = Account.query.filter(Account.id == content['account_id']).all()
     account[0].name = content['new_name']
@@ -45,35 +42,26 @@ def update_name():
 # 비밀번호 변경
 @bp.route('/passwords', methods=['PUT'])
 def update_password():
-    result = {
-        "status": "Failed"
-    }
     content = json.loads(request.data.decode("utf-8"))
-    account = CustomAccount.query.filter(CustomAccount.id == content['account_id']).all()
+    account = CustomAccount.query.filter(
+        CustomAccount.id == content['account_id']
+    ).all()
     account[0].password = content['new_password']
     db.session.commit()
-
-    result = {
-        "status": "Success"
-    }
+    result = {'status': 'Success'}
     return json.dumps(result)
 
 
 # 챗봇 캐릭터 변경
 @bp.route('/bots', methods=['PUT'])
 def update_bots():
-    result = {
-        "status": "Failed"
-    }
-    content = json.loads(request.data.decode("utf-8"))
-    account = Account.query.filter(Account.id == content['account_id']).all()
-    account[0].bot_type = content['new_bot_type']
+    content = json.loads(request.data.decode('utf-8'))
+    account = Account.query.filter(Account.id == content['account_id']).first()
+    if not account:
+        return json.dumps({'status': 'Failed'})
+    account.bot_type = content['new_bot_type']
     db.session.commit()
-
-    result = {
-        "status": "Success"
-    }
-    return json.dumps(result)
+    return json.dumps({'status': 'Success'})
 
 
 # 설정 시간 가져오기
@@ -94,9 +82,6 @@ def get_times(account_id):
 # 시간 변경
 @bp.route('/times', methods=['PUT'])
 def update_times():
-    result = {
-        "status": "Failed"
-    }
     content = json.loads(request.data.decode("utf-8"))
     account = Account.query.filter(Account.id == content['account_id']).all()
     account[0].notify_time = content['new_notify_time']
@@ -112,10 +97,6 @@ def update_times():
 # 사용자 정보 초기화
 @bp.route('/all/<int:account_id>', methods=['DELETE'])
 def reset_data(account_id):
-    result = {
-        "status": "Failed"
-    }
-
     chats = Chat.query.filter(Chat.account_id == account_id).all()
     for chat in chats:
         db.session.delete(chat)
@@ -137,10 +118,6 @@ def reset_data(account_id):
 # 새로운 토큰을 등록
 @bp.route('/tokens', methods=['POST'])
 def register():
-    result = {
-        "status": "Failed"
-    }
-
     content = json.loads(request.data.decode("utf-8"))
 
     tokens = FcmToken.query\
@@ -159,9 +136,6 @@ def register():
 # 토큰을 업데이트
 @bp.route('/tokens', methods=['PUT'])
 def update():
-    result = {
-        "status": "Failed"
-    }
     content = json.loads(request.data.decode("utf-8"))
 
     token = FcmToken.query\
@@ -180,9 +154,6 @@ def update():
 # 토큰 해제
 @bp.route('/tokens/<int:account_id>/<string:fcm_token>', methods=['DELETE'])
 def release(account_id, fcm_token):
-    result = {
-        "status": "Failed"
-    }
     delete_token(account_id, fcm_token)
     result = {
         "status": "Success"

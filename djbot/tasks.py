@@ -37,7 +37,9 @@ def test():
     logger.info("loggggg")
 
     token = "c9bJWWrnf_M:APA91bEqLUkgYEo_WskW5gQ-NFLIG_I8_WPVkA5mwtE4iBnqdyGoEmubj2jDmhioSOcKjZwpgd2J79agd59Ky7NMjZc0qurxqZNYaiBAiuANngfgwpblTT3MPGQ3BPgMdbbokOzvBQj2"
-    push_service.notify_single_device(registration_id=token, data_message=param, content_available=True)
+    push_service.notify_single_device(
+        registration_id=token, data_message=param, content_available=True
+    )
 
 
 # 회원이 등록한 일정의 시작 시간에 안내를 할 수 있도록 메세지를 예약합니다.
@@ -47,7 +49,10 @@ def register_calendar_notification():
     # 이벤트에 대한 정보와 회원 account_id
     today = datetime.datetime.now().strftime("%Y-%m-%d")
     print(today)
-    events = Event.query.filter(Event.notification_send == 0, Event.schedule_when == today).order_by(Event.id).all()
+    events = Event.query.filter(
+        Event.notification_send == 0,
+        Event.schedule_when == today
+    ).order_by(Event.id).all()
     print(len(today))
     logging.info("line 35")
 
@@ -56,7 +61,9 @@ def register_calendar_notification():
         accounts = Account.query.filter(Account.id == event.account_id).all()
         logging.info("line 40")
         for account in accounts:
-            contents = convert_notification_message(event, account.bot_type, randint(0, 3))
+            contents = convert_notification_message(
+                event, account.bot_type, randint(0, 3)
+            )
             param = {
                 "title": "오늘 일정이 있어요!",
                 "message": event.schedule_where + "에서 " + event.schedule_what,
@@ -75,7 +82,9 @@ def register_calendar_notification():
             logging.info("line 58")
 
             # 해당 일정에 대해 안내 하였음을 업데이트 함
-            if send_fcm_message(account.notify_time, event.account_id, 0, 3, contents, param):
+            if send_fcm_message(
+                account.notify_time, event.account_id, 0, 3, contents, param
+            ):
                 event.notification_send = 1
     db.session.commit()
 
@@ -88,9 +97,11 @@ def register_calendar_question():
 
     accounts = Account.query.all()
     for account in accounts:
-        events = Event.query \
-            .filter(Event.review.is_(None), Event.schedule_when == today, Event.account_id == account.id) \
-            .order_by(Event.id).all()
+        events = Event.query.filter(
+            Event.review.is_(None),
+            Event.schedule_when == today,
+            Event.account_id == account.id
+        ).order_by(Event.id).all()
 
         event_json = []
         for event in events:
@@ -168,30 +179,50 @@ def congratulate_birthday():
         # fcm 알림
         tokens = FcmToken.query.filter(FcmToken.account_id == account.id).all()
         for token in tokens:
-            push_service.notify_single_device(registration_id=token.token, data_message=param, content_available=True)
+            push_service.notify_single_device(
+                registration_id=token.token,
+                data_message=param,
+                content_available=True
+            )
 
     db.session.commit()
 
 
 # 시간을 비교하여 사용자의 기기에 fcm 알림을 보냅니다.
 # param : 비교 시간, 계정 식별번호, 알림 제목, 알림 내용
-def send_fcm_message(check_time, account_id, node_type, chat_type, contents, param):
+def send_fcm_message(
+    check_time, account_id, node_type, chat_type, contents, param
+):
     logging.info("send_fcm_message")
     user_datetime_object = time.strptime(check_time, '%H:%M')
-    user_time = datetime.time(user_datetime_object[3], user_datetime_object[4]).strftime("%H:%M")
+    user_time = datetime.time(
+        user_datetime_object[3], user_datetime_object[4]
+    ).strftime("%H:%M")
     now_time = datetime.datetime.now().strftime("%H:%M")
     logging.info("now_time > user_time", now_time, user_time)
     if now_time > user_time:
         if chat_type == 4:
             for content in contents:
-                chat = Chat(account_id=account_id, content=content, node_type=node_type,
-                            chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1)
+                chat = Chat(
+                    account_id=account_id,
+                    content=content,
+                    node_type=node_type,
+                    chat_type=chat_type,
+                    time=str(int(time.time() * 1000)),
+                    isBot=1
+                )
                 db.session.add(chat)
         elif chat_type == 5:
             for content in contents:
-                chat = Chat(account_id=account_id, content=content, node_type=node_type,
-                            chat_type=chat_type, time=str(int(time.time() * 1000)), isBot=1,
-                            carousel_list=str(param['data']['result']['events']))
+                chat = Chat(
+                    account_id=account_id,
+                    content=content,
+                    node_type=node_type,
+                    chat_type=chat_type,
+                    time=str(int(time.time() * 1000)),
+                    isBot=1,
+                    carousel_list=str(param['data']['result']['events'])
+                )
                 db.session.add(chat)
 
         db.session.commit()
@@ -200,7 +231,11 @@ def send_fcm_message(check_time, account_id, node_type, chat_type, contents, par
             # send the fcm notification
             print("메세지 전송 얍!")
             logging.info("메세지 전송 : ", token)
-            push_service.notify_single_device(registration_id=token.token, data_message=param, content_available=True)
+            push_service.notify_single_device(
+                registration_id=token.token,
+                data_message=param,
+                content_available=True
+            )
 
         return True
     return False

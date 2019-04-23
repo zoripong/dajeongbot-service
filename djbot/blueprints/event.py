@@ -6,7 +6,9 @@ bp = Blueprint('event', __name__, url_prefix='/events')
 
 @bp.route('/dates/<int:account_id>')
 def get_dates_having_event(account_id):
-    events = Event.query.filter(Event.account_id == account_id).order_by(Event.id)
+    events = Event.query.filter(
+        Event.account_id == account_id
+    ).order_by(Event.id)
     return jsonify([event.schedule_when for event in events])
 
 
@@ -14,7 +16,11 @@ def get_dates_having_event(account_id):
 def get_events(account_id, year, month, date):
     date = year + "-" + month + "-" + date
 
-    events = Event.query.filter(Event.account_id == account_id, Event.schedule_when == date).order_by(Event.id)
+    events = Event.query.filter(
+        Event.account_id == account_id,
+        Event.schedule_when == date
+    ).order_by(Event.id)
+
     return jsonify([{
         "id": event.id,
         "schedule_when": event.schedule_when,
@@ -28,14 +34,10 @@ def get_events(account_id, year, month, date):
 
 @bp.route('/<int:event_id>', methods=['DELETE'])
 def remove_event(event_id):
-    result = {
-        "status": "Failed"
-    }
     events = Event.query.filter(Event.id == event_id).all()
     for event in events:
         db.session.delete(event)
     db.session.commit()
-
     result = {
         "status": "Success"
     }

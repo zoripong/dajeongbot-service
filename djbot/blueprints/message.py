@@ -22,15 +22,25 @@ def add_messages():
             content['content'] = content_message[1]
 
     if content['chat_type'] != 6:           # 일정 수정이 아닐 때에만 저장
-        chat = Chat(account_id=content['account_id'], content=content['content'], node_type=content['node_type'],
-                    chat_type=content['chat_type'], time=content['time'], isBot=content['isBot'])
+        chat = Chat(
+            account_id=content['account_id'],
+            content=content['content'],
+            node_type=content['node_type'],
+            chat_type=content['chat_type'],
+            time=content['time'],
+            isBot=content['isBot']
+        )
         db.session.add(chat)
 
     print("채트 타입입니다. : ", content['chat_type'])
 
     # 챗봇이랑 대화 chat_type 으로 분류
     try:
-        if content['chat_type'] == 0 or content['chat_type'] == 1 or content['chat_type'] == 6:
+        if (
+            content['chat_type'] == 0 or
+            content['chat_type'] == 1 or
+            content['chat_type'] == 6
+        ):
             result = reply_message(content,content['chat_type'] )
         elif content['chat_type'] == 2:
             result = reply_message_for_memory(content)
@@ -50,7 +60,9 @@ def add_messages():
 @bp.route('/<int:res_account_id>')
 def get_messages(res_account_id):
     # 사용자가 메세지 내역을 요청함
-    chats = Chat.query.filter(Chat.account_id == res_account_id).order_by(Chat.id.desc()).limit(20).all()
+    chats = Chat.query.filter(
+        Chat.account_id == res_account_id
+    ).order_by(Chat.id.desc()).limit(20).all()
     return jsonify([{
         "id": chat.id,
         "content": chat.content,
@@ -66,8 +78,9 @@ def get_messages(res_account_id):
 @bp.route('/<int:res_account_id>/<int:last_index>')
 def get_more_messages(res_account_id, last_index):
     # 사용자가 메세지 내역을 요청함
-    chats = Chat.query.filter(Chat.account_id == res_account_id, Chat.id < last_index)\
-        .order_by(Chat.id.desc()).limit(5).all()
+    chats = Chat.query.filter(
+        Chat.account_id == res_account_id, Chat.id < last_index
+    ).order_by(Chat.id.desc()).limit(5).all()
     return jsonify([{
         "id": chat.id,
         "content": chat.content,

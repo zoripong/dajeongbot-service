@@ -37,7 +37,11 @@ def reply_message_for_memory(content):
                 "events": []
             }
         }
-        insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
+        insert_message_multiple(
+            content['account_id'],
+            result_json['result'],
+            result_json['result']['time']
+        )
 
     else:
         select_idx = content['response']['select_idx']
@@ -45,7 +49,9 @@ def reply_message_for_memory(content):
         # FIXME ? DB쿼리말구..?
         event = Event.query.filter(Event.id == select_idx).all()
 
-        messages = convert_memory_message(event[0], content['bot_type'], randint(0, 3))
+        messages = convert_memory_message(
+            event[0], content['bot_type'], randint(0, 3)
+        )
         print(content['response']['events'])
         result_json = {
             "status": "Success",
@@ -60,9 +66,12 @@ def reply_message_for_memory(content):
             }
         }
 
-        insert_message_multiple_with_carousel(content['account_id'], result_json['result'],
-                                              result_json['result']['time'], content['response']['events'])
-    print(content['response']['events'])
+        insert_message_multiple_with_carousel(
+            content['account_id'],
+            result_json['result'],
+            result_json['result']['time'],
+            content['response']['events']
+        )
     return jsonify(result_json)
 
 
@@ -72,16 +81,16 @@ def get_memory(reply, content, current):
     if num_date < 0:
         when = current + datetime.timedelta(days=num_date)
         when = when.strftime("%Y-%m-%d")
-        print(content['account_id'])
-        print(num_date)
-        print(when)
-        events = Event.query.filter(Event.account_id == content['account_id'], Event.schedule_when == when) \
-            .order_by(Event.id).all()
+        events = Event.query.filter(
+            Event.account_id == content['account_id'],
+            Event.schedule_when == when
+        ).order_by(Event.id).all()
         json_events = []
+        event_detail = event.schedule_where + "에서 " + event.schedule_what
         for event in events:
             json_events.append({
                 "id": event.id,
-                "event_detail": event.schedule_where + "에서 " + event.schedule_what,
+                "event_detail": event_detail,
                 "event_image": "",
                 "detail": event.detail,
                 "review": event.review
@@ -95,12 +104,17 @@ def get_memory(reply, content, current):
                     "chat_type": 0,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
-                    "content": memory_message[1][content['bot_type']][randint(0, 3)],
+                    "content":
+                        memory_message[1][content['bot_type']][randint(0, 3)],
                     "events": json_events
                 }
 
             }
-            insert_message_multiple(content['account_id'], result_json['result'], result_json['result']['time'])
+            insert_message_multiple(
+                content['account_id'],
+                result_json['result'],
+                result_json['result']['time']
+            )
         else:
             result_json = {
                 "status": "Success",
@@ -110,13 +124,16 @@ def get_memory(reply, content, current):
                     "chat_type": 2,
                     "time": str(int(time.time() * 1000)),
                     "img_url": [],
-                    "content": memory_message[2][content['bot_type']][randint(0, 3)],
+                    "content":
+                        memory_message[2][content['bot_type']][randint(0, 3)],
                     "events": json_events
                 }
             }
-            insert_message_multiple_with_carousel(content['account_id'], result_json['result'],
-                                                  result_json['result']['time'], json_events)
-
-        print(json_events)
+            insert_message_multiple_with_carousel(
+                content['account_id'],
+                result_json['result'],
+                result_json['result']['time'],
+                json_events
+            )
     return result_json
 

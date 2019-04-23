@@ -21,9 +21,14 @@ def register_event(reply, content, account_id):
     when = current + datetime.timedelta(days=int(param['when']))
     when = when.strftime('%Y-%m-%d')
 
-    event = Event(account_id=account_id, schedule_when=when, schedule_where=param['where'],
-                  schedule_what=param['what'], assign_time=message_result[0]['timestamp'],
-                  detail=param['detail_content'])
+    event = Event(
+        account_id=account_id,
+        schedule_when=when,
+        schedule_where=param['where'],
+        schedule_what=param['what'],
+        assign_time=message_result[0]['timestamp'],
+        detail=param['detail_content']
+    )
     db.session.add(event)
     db.session.commit()
 
@@ -38,7 +43,9 @@ def update_event(reply):
     events = Event.query.filter(Event.id == param['event_id']).all()
     for event in events:
         if param['schedule_when'] != "":
-            new_time = current + datetime.timedelta(days=int(param['schedule_when']))
+            new_time = current + datetime.timedelta(
+                days=int(param['schedule_when'])
+            )
             event.schedule_when = new_time.strftime("%Y-%m-%d")
         if param['schedule_where'] != "":
             event.schedule_where = param['schedule_where']
@@ -63,9 +70,11 @@ def reply_message_for_reply_review(content, select_idx):
     db.session.commit()
 
     # 이벤트 리스트를 넘김
-    events = Event.query \
-        .filter(Event.review.is_(None), Event.schedule_when == today, Event.account_id == content['account_id']) \
-        .order_by(Event.id).all()
+    events = Event.query.filter(
+        Event.review.is_(None),
+        Event.schedule_when == today,
+        Event.account_id == content['account_id']
+    ).order_by(Event.id).all()
 
     if len(events) > 0:
         event_json = []
@@ -111,7 +120,11 @@ def reply_message_for_reply_review(content, select_idx):
             }
         }
 
-    insert_message_multiple(content['account_id'], content=result['result'], timestamp=now)
+    insert_message_multiple(
+        content['account_id'],
+        content=result['result'],
+        timestamp=now
+    )
     return jsonify(result)
 
 
@@ -152,7 +165,9 @@ def reply_message_for_select_review(content, select_idx):
             "question_send": events[0].question_send
         }]
 
-        messages = convert_schedule_message(events[0], content['bot_type'], randint(0, 3))
+        messages = convert_schedule_message(
+            events[0], content['bot_type'], randint(0, 3)
+        )
         # 이벤트 내용 보내주기
         result = {
             "status": "Success",
@@ -167,6 +182,8 @@ def reply_message_for_select_review(content, select_idx):
             }
         }
 
-    insert_message_multiple(content['account_id'], content=result['result'], timestamp=now)
+    insert_message_multiple(
+        content['account_id'], content=result['result'], timestamp=now
+    )
 
     return jsonify(result)

@@ -49,38 +49,50 @@ def reply_message(content, chat_type):
     reply['responseSet']['result']['result'] = reply_results
 
     for result in reply_results:
-        primitive_message = result['message']
+        origin_msg = result['message']
+        bot_type = content['bot_type']
         img_url = result['imgRoute']
         if img_url is not None and img_url != "":
-            result['imgRoute'] = bot_img[img_url][content['bot_type']]
-            chat = Chat(account_id=content['account_id'], content=bot_img[img_url][content['bot_type']],
-                        node_type=NODE_TYPE['img'], chat_type=content['chat_type'],
-                        time=str(int(time.time() * 1000)), isBot=1)
+            result['imgRoute'] = bot_img[img_url][bot_type]
+            chat = Chat(
+                account_id=content['account_id'],
+                content=bot_img[img_url][content['bot_type']],
+                node_type=NODE_TYPE['img'],
+                chat_type=content['chat_type'],
+                time=str(int(time.time() * 1000)),
+                isBot=1
+            )
             db.session.add(chat)
 
         # 챗봇 타입에 따라 말투를 달리함
-        result['message'] = danbee_message[result['message']][content['bot_type']][randint(0, 3)]
+        result['message'] = danbee_message[origin_msg][bot_type][randint(0, 3)]
         node_type = result['nodeType']
 
         # 커스텀 챗봇으로 넘김
-        if primitive_message == "SpeakNode_1533088132355":
+        if origin_msg == "SpeakNode_1533088132355":
             # 추억 회상
             result_json = get_memory(reply, content, current)
         else:
-            if primitive_message == "SpeakNode_1533084803517":
+            if origin_msg == "SpeakNode_1533084803517":
                 # 일정 등록
                 register_event(reply, result, content['account_id'])
             # elif primitive_message == "SpeakNode_1537355664283":
                 # TODO 일정이 있는지 없는지
                 # 있으면 REQUEST 요청 후 RETURN
                 # 없으면 그냥 TEXT RETURN
-            elif primitive_message == "SpeakNode_1537356062991":
+            elif origin_msg == "SpeakNode_1537356062991":
                 # 일정 수정
                 update_event(reply)
             result_json = reply
 
-            chat = Chat(account_id=content['account_id'], content=result['message'], node_type=NODE_TYPE[node_type],
-                        chat_type=content['chat_type'], time=str(int(time.time() * 1000)), isBot=1)
+            chat = Chat(
+                account_id=content['account_id'],
+                content=result['message'],
+                node_type=NODE_TYPE[node_type],
+                chat_type=content['chat_type'],
+                time=str(int(time.time() * 1000)),
+                isBot=1
+            )
             db.session.add(chat)
     db.session.commit()
     return jsonify(result_json)

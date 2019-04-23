@@ -13,7 +13,7 @@ from djbot.models.models import *
 from config import NODE_TYPE
 
 #   #   #   #   #   #
-#  메세지 컨트롤러  #
+#    메세지 컨트롤러    #
 #   #   #   #   #   #
 
 
@@ -43,10 +43,13 @@ def reply_message(content, chat_type):
         "status": "Failed",
     }
 
+    reply_results = [
+        rr for rr in reply_results if rr['message'] not in ignore_messages
+    ]
+    reply['responseSet']['result']['result'] = reply_results
+
     for result in reply_results:
         primitive_message = result['message']
-        if primitive_message in ignore_messages:
-            pass
         img_url = result['imgRoute']
         if img_url is not None and img_url != "":
             result['imgRoute'] = bot_img[img_url][content['bot_type']]
